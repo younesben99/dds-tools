@@ -22,7 +22,6 @@ function slideshowfunction( $atts ) {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
 <link rel="stylesheet" href="https://kenwheeler.github.io/slick/slick/slick-theme.css">
 <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-<link href="'.$siteurl.'/wp-content/plugins/cvslideshow/styles.css?v='.uniqid().'" rel="stylesheet">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
