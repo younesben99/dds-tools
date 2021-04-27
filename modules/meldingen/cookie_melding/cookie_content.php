@@ -93,7 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 
-
+    document.getElementById("cookies_close").addEventListener("click", function(){
+        document.querySelector(".cookies_wrap").style.display = "none";
+    });
     document.getElementById("cookie_allow").addEventListener("click", allowcookies);
     function allowcookies(){
         setCookie("cookie_geaccepteerd","true",365);
