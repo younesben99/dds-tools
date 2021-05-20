@@ -1,9 +1,7 @@
 <?php
 if(!is_admin()){
-    if(!isset($_COOKIE['cookie_geaccepteerd'])) {
+    if($_COOKIE['cookie_geaccepteerd'] !== "true") {
         include(__DIR__."/cookie_content.php");
     }
 }
-
-
 ?>

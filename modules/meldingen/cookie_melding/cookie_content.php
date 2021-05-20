@@ -72,7 +72,7 @@ $privacyurl = get_site_url() . "/privacybeleid";
 
 ?>
 <div class="cookies_wrap">
-<div class="cookies_close">&#10007</div>
+<div class="cookies_close" style="cursor:pointer;">&#x2715</div>
 <p>We gebruiken cookies om ervoor te zorgen dat we u de beste ervaring op onze website kunnen aanbieden.<br>
 <a href="<?php 
 echo $privacyurl;
@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
-
     document.querySelector(".cookies_close").addEventListener("click", function(){
         document.querySelector(".cookies_wrap").style.display = "none";
     });
