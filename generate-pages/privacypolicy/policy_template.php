@@ -18,11 +18,26 @@
 <?php
 
 $company_var = get_option("dds_settings_option_name");
+$digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
 
 $company_url = get_site_url();
 $company_name = $company_var['dealer_handelsnaam_8'];
 $company_email = $company_var['dealer_contact_mail'];
 $company_address  = $company_var['dealer_adres_9'];
+
+if(empty($company_name)){
+    $company_name = $digiflow_settings_options['company_name'];
+}
+
+if(empty($company_mail)){
+    $company_email = $digiflow_settings_options['company_mail'];
+}
+
+if(empty($company_address)){
+    $company_address = $digiflow_settings_options['company_address'];
+}
+
+
 
 ?>
 <div class="privacy_wrap">
