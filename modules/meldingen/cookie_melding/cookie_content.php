@@ -1,6 +1,3 @@
-<?php
-if($show_consent == true){
-    ?>
 <style>
     .cookies_wrap {
     width: 100%;
@@ -74,7 +71,7 @@ button#cookie_allow {
 $privacyurl = get_site_url() . "/privacybeleid";
 
 ?>
-<div class="cookies_wrap">
+<div class="cookies_wrap" style="display:none;">
 <div class="cookies_close" style="cursor:pointer;">&#x2715</div>
 <p>We gebruiken cookies om ervoor te zorgen dat we u de beste ervaring op onze website kunnen aanbieden.<br>
 <a href="<?php 
@@ -95,6 +92,31 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else
+    {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+        end = dc.length;
+        }
+    }
+    return decodeURI(dc.substring(begin + prefix.length, end));
+} 
+
+     var checkcookieBestaan = getCookie("cookie_geaccepteerd");
+
+    if (checkcookieBestaan == null) {
+        document.querySelector(".cookies_wrap").style.display = "flex";
+    }
+
     document.querySelector(".cookies_close").addEventListener("click", function(){
         document.querySelector(".cookies_wrap").style.display = "none";
     });
@@ -106,6 +128,3 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 </script>
-<?php
-}
-?>
