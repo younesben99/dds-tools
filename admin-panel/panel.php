@@ -108,6 +108,8 @@ class DigiflowSettings {
 			'digiflow_settings_setting_section' // section
 		);
 
+		
+
 		add_settings_field(
 			'company_name', // id
 			'Company Name', // title
@@ -230,7 +232,6 @@ class DigiflowSettings {
 			isset( $this->digiflow_settings_options['fb_chat_color_6'] ) ? esc_attr( $this->digiflow_settings_options['fb_chat_color_6']) : ''
 		);
 	}
-
 	public function company_name_callback() {
 		printf(
 			'<input class="regular-text" type="text" name="digiflow_settings_option_name[company_name]" id="company_name" value="%s">',
