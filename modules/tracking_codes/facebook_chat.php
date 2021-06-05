@@ -12,6 +12,8 @@ function fbchat() {
 	<!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
       <script>
+      jQuery(window).on('load', 
+function(){ 
         window.fbAsyncInit = function() {
           FB.init({
             xfbml            : true,
@@ -25,7 +27,10 @@ function fbchat() {
         js = d.createElement(s); js.id = id;
         js.src = 'https://connect.facebook.net/nl_NL/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+      }(document, 'script', 'facebook-jssdk'));
+
+});
+      </script>
 
       <!-- Your Chat Plugin code -->
       <div class="fb-customerchat"
