@@ -11,21 +11,14 @@ function fbchat() {
 </style>
 	<!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
-        <!-- Your Chat Plugin code -->
-        <div class="fb-customerchat"
-        attribution="setup_tool"
-        page_id="<?php echo($digiflow_settings_options['fb_chat_id_5']); ?>"
-  theme_color="<?php echo($digiflow_settings_options['fb_chat_color_6']); ?>"
-  logged_in_greeting="Hallo! Hoe kan ik u helpen?"
-  logged_out_greeting="Hallo! Hoe kan ik u helpen?">
-      </div>
       <script>
       jQuery(window).on('load', 
 function(){ 
         window.fbAsyncInit = function() {
           FB.init({
             xfbml            : true,
-            version          : 'v10.0'
+            version          : 'v10.0',
+            logging          : true
           });
         };
 
@@ -40,7 +33,14 @@ function(){
 });
       </script>
 
-    
+      <!-- Your Chat Plugin code -->
+      <div class="fb-customerchat"
+        attribution="setup_tool"
+        page_id="<?php echo($digiflow_settings_options['fb_chat_id_5']); ?>"
+  theme_color="<?php echo($digiflow_settings_options['fb_chat_color_6']); ?>"
+  logged_in_greeting="Hallo! Hoe kan ik u helpen?"
+  logged_out_greeting="Hallo! Hoe kan ik u helpen?">
+      </div>
 
 
 <?php
