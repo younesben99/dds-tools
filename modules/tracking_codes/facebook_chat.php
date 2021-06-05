@@ -1,6 +1,6 @@
 <?php
 
-add_action ( 'wp_head', 'fbchat' );
+add_action ( 'wp_footer', 'fbchat' );
 function fbchat() {
   $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
    ?>
