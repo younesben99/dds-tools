@@ -17,10 +17,10 @@ add_action( 'wp_head', function(){
    
    <?php
    });
-   
+
    wp_enqueue_script(
     'analytics_tracker', 
-    WP_PLUGIN_DIR . '/dds-tools/assets/js/analytics_tracker.js', 
+    get_site_url() . '/wp-content/plugins/dds-tools/assets/js/analytics_tracker.js', 
     array( 'jquery' ), 
     false, 
     true 
