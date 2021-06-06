@@ -1,6 +1,6 @@
 <?php
 
-add_action ( 'wp_footer', 'fbchat' );
+add_action ( 'wp_head', 'fbchat' );
 function fbchat() {
   $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
    ?>
@@ -12,8 +12,6 @@ function fbchat() {
 	<!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
       <script>
-      jQuery(window).on('load', 
-function(){ 
         window.fbAsyncInit = function() {
           FB.init({
             xfbml            : true,
@@ -29,8 +27,6 @@ function(){
         js.src = 'https://connect.facebook.net/nl_NL/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-
-});
       </script>
 
       <!-- Your Chat Plugin code -->
