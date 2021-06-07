@@ -17,7 +17,7 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     opacity:0.96;
     backdrop-filter: blur(11px);
-    z-index: 10;
+    z-index: 100;
     justify-content: center;
     align-items: center;
 }

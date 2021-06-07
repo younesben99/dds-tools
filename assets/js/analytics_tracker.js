@@ -1,5 +1,4 @@
 jQuery(document).ready(function(){
-    
     jQuery('a,button,input[type=submit]').on('click',function(){
    
     var eventaction = 'None';
