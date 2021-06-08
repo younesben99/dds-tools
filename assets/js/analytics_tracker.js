@@ -12,11 +12,11 @@ jQuery(document).ready(function(){
     else{
     if(jQuery(this).parents('form').length == 1 ){
         if(jQuery(this).parents('form').attr('name')){
-            eventlabel = 'Form: ' + jQuery(this).parents('form').attr('name');
+            eventlabel = 'ClickForm: ' + jQuery(this).parents('form').attr('name');
             eventform = jQuery(this).parents('form').attr('name') + ' > ';
         }
         else{
-            eventlabel = 'Form: ' + jQuery(this).parents('form').attr('action');
+            eventlabel = 'ClickForm: ' + jQuery(this).parents('form').attr('action');
             eventform = jQuery(this).parents('form').attr('action') + ' > ';
         }
     }
