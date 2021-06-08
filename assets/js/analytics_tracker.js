@@ -41,6 +41,14 @@ jQuery(document).ready(function(){
     
     });
 
+    document.addEventListener( 'wpcf7submit', function( event ) {
+        console.log("Conversie! CF7");
+        gtag('event', "Formulier verstuurd", {
+            'event_category': window.location.href,
+            'event_label': "Form: Contactform7"
+      });
+      }, false );
+
     jQuery( document ).on('submit_success', function(){
 
         if(eventform == "" || eventform == null){
