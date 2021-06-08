@@ -20,7 +20,7 @@ add_action( 'wp_head', function(){
 
    wp_enqueue_script(
     'analytics_tracker', 
-    get_site_url() . '/wp-content/plugins/dds-tools/assets/js/analytics_tracker.js', 
+    get_site_url() . '/wp-content/plugins/dds-tools/assets/js/analytics_tracker.js?v=1.1', 
     array( 'jquery' ), 
     false, 
     true 
