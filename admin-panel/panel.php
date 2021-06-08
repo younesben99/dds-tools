@@ -53,6 +53,14 @@ class DigiflowSettings {
 		);
 
 		add_settings_field(
+			'cookienotice_toggle', // id
+			'Cookiemelding', // title
+			array( $this, 'cookienotice_toggle_callback' ), // callback
+			'digiflow-settings-admin', // page
+			'digiflow_settings_setting_section' // section
+		);
+
+		add_settings_field(
 			'google_analytics_tracking_id_0', // id
 			'Google analytics tracking id', // title
 			array( $this, 'google_analytics_tracking_id_0_callback' ), // callback
@@ -137,6 +145,11 @@ class DigiflowSettings {
 
 	public function digiflow_settings_sanitize($input) {
 		$sanitary_values = array();
+		
+		if ( isset( $input['cookienotice_toggle'] ) ) {
+			$sanitary_values['cookienotice_toggle'] = sanitize_text_field( $input['cookienotice_toggle'] );
+		}
+
 		if ( isset( $input['google_analytics_tracking_id_0'] ) ) {
 			$sanitary_values['google_analytics_tracking_id_0'] = sanitize_text_field( $input['google_analytics_tracking_id_0'] );
 		}
@@ -183,6 +196,15 @@ class DigiflowSettings {
 	public function digiflow_settings_section_info() {
 		
 	}
+
+
+	public function cookienotice_toggle_callback() {
+		if($this->digiflow_settings_options['cookienotice_toggle'] == "cookieactief"){
+			$cookiechecked = "checked";
+		};
+		echo('<input type="checkbox" id="cookienotice_toggle" name="digiflow_settings_option_name[cookienotice_toggle]" value="cookieactief" '.$cookiechecked.'><label for="cookienotice_toggle"> Actief</label>');
+	}
+
 
 	public function google_analytics_tracking_id_0_callback() {
 		printf(
