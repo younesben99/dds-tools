@@ -52,7 +52,7 @@ function dds_car_search_function($atts, $content = null) {
 
     }
 
-    wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v=22' );
+    wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v=23' );
     wp_enqueue_script(
         'dds_car_search_module', 
         get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_car_search.js', 
