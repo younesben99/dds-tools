@@ -47,7 +47,12 @@
         $(".dds_car_search_submit").on("click",function(e){
             e.preventDefault();
 
-            window.location.href = "/autos/?_merkenmodel="+gekozenwagen;
+            if(gekozenwagen !== ""){
+                window.location.href = "/autos/?_merkenmodel="+gekozenwagen;
+            }
+            else{
+                window.location.href = "/autos/";
+            }
 
         });
     });
