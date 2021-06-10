@@ -4,7 +4,7 @@
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 1.25
+Version: 1.30
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -15,6 +15,10 @@ include(__DIR__."/admin-panel/panel.php");
 include(__DIR__."/generate-pages/privacypolicy/generate_privacy_policy.php");
 include(__DIR__."/modules/meldingen/cookie_melding/cookie_melding.php");
 include(__DIR__."/modules/tracking_codes/analytics_parser.php");
+include(__DIR__."/modules/search/dds_car_search.php");
+
+
+
 
 
  ?>

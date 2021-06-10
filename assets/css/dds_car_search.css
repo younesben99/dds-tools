@@ -1,0 +1,51 @@
+.dds_car_search_wrap_col{
+    display:flex;
+    max-width:300px;
+    margin:auto;
+}
+.dds_car_search_wrap_row{
+    display:flex;
+    max-width:100%;
+    margin:auto;
+}
+.dds_car_search_wrap_row select{
+    max-width: 350px;
+    min-width: 200px;
+    margin:15px;
+}
+.dds_car_search_inner_col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.dds_car_search_inner_row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.dds_car_search_inner select{
+    margin-bottom:20px;
+    border:1px solid rgb(201, 201, 201);
+    height:45px;
+}
+.dds_car_search_submit{
+    border:0px;
+    color:white;
+    height:50px;
+    width:150px;
+    height:38px;
+}
+
+.dds_car_search_submit:hover{
+    transition: 0.4s;
+}
+
+@media only screen and (max-width: 650px) {
+    .dds_car_search_inner_row{
+        flex-direction: column;
+    }
+}
