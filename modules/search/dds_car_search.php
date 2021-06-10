@@ -51,17 +51,13 @@ function dds_car_search_function($atts, $content = null) {
         $modellenoptions .= "<option style='display:none;' data-term-id='".$s["term_id"]."' data-slug='".$s["slug"]."'  data-parent-id='".$s["parent"]."'>" . $s["name"] . "</option>";
 
     }
-
-    wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v=23' );
-    wp_enqueue_script(
+   wp_enqueue_script(
         'dds_car_search_module', 
         get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_car_search.js', 
         array( 'jquery' ), 
         false, 
         true 
     );
-
-
     if($dds_atts["direction"] == "col"){
         $dds_search_direction = "dds_car_search_inner_col";
         $dds_search_direction_wrap = "dds_car_search_wrap_col";
