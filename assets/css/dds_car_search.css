@@ -65,8 +65,10 @@ select{
     }
     .dds_car_search_inner_row select{
         margin-bottom:20px;
+        margin-right:0px;
     }
     .dds_car_search_inner_row button{
         max-width: 250px;
     }
+    
 }
