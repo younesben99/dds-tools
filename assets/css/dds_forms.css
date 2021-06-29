@@ -1,0 +1,117 @@
+
+
+.dds_form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.dds_form .dds_input_group{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.dds_form_modern label {
+    font-size: 13px;
+    width:100%;
+}
+.dds_form_modern input[type=text],.dds_form_modern input[type=email],.dds_form_modern input[type=email]{
+  
+    -webkit-font-smoothing: antialiased;
+  
+    box-sizing: border-box;
+    height: 55px;
+    width: 100%;
+    color: rgb(45, 45, 45);
+    background-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221) !important;
+    
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 2px 0px;
+
+    font-size: 16px;
+    margin-top: 7px;
+    font-weight: 400;
+    padding: 11px;
+    margin-bottom: 17px;
+    border-radius:4px;
+
+}
+.dds_form_modern .dds_form_submit{
+    margin-top: 10px;
+    width: 30%;
+    min-width: 150px;
+    padding: 15px;
+    border: 0 !important;
+    color: white;
+}
+
+
+
+.dds_form_classic label {
+    font-size: 14px;
+    width:100%;
+}
+.dds_form_classic input {
+    font-size: 16px;
+    margin-top: 7px;
+    border: 1px solid #adadad !important;
+    font-weight: 400;
+    padding: 11px;
+    margin-bottom: 12px;
+    border-radius:4px;
+}
+.dds_form .dds_form_submit{
+    margin-top: 10px;
+    width: 30%;
+    min-width: 150px;
+    padding: 15px;
+    border: 0 !important;
+    color: white;
+}
+
+.dds_form_thankyou_notice{
+    display:none;
+    margin-top:10px;
+    text-align: center;
+    width: 100%;
+    background: #6cc533;
+    color: #ffffff;
+    padding: 10px 0;
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 2px 0px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 15px;
+}
+.dds_form_error_notice{
+    display:none;
+    position: absolute;
+    bottom: -55px;
+    text-align: center;
+    width: 100%;
+    background: #c53333;
+    color: #ffffff;
+    padding: 10px 0;
+    box-shadow: rgb(0 0 0 / 16%) 0px 1px 2px 0px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 15px;
+}
+.dds_form_loading:before {
+    background: url('/wp-content/plugins/carsync/assets/img/loading.gif');
+    background-size: cover;
+}
+.dds_form_loading:before {
+    content: '';
+    margin-right: 16px;
+    transition: 0.3s;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 10px;
+}
