@@ -150,6 +150,14 @@ public function digiflow_settings_page_init() {
         'digiflow-settings-admin', // page
         'digiflow_settings_setting_section' // section
     );
+
+    add_settings_field(
+        'company_tel', // id
+        'Company tel', // title
+        array( $this, 'company_tel_callback' ), // callback
+        'digiflow-settings-admin', // page
+        'digiflow_settings_setting_section' // section
+    );
 }
 
 public function digiflow_settings_sanitize($input) {
@@ -197,6 +205,10 @@ public function digiflow_settings_sanitize($input) {
 
     if ( isset( $input['company_address'] ) ) {
         $sanitary_values['company_address'] = sanitize_text_field( $input['company_address'] );
+    }
+
+    if ( isset( $input['company_tel'] ) ) {
+        $sanitary_values['company_tel'] = sanitize_text_field( $input['company_tel'] );
     }
 
     return $sanitary_values;
@@ -281,7 +293,12 @@ public function company_address_callback() {
         isset( $this->digiflow_settings_options['company_address'] ) ? esc_attr( $this->digiflow_settings_options['company_address']) : ''
     );
 }
-
+public function company_tel_callback() {
+    printf(
+        '<input class="regular-text" type="text" name="digiflow_settings_option_name[company_tel]" id="company_tel" value="%s">',
+        isset( $this->digiflow_settings_options['company_tel'] ) ? esc_attr( $this->digiflow_settings_options['company_tel']) : ''
+    );
+}
 
 
 }

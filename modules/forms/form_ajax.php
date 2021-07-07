@@ -39,12 +39,29 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
             
 
             $dds_settings_options = get_option( 'dds_settings_option_name' );
-        
+            $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
+
             $sp_contactmail = $dds_settings_options['dealer_contact_mail'];
             $sp_dealer_tel = $dds_settings_options['dealer_tel_1_10'];
             $sp_dealer_handelsnaam = $dds_settings_options['dealer_handelsnaam_8'];
             $primary_color = $dds_settings_options['primary_color'];
             $hover_color = $dds_settings_options['hover_color'];
+
+            if(empty($sp_contactmail)){
+               $sp_contactmail = $digiflow_settings_options['company_mail'];
+            }
+            if(empty($sp_dealer_tel)){
+                $sp_dealer_tel = $digiflow_settings_options['company_tel'];
+            }
+            if(empty($sp_dealer_handelsnaam)){
+                $sp_dealer_handelsnaam = $digiflow_settings_options['company_name'];
+            }
+            if(empty($primary_color)){
+                $primary_color = "#3071AD";
+            }
+            if(empty($hover_color)){
+                $hover_color = "#3071AD";
+            }
 
             $dds_form_type = $_POST["formtype"];
 
@@ -118,7 +135,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
 
             $dds_form_type_arr = array("formtype",$dds_form_type);
             array_push($fields,$dds_form_type_arr);
-            
+
             if($dds_form_type !== "mail_level2"){
                 dds_form_db_log($fields,$dds_form_type);
             }
