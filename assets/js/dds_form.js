@@ -108,7 +108,7 @@ jQuery(document).ready(function($){
             }
 
             else{
-                //$(currentform)[0].submit();
+                $(currentform)[0].submit();
                 $(currentform).find(".dds_form_submit").prop( "disabled", false );
                 $(currentform).parents().find(".dds_form_error_notice").slideDown();
                 $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
@@ -122,7 +122,7 @@ jQuery(document).ready(function($){
         } catch (error) {
         
             
-         // $(formcatch)[0].submit();
+         $(formcatch)[0].submit();
          $(currentform).find(".dds_form_submit").prop( "disabled", false );
         $(currentform).parents().find(".dds_form_error_notice").slideDown();
           console.error(error);
