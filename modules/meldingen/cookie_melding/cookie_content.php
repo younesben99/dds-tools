@@ -39,7 +39,12 @@ button#cookie_allow {
     font-weight: 600;
     cursor: pointer;
     width: 100px;
-    height: 35px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 .privacylink{
     color: #1995ff !important;
@@ -83,33 +88,7 @@ echo $privacyurl;
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-function getCookie(name) {
-    var dc = document.cookie;
-    var prefix = name + "=";
-    var begin = dc.indexOf("; " + prefix);
-    if (begin == -1) {
-        begin = dc.indexOf(prefix);
-        if (begin != 0) return null;
-    }
-    else
-    {
-        begin += 2;
-        var end = document.cookie.indexOf(";", begin);
-        if (end == -1) {
-        end = dc.length;
-        }
-    }
-    return decodeURI(dc.substring(begin + prefix.length, end));
-} 
+   
 
      var checkcookieBestaan = getCookie("cookie_geaccepteerd");
 

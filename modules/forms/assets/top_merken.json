@@ -1,0 +1,114 @@
+[
+    {
+      "id": 6,
+      "name": "Alfa Romeo"
+    },
+    {
+      "id": 9,
+      "name": "Audi"
+    },
+    {
+      "id": 13,
+      "name": "BMW"
+    },
+    {
+      "id": 20,
+      "name": "Chrysler"
+    },
+    {
+      "id": 21,
+      "name": "Citroen"
+    },
+    {
+      "id": 28,
+      "name": "Fiat"
+    },
+    {
+      "id": 29,
+      "name": "Ford"
+    },
+    {
+      "id": 31,
+      "name": "Honda"
+    },
+    {
+      "id": 33,
+      "name": "Hyundai"
+    },
+    {
+      "id": 15641,
+      "name": "Land Rover"
+    },
+    {
+      "id": 43,
+      "name": "Lexus"
+    },
+    {
+      "id": 46,
+      "name": "Mazda"
+    },
+    {
+      "id": 47,
+      "name": "Mercedes-Benz"
+    },
+    {
+      "id": 16338,
+      "name": "MINI"
+    },
+    {
+      "id": 50,
+      "name": "Mitsubishi"
+    },
+    {
+      "id": 52,
+      "name": "Nissan"
+    },
+    {
+      "id": 54,
+      "name": "Opel"
+    },
+    {
+      "id": 55,
+      "name": "Peugeot"
+    },
+    {
+      "id": 57,
+      "name": "Porsche"
+    },
+    {
+      "id": 60,
+      "name": "Renault"
+    },
+    {
+      "id": 63,
+      "name": "Saab"
+    },
+    {
+      "id": 67,
+      "name": "Subaru"
+    },
+    {
+      "id": 64,
+      "name": "SEAT"
+    },
+    {
+      "id": 65,
+      "name": "Skoda"
+    },
+    {
+      "id": 68,
+      "name": "Suzuki"
+    },
+    {
+      "id": 70,
+      "name": "Toyota"
+    },
+    {
+      "id": 74,
+      "name": "Volkswagen"
+    },
+    {
+      "id": 73,
+      "name": "Volvo"
+    }
+  ]
