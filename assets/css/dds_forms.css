@@ -131,7 +131,7 @@
     font-size: 15px;
 }
 .dds_form_loading:before {
-    background: url('/wp-content/plugins/carsync/assets/img/loading.gif');
+    background: url('/wp-content/plugins/dds-tools/assets/img/loading.gif');
     background-size: cover;
 }
 .dds_form_loading:before {
