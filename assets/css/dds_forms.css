@@ -58,11 +58,11 @@
 }
 .dds_form_classic input,.dds_form_classic select {
     font-size: 16px;
-    margin-top: 7px;
+    margin-top: 7px !important;
     border: 1px solid #adadad !important;
     font-weight: 400;
     padding: 0 10px;
-    margin-bottom: 12px;
+    margin-bottom: 12px !important;
     border-radius: 4px;
     height: 44px;
     width: 100%;
