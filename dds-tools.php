@@ -1,10 +1,12 @@
 <?php
 
+$dds_version = "1.60";
+
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 1.55
+Version: */ echo($dds_version); /*
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -26,9 +28,9 @@ wp_enqueue_style( 'dropzonebasiccss', 'https://cdnjs.cloudflare.com/ajax/libs/dr
 wp_enqueue_script( 'dropzonejs', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js', array ( 'jquery' ), null, true);
 
 
-wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v=28' );
-wp_enqueue_style( 'dds_forms', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_forms.css' );
-wp_enqueue_script( 'dds_form_js', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_form.js', array ( 'jquery' ), null, true);
+wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v='.$dds_version );
+wp_enqueue_style( 'dds_forms', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_forms.css?v='.$dds_version );
+wp_enqueue_script( 'dds_form_js', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_form.js?v='.$dds_version, array ( 'jquery' ), null, true);
 wp_enqueue_style( 'fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' );
 
 
