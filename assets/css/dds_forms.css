@@ -65,6 +65,8 @@
     margin-bottom: 12px;
     border-radius: 4px;
     height: 44px;
+    width: 100%;
+    
 }
 
 .dds_form_classic textarea {
