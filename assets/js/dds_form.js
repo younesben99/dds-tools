@@ -84,16 +84,13 @@ jQuery(document).ready(function($){
 
                 if(conversieteller == 0){
                     console.log("Conversie! " + formtype);
-                    if ( typeof function_name == 'function' ) { 
+                    
                     gtag('event', "DDS Form verstuurd", {
                             'event_category': window.location.href,
                             'event_label': "Form: " + formtype,
                     });
-                    }
-                    else
-                    {
-                    console.log("analytics is niet geinstalleerd");
-                    }
+                    
+                   
                     
                 }
                 conversieteller++;
@@ -115,16 +112,12 @@ jQuery(document).ready(function($){
 
                 }
                 if($(currentform).hasClass("main_level2")){
-                    if ( typeof function_name == 'function' ) { 
+                    
                         gtag('event', "DDS Form verstuurd", {
                                 'event_category': window.location.href,
                                 'event_label': "ClickForm: " + formtype,
                         });
-                        }
-                        else
-                        {
-                        console.log("analytics is niet geinstalleerd");
-                        }
+                        
                     console.log("tweede conversie");
                     $(currentform).parents().find(".dds_form_thankyou_notice").slideDown();
 
