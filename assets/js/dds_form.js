@@ -1,6 +1,7 @@
 Dropzone.autoDiscover = false;
 jQuery(document).ready(function($){
 
+    var conversieteller = 0;
     //dropzone
 
     
@@ -80,7 +81,24 @@ jQuery(document).ready(function($){
         .done(function(data) {
             if(data == "verstuurd"){
                 
-                //$(currentform).after("");
+
+                if(conversieteller == 0){
+                    console.log("Conversie! " + formtype);
+                    if ( typeof function_name == 'function' ) { 
+                    gtag('event', "DDS Form verstuurd", {
+                            'event_category': window.location.href,
+                            'event_label': "Form: " + formtype,
+                    });
+                    }
+                    else
+                    {
+                    console.log("analytics is niet geinstalleerd");
+                    }
+                    
+                }
+                conversieteller++;
+                
+
                 $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
                 $(currentform).find(".dds_form_submit").prop( "disabled", false );
 
@@ -97,7 +115,16 @@ jQuery(document).ready(function($){
 
                 }
                 if($(currentform).hasClass("main_level2")){
-                 
+                    if ( typeof function_name == 'function' ) { 
+                        gtag('event', "DDS Form verstuurd", {
+                                'event_category': window.location.href,
+                                'event_label': "ClickForm: " + formtype,
+                        });
+                        }
+                        else
+                        {
+                        console.log("analytics is niet geinstalleerd");
+                        }
                     console.log("tweede conversie");
                     $(currentform).parents().find(".dds_form_thankyou_notice").slideDown();
 
@@ -120,12 +147,11 @@ jQuery(document).ready(function($){
             $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
         });
         } catch (error) {
-        
-            
          $(formcatch)[0].submit();
          $(currentform).find(".dds_form_submit").prop( "disabled", false );
-        $(currentform).parents().find(".dds_form_error_notice").slideDown();
-          console.error(error);
+         $(currentform).parents().find(".dds_form_error_notice").slideDown();
+        
+        console.error(error);
           
         }
           
