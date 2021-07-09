@@ -17,7 +17,6 @@
 .dds_form_modern label {
     font-size: 13px;
     width:100%;
-    margin-top: 15px;
 }
 .dds_form_modern input[type=text],.dds_form_modern input[type=email],.dds_form_modern input[type=email],.dds_form_modern select{
   
@@ -39,6 +38,9 @@
     font-weight: 400;
     padding: 11px;
     border-radius:4px;
+
+    margin-top: 10px;
+    margin-bottom: 15px;
 
 }
 .dds_form_modern .dds_form_submit{
@@ -257,6 +259,7 @@ div#dds_dropzone:hover {
     padding: 11px;
     padding-bottom: 17px;
     border-radius: 4px;
+    margin-bottom: 15px;
 }
 .dds_form_modern .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 65px;
@@ -328,4 +331,11 @@ div#dds_dropzone:hover {
     position: absolute;
     top: 50%;
     width: 0;
+}
+.select2-dropdown {
+    margin-top: -10px;
+}
+.dds_form_classic .select2-container--default .select2-selection--single .select2-selection__arrow {
+  
+    top: -4px;
 }
