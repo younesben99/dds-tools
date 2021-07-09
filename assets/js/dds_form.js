@@ -3,7 +3,13 @@ jQuery(document).ready(function($){
 
     var conversieteller = 0;
     //dropzone
-
+    
+    if($("select[name=merk]").length){
+        $("select[name=merk]").select2();
+    }
+    if($("select[name=model]").length){
+        $("select[name=model]").select2();
+    }
     
     var dropzonemap = $("input[name=dropzone_map]").val();
     if($("#dds_dropzone").length){
@@ -171,21 +177,32 @@ jQuery(document).ready(function($){
     $("select[name=merk]").on("change",function(){
        var currentmerk = $(this).find("option:selected").attr("data-merk");
        var currentmerkval = $(this).parents().find("#dds_id_merk").val();
+       console.log(currentmerk);
+       console.log(currentmerkval);
        $('.merklevel2').val(currentmerkval);
         $('select[name=model] option[selected="selected"]').each(
             function() {
+                console.log("removed all selected");
                 $(this).removeAttr('selected');
             }
         );
-        $("select[name=model] option:first").attr('selected','selected');
-        $("select[name=model] option").hide();
         
+        $("select[name=model] option:first").attr('selected','selected');
+        console.log("selected first");
+
+        $("select[name=model] option").prop("disabled","disabled");
+        
+        console.log("hidden all");
         $("select[name=model]").prop('disabled', false);
+        console.log("removed disabled from select");
         
         $("select[name=model]").find("option[data-parent="+currentmerk+"]").each(function(){
-            $(this).show();
+            console.log($(this).val() + " shown!");
+            $(this).prop("disabled",false);
+           // $(this).show();
         });
-        $(".andermodel").show();
+        $(".andermodel").prop("disabled",false);
+        console.log("ander model shown");
 
     });
     $("select[name=model]").on("change",function(){
@@ -199,7 +216,7 @@ jQuery(document).ready(function($){
     });
 
 
-
+    //$("select[name=model]").prop('disabled', false);
     
 
 });
