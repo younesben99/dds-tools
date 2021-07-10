@@ -3,11 +3,14 @@ jQuery(document).ready(function($){
 
     var conversieteller = 0;
     //dropzone
+
+  
     
     if($("select[name=merk]").length){
         $("select[name=merk]").select2();
     }
     if($("select[name=model]").length){
+
         $("select[name=model]").select2();
     }
     
@@ -17,9 +20,9 @@ jQuery(document).ready(function($){
             url: "/wp-content/plugins/dds-tools/modules/forms/dropzone_ajax.php",
             acceptedFiles: "image/*",
             maxFiles: 15,
-            maxFilesize: 8, // MB
+            maxFilesize: 8,
             uploadMultiple: true,
-            parallelUploads: 100, // use it with uploadMultiple
+            parallelUploads: 100, 
             createImageThumbnails: true,
             thumbnailWidth: 120,
             thumbnailHeight: 120,
@@ -174,49 +177,67 @@ jQuery(document).ready(function($){
         
     });
     
-    $("select[name=merk]").on("change",function(){
-       var currentmerk = $(this).find("option:selected").attr("data-merk");
-       var currentmerkval = $(this).parents().find("#dds_id_merk").val();
-       console.log(currentmerk);
-       console.log(currentmerkval);
-       $('.merklevel2').val(currentmerkval);
-        $('select[name=model] option[selected="selected"]').each(
-            function() {
-                console.log("removed all selected");
-                $(this).removeAttr('selected');
-            }
-        );
+    // $("select[name=merk]").on("change",function(){
+    //    var currentmerk = $(this).find("option:selected").attr("data-merk");
+    //    var currentmerkval = $(this).parents().find("#dds_id_merk").val();
+    //    console.log(currentmerk);
+    //    console.log(currentmerkval);
+    //    $('.merklevel2').val(currentmerkval);
+    //     $('select[name=model] option[selected="selected"]').each(
+    //         function() {
+    //             console.log("removed all selected");
+    //             $(this).removeAttr('selected');
+    //         }
+    //     );
         
-        $("select[name=model] option:first").attr('selected','selected');
-        console.log("selected first");
+    //     $("select[name=model] option:first").attr('selected','selected');
+    //     console.log("selected first");
 
-        $("select[name=model] option").prop("disabled","disabled");
+    //     $("select[name=model] option").prop("disabled","disabled");
         
-        console.log("hidden all");
-        $("select[name=model]").prop('disabled', false);
-        console.log("removed disabled from select");
+    //     console.log("hidden all");
+    //     $("select[name=model]").prop('disabled', false);
+    //     console.log("removed disabled from select");
         
-        $("select[name=model]").find("option[data-parent="+currentmerk+"]").each(function(){
-            console.log($(this).val() + " shown!");
-            $(this).prop("disabled",false);
-           // $(this).show();
-        });
-        $(".andermodel").prop("disabled",false);
-        console.log("ander model shown");
+    //     $("select[name=model]").find("option[data-parent="+currentmerk+"]").each(function(){
+    //         console.log($(this).val() + " shown!");
+    //         $(this).prop("disabled",false);
+    //        // $(this).show();
+    //     });
+        
+    //     $("select[name=model]").append("<option value='andere'>Andere</option>");
 
-    });
-    $("select[name=model]").on("change",function(){
+
+    // });
+    // $("select[name=model]").on("change",function(){
 
         
-        var currentmodel = $(this).val();
+    //     var currentmodel = $(this).val();
        
        
-        $('.modellevel2').val(currentmodel);
+    //     $('.modellevel2').val(currentmodel);
 
-    });
+    // });
 
 
     //$("select[name=model]").prop('disabled', false);
+
+
+    $("select[name=merk]").on("change",function(){
+        var merkid = $(this).find("option:selected").attr("data-merk");
+        $.post( "/wp-content/plugins/dds-tools/modules/forms/modellen.php", { "merkid": merkid }, function( data ) {
+            $("select[name=model]").html("");
+            $("select[name=model]").append(data);
+            $("select[name=model]").append("<option value='andere'>Andere</option>");
+           
+          });
+
+
+
+        $("select[name=model]").prop("disabled",false);
+
+       
+    });
     
 
 });

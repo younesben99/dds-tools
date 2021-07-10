@@ -135,10 +135,6 @@ function dds_select($atts)
             $text .= "<option disabled>Alle merken [A-Z]</option>";
             $text .= json_to_select_options(__DIR__."/assets/merken.json","merk");
             break;
-        case 'model':
-            $text .= json_to_select_options(__DIR__."/assets/modellen.json","model");
-
-            $text .= "<option value='andere' class='andermodel'>Andere</option>";
         break;
     }
 

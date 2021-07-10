@@ -339,3 +339,17 @@ div#dds_dropzone:hover {
   
     top: -4px;
 }
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border-color: #1694CA;
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 6%), 0 0 5px rgb(19 131 179 / 70%);
+}
+.select2-dropdown {
+    margin-top: -50px;
+}
+
+.select2-container--open .select2-dropdown--above {
+    margin-top: 8px;
+}
+.select2-selection--single[aria-disabled="true"]{
+    cursor:not-allowed !important;
+}
