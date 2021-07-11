@@ -1,6 +1,7 @@
 <?php
 
 add_action( 'wp_head', function(){
+    if(!is_user_logged_in()){
     $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
     ?>
    <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -16,6 +17,7 @@ add_action( 'wp_head', function(){
    
    
    <?php
+    }
    });
 
    wp_enqueue_script(

@@ -1,7 +1,8 @@
 <?php
 
 add_action( 'wp_head', function(){
-  $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
+  if(!is_user_logged_in()){
+    $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
     ?>
     <!-- Facebook Pixel Code -->
 <script>
@@ -21,6 +22,7 @@ add_action( 'wp_head', function(){
 /></noscript>
 <!-- End Facebook Pixel Code -->
     <?php
+  }
 });
 
 

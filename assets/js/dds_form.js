@@ -93,11 +93,16 @@ jQuery(document).ready(function($){
 
                 if(conversieteller == 0){
                     console.log("Conversie! " + formtype);
-                    
-                    gtag('event', "DDS Form verstuurd", {
+                    try {
+                        gtag('event', "DDS Form verstuurd", {
                             'event_category': window.location.href,
                             'event_label': "Form: " + formtype,
                     });
+                        
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    
                     
                    
                     
@@ -121,11 +126,16 @@ jQuery(document).ready(function($){
 
                 }
                 if($(currentform).hasClass("main_level2")){
-                    
+                    try {
                         gtag('event', "DDS Form verstuurd", {
-                                'event_category': window.location.href,
-                                'event_label': "ClickForm: " + formtype,
-                        });
+                            'event_category': window.location.href,
+                            'event_label': "ClickForm: " + formtype,
+                    });
+                    } catch (error) {
+                        console.log(error);
+                        
+                    }
+                        
                         
                     console.log("tweede conversie");
                     $(currentform).parents().find(".dds_form_thankyou_notice").slideDown();
@@ -177,51 +187,6 @@ jQuery(document).ready(function($){
         
     });
     
-    // $("select[name=merk]").on("change",function(){
-    //    var currentmerk = $(this).find("option:selected").attr("data-merk");
-    //    var currentmerkval = $(this).parents().find("#dds_id_merk").val();
-    //    console.log(currentmerk);
-    //    console.log(currentmerkval);
-    //    $('.merklevel2').val(currentmerkval);
-    //     $('select[name=model] option[selected="selected"]').each(
-    //         function() {
-    //             console.log("removed all selected");
-    //             $(this).removeAttr('selected');
-    //         }
-    //     );
-        
-    //     $("select[name=model] option:first").attr('selected','selected');
-    //     console.log("selected first");
-
-    //     $("select[name=model] option").prop("disabled","disabled");
-        
-    //     console.log("hidden all");
-    //     $("select[name=model]").prop('disabled', false);
-    //     console.log("removed disabled from select");
-        
-    //     $("select[name=model]").find("option[data-parent="+currentmerk+"]").each(function(){
-    //         console.log($(this).val() + " shown!");
-    //         $(this).prop("disabled",false);
-    //        // $(this).show();
-    //     });
-        
-    //     $("select[name=model]").append("<option value='andere'>Andere</option>");
-
-
-    // });
-    // $("select[name=model]").on("change",function(){
-
-        
-    //     var currentmodel = $(this).val();
-       
-       
-    //     $('.modellevel2').val(currentmodel);
-
-    // });
-
-
-    //$("select[name=model]").prop('disabled', false);
-
 
     $("select[name=merk]").on("change",function(){
         var merkid = $(this).find("option:selected").attr("data-merk");

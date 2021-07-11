@@ -1,7 +1,7 @@
 <?php
 add_action( 'wp_head', function(){
-    $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
-    ?>
+    if (!is_user_logged_in()) {
+        $digiflow_settings_options = get_option('digiflow_settings_option_name'); ?>
    <!-- Hotjar Tracking Code for waaslandcars.be -->
 <script>
     (function(h,o,t,j,a,r){
@@ -14,6 +14,7 @@ add_action( 'wp_head', function(){
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
     <?php
+    }
 });
 
 ?>
