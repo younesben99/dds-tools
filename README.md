@@ -3,10 +3,7 @@
 
 # Form attributen:
 
-vb (aankoop)
-
-
-[dds_form style="classic" name="aankoop"  type="aankoop"] 
+VB shortcodes (aankoop):
 
 ## dds form attributes (style,name,type)
 ___________________
@@ -14,6 +11,7 @@ ___________________
 #### style: classic, modern
 #### type: aankoop,afspraak,beschikbaarheid,caralert,mail_level2
 
+[dds_form style="classic" name="aankoop"  type="aankoop"] 
 
 ## dds select attributes (name,ph,lb,hide,*)
 _____________________
