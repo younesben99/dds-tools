@@ -15,7 +15,7 @@ ___________________
 #### type: aankoop,afspraak,beschikbaarheid,caralert,mail_level2
 
 
-dds select attributes (name,ph,lb,hide,*)
+## dds select attributes (name,ph,lb,hide,*)
 _____________________
 
 #### dynamic selects (name): merk,model,datum,tijd
