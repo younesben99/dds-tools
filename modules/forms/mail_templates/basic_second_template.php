@@ -95,9 +95,10 @@ $randimg = rand(0,2);
 </style>
 </head>
 
-<body style='background: #eeeeee; padding: 10px; font-family: 'Open Sans', sans-serif, Helvetica, Arial;'>
+<body style='background: #eaeaea; font-family: 'Open Sans', sans-serif, Helvetica, Arial;'>
 
-<center> <!-- Let's Center it. just in case email client does not support margin: 0 auto -->
+<center style='background: #eaeaea;
+    padding: 25px;'> <!-- Let's Center it. just in case email client does not support margin: 0 auto -->
 
 
 
