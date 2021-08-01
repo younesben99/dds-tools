@@ -70,7 +70,7 @@ $randimg = rand(0,2);
 .phonebtn {
     text-align: center;
     background: #24bf56;
-    color: white;
+    color: white !important;
     width: 79%;
     padding: 13px;
     border-radius: 5px;
@@ -91,12 +91,7 @@ $randimg = rand(0,2);
 .voordelenlist li{
     margin-top:10px;
 }
-.voordelenlist li:before {
-    content: '✓';
-    margin-right: 5px;
-    font-weight: bold;
-    color: #24bf56;
-}
+
 </style>
 </head>
 
@@ -110,6 +105,10 @@ $randimg = rand(0,2);
 ----------------------------------->
 <!-- Set table width to fixed width for Outlook(Outlook does not support max-width) -->
 <table width='100%' cellpadding='0' cellspacing='0' bgcolor='FFFFFF' style='box-shadow: 0px 1px 2px 0px #d0d0d0;border-radius: 4px;background: #ffffff; max-width: 600px !important; margin: 0 auto; background: #ffffff;'>
+<tbody style='    border: 1px solid #d6d6d6;
+    display: block;
+    border-radius: 7px;
+    box-shadow: 0px 1px 2px #d2d2d2;'>
     <tr>
         <td class='topbanner' style='background: <?php echo $primary_color;?>;'>
             <h1 style='color: #ffffff;
@@ -143,9 +142,12 @@ $randimg = rand(0,2);
     <tr>
         <td>
             <div style='width:80%;margin:auto;padding-bottom:25px;'>
-            <h3>Foto's:</h3>
+           
         <?php
         if(!empty($imagelinks)){
+            ?>
+            <h3>Foto's:</h3>
+            <?php
             foreach ($imagelinks as $value) {
                 ?>
 
@@ -162,7 +164,7 @@ $randimg = rand(0,2);
     <tr style='background:#2665b8;'>
         <td>
             <h3 style='text-align:center;color:white;'>Sneller uw auto verkopen?</h3>
-<h5 style='text-align:center;color:white;'>Neem telefonisch contact met ons op</h5>
+<h5 style='text-align:center;color:white;font-weight:300;'>Neem telefonisch contact met ons op</h5>
         </td>
     </tr>
 
@@ -173,13 +175,13 @@ $randimg = rand(0,2);
     <tr style='margin: 25px 0;display: block;'>
         <td style='max-width:70%;width:70%;'>
         
-        <h4 style='text-align:left;'>Bel ons op voor een taxatie</h4>
+        <h4 style='text-align:left;font-weight:500;'>Bel ons op voor een taxatie</h4>
         <p style='font-size:14px;'>
         Onze expert schatten de waarde van uw wagen in, en u ontvangt een bod. Dit bod is natuurlijk vrijblijvend.</p>
         <ul class='voordelenlist'>
-        <li>Ontvang direct de beste prijs</li>
-        <li>Aankoop van alle wagens</li>
-        <li>Ontvang het bedrag via overschrijving</li>
+        <li><span style='color:green;'>✓</span> Ontvang direct de beste prijs</li>
+        <li><span style='color:green;'>✓</span> Aankoop van alle wagens</li>
+        <li><span style='color:green;'>✓</span> Ontvang het bedrag via overschrijving</li>
         </ul>
         </td>
         <td style='max-width:30%;width:30%;text-align: right;'><img src="http://digiflowroot.be/images/phone-call-2.png" alt=""></td>
@@ -197,7 +199,7 @@ $randimg = rand(0,2);
     </tr>
 
    
-
+    </tbody>
     
 </table>
 
