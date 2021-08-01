@@ -121,7 +121,6 @@ function dds_select($atts)
             $text .= "<option value='oldtimer'>Ouder dan 1971</option>";
             break;
         case 'brandstof':
-            
             $text .= "<option value='benzine'>Benzine</option>";
             $text .= "<option value='diesel'>Diesel</option>";
             $text .= "<option value='hybride'>Hybride</option>";
@@ -135,7 +134,45 @@ function dds_select($atts)
             $text .= "<option disabled>Alle merken [A-Z]</option>";
             $text .= json_to_select_options(__DIR__."/assets/merken.json","merk");
             break;
-        break;
+        case 'datum':
+            $datums = array();
+
+            $myDate = date("l d F Y");
+
+            for ($i=0; $i < 30; $i++) { 
+                array_push($datums, strtotime($myDate . '+ '.$i.'days'));
+            }
+            foreach($datums as $date){
+                $weekday = date('l', $date);
+                if ($weekday !== "Sunday") {
+                    $text .=  "<option value=".$date.">".dds_nlDate(date("l d F Y", $date))."</option>";
+                }   
+            }
+            break;
+        case 'tijd':
+            $tijdstippen = array();
+
+            $timebuffer = mktime(9,0,0);
+        
+            $interval_secs = apply_filters('custom_testrit_interval', 900);
+            $interval_remainer = 3600 / $interval_secs;
+            $time_max = 9 * $interval_remainer;
+        
+        
+            for ($i=0; $i < $time_max; $i++) { 
+        
+                
+                $timebuffer += $interval_secs;
+        
+                array_push($tijdstippen, date("H:i",$timebuffer));
+                
+            }
+            foreach($tijdstippen as $tijd){
+                $text .= "<option value=".$tijd.">".$tijd."</option>";
+            }
+        
+            break;
+        
     }
 
     $text .= "</select>";
@@ -162,13 +199,12 @@ function dds_form($atts)
             case 'aankoop':
                 $formtype = "aankoop";
                 break;
-            case 'testrit':
-                $formtype = "testrit";
-                break;
             case 'beschikbaarheid':
                 $formtype = "beschikbaarheid";
                 break;
-                
+            case 'afspraak':
+                $formtype = "afspraak";
+                break;
             default:
                 $formtype = "contactform";
                 break;

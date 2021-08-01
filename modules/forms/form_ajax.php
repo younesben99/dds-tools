@@ -95,9 +95,16 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 $mail_title = "Aangeboden wagen: ".$merk." ". $model;
                 $subject = "Aangeboden wagen: ".$merk." ". $model;
                     break;
-                case 'testrit':
-                $mail_title = "Testrit geboekt voor de wagen: ".$merk." ". $model;
-                $subject = "Testrit geboekt voor de wagen: ".$merk." ". $model;
+                case 'afspraak':
+                    if(!empty($merk) && !empty($model)){
+                        $mail_title = "Afspraak geboekt voor de wagen: ".$merk." ". $model;
+                        $subject = "Afspraak geboekt voor de wagen: ".$merk." ". $model;
+                    }
+                    else{
+                        $mail_title = "Afspraak is succesvol geboekt.";
+                        $subject = "Afspraak is succesvol geboekt.";
+                    }
+                
                     break;
                 case 'beschikbaarheid':
                 $mail_title = "Contactbericht voor de volgende wagen: ".$merk." ". $model;
@@ -117,7 +124,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
             
 
            
-
+            $mail_main_con .= "<table class='mail_main_table' style='width: 100%;'>";
             foreach ($fields as $key => $value) {
                 
                 $name = ucfirst(key($value));
@@ -125,13 +132,15 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 
                 if(!empty($value)){
                     if($name !== "Formtype" && $name !== "Dropzone_map"){
-                        $mail_main_con .= "<b>". $name . "</b> : " . $value . "<br>";
+                        $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                     }
                     
                 }
                 
                 
             }
+            $mail_main_con .= "</table>";
+
 
             $dds_form_type_arr = array("formtype",$dds_form_type);
             array_push($fields,$dds_form_type_arr);
@@ -177,7 +186,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 $merk = ucfirst($merk);
                 $model = ucfirst($model);
                 $second_subject = "U ontvangt snel een bod voor uw ".$merk ." ". $model;
-                $second_mail_title = "U ontvangt snel een bod voor uw voertuig: ".$merk ." ". $model;
+                $second_mail_title = "<strong>U ontvangt snel een bod voor uw voertuig:</strong><br>".$merk ." ". $model;
                 $second_mail_main_con = "<h3>Uw wagen gegevens:</h3>".$mail_main_con;
                 $companytel = $sp_dealer_tel;
                 $company_png = $sp_dealer_handelsnaam;

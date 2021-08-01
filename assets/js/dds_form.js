@@ -6,14 +6,9 @@ jQuery(document).ready(function($){
 
   
     
-    if($("select[name=merk]").length){
-        $("select[name=merk]").select2();
+    if($("select").length){
+        $("select").select2();
     }
-    if($("select[name=model]").length){
-
-        $("select[name=model]").select2();
-    }
-    
     var dropzonemap = $("input[name=dropzone_map]").val();
     if($("#dds_dropzone").length){
         var myDropzone = new Dropzone("#dds_dropzone", {

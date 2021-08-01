@@ -23,6 +23,34 @@
             float: left;
         }
     }
+ 
+    a.imgawrap {
+        display: inline-block  !important;
+        border-radius: 10px !important;
+        margin: 0 15px 10px 0px;
+}
+.imgwrap {
+    object-fit: cover !important;
+    width: 125px !important;
+    height: 100px !important;
+    border-radius: 5px !important;
+    border: 1px solid #e4e4e4;
+
+}
+
+.mail_main_table td{
+        padding: 10px 0px;
+    }
+    table{
+        border-collapse: collapse;
+    }
+
+    .mail_main_table tr {
+    border-bottom: 1px solid #efefef;
+}
+.mail_main_table tr:last-child {
+    border-bottom: 0px solid #efefef;
+}
 </style>
 </head>
 
@@ -90,15 +118,14 @@ if(!empty($tel)){
 
     <tr>
         <td>
-            <div style="text-align:center;">
+            <div style='width:80%;margin:auto;padding-bottom:50px;'>
+            <h3>Foto's:</h3>
         <?php
         if(!empty($imagelinks)){
             foreach ($imagelinks as $value) {
                 ?>
 
-                    <a href='<?php echo($value); ?>'><img src='<?php echo($value); ?>' style='width:25%;border-radius:10px;max-width: 100%;
-    height: 100px !important;
-    object-fit: contain;' /></a>
+                    <a href='<?php echo($value); ?>' class='imgawrap'><img src='<?php echo($value); ?>' class='imgwrap' /></a>
 
                 <?php
             }
