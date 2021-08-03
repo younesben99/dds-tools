@@ -54,6 +54,9 @@
     font-size: 13px;
     width:100%;
     margin-bottom:7px;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
 }
 
 
