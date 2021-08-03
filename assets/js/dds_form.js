@@ -4,42 +4,64 @@ jQuery(document).ready(function($){
     var conversieteller = 0;
     //dropzone
 
-  
+    $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+      });
     
     if($("select").length){
-        $("select").select2();
-    }
-    var dropzonemap = $("input[name=dropzone_map]").val();
-    if($("#dds_dropzone").length){
-        var myDropzone = new Dropzone("#dds_dropzone", {
-            url: "/wp-content/plugins/dds-tools/modules/forms/dropzone_ajax.php",
-            acceptedFiles: "image/*",
-            maxFiles: 15,
-            maxFilesize: 8,
-            uploadMultiple: true,
-            parallelUploads: 100, 
-            createImageThumbnails: true,
-            thumbnailWidth: 120,
-            thumbnailHeight: 120,
-            addRemoveLinks: true,
-            timeout: 180000,
-            // Language Strings
-            dictFileTooBig: "Huidige grootte: ({{filesize}}mb). Maximale bestandsgrootte: {{maxFilesize}}mb",
-            dictInvalidFileType: "Ongeldig bestandstype: Upload .jpg of .png",
-            dictCancelUpload: "Annuleren",
-            dictRemoveFile: "&#10005;",
-            dictMaxFilesExceeded: "Maximale aantal bestanden: {{maxFiles}}",
-            dictDefaultMessage: "<img src='/wp-content/plugins/dds-tools/assets/images/add_img.png' style='width: 70px;opacity: 0.7;'><br><span style='color: #a1a1a1;'>Foto\'s toevoegen</span>",
-            params: {'dropzone_map':dropzonemap},
-            success:function(file, response){
-            console.log("succes");
-              if (response == "true") {
-                  $("#message").append("<div class='alert alert-success'>Foto geupload!</div>");
-              } else {
-                  $("#message").append("<div class='alert alert-danger'>Probleem bij het uploaden. Probeer een andere foto.</div>");
-              }
-            }
+        
+
+        $("select").each(function(index,element){
+            
+
+            $(element).select2({
+                placeholder: $(element)[0][0],
+                allowClear: true
+            });
         });
+        
+    }
+
+
+    var dropzonemap = $("input[name=dropzone_map]").val();
+    if($(".dropzone").length){
+
+        $(".dropzone").each(function( index,element ) {
+
+        
+           
+            new Dropzone(element, {
+                url: "/wp-content/plugins/dds-tools/modules/forms/dropzone_ajax.php",
+                acceptedFiles: "image/*",
+                maxFiles: 15,
+                maxFilesize: 8,
+                uploadMultiple: true,
+                parallelUploads: 100, 
+                createImageThumbnails: true,
+                thumbnailWidth: 120,
+                thumbnailHeight: 120,
+                addRemoveLinks: true,
+                timeout: 180000,
+                // Language Strings
+                dictFileTooBig: "Huidige grootte: ({{filesize}}mb). Maximale bestandsgrootte: {{maxFilesize}}mb",
+                dictInvalidFileType: "Ongeldig bestandstype: Upload .jpg of .png",
+                dictCancelUpload: "Annuleren",
+                dictRemoveFile: "&#10005;",
+                dictMaxFilesExceeded: "Maximale aantal bestanden: {{maxFiles}}",
+                dictDefaultMessage: "<img src='/wp-content/plugins/dds-tools/assets/images/add_img.png' style='width: 70px;opacity: 0.7;'><br><span style='color: #a1a1a1;'>Foto\'s toevoegen</span>",
+                params: {'dropzone_map':dropzonemap},
+                success:function(file, response){
+                console.log("succes");
+                  if (response == "true") {
+                      $(element).parents(".dds_form").find("#message").append("<div class='alert alert-success'>Foto geupload!</div>");
+                  } else {
+                     $(element).parents(".dds_form").find("#message").append("<div class='alert alert-danger'>Probleem bij het uploaden. Probeer een andere foto.</div>");
+                  }
+                }
+            });
+          });
+
+        
     }
     else{
         dropzonemap = "";
@@ -116,7 +138,7 @@ jQuery(document).ready(function($){
                         $(".main_level1").hide();
                         $(".main_level2").show();
                     }else{
-                        $(currentform).parents().find(".dds_form_thankyou_notice").slideDown();
+                        $(currentform).find(".dds_form_thankyou_notice").slideDown();
                     }
 
                 }
@@ -133,7 +155,7 @@ jQuery(document).ready(function($){
                         
                         
                     console.log("tweede conversie");
-                    $(currentform).parents().find(".dds_form_thankyou_notice").slideDown();
+                    $(currentform).find(".dds_form_thankyou_notice").slideDown();
 
                 }
                 
@@ -144,13 +166,13 @@ jQuery(document).ready(function($){
             else{
                 $(currentform)[0].submit();
                 $(currentform).find(".dds_form_submit").prop( "disabled", false );
-                $(currentform).parents().find(".dds_form_error_notice").slideDown();
+                $(currentform).find(".dds_form_error_notice").slideDown();
                 $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
             }
         })
         .fail(function() {
             $(currentform).find(".dds_form_submit").prop( "disabled", false );
-            $(currentform).parents().find(".dds_form_error_notice").slideDown();
+            $(currentform).find(".dds_form_error_notice").slideDown();
             $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
         });
         } catch (error) {
@@ -184,12 +206,13 @@ jQuery(document).ready(function($){
     
 
     $("select[name=merk]").on("change",function(){
+        var currentselect = $(this);
         var merkid = $(this).find("option:selected").attr("data-merk");
         $.post( "/wp-content/plugins/dds-tools/modules/forms/modellen.php", { "merkid": merkid }, function( data ) {
-            $("select[name=model]").html("");
-            $("select[name=model]").append(data);
-            $("select[name=model]").append("<option value='andere'>Andere</option>");
-           
+            
+            $(currentselect).parents(".dds_form").find("select[name=model]").html("");
+            $(currentselect).parents(".dds_form").find("select[name=model]").append(data);
+            $(currentselect).parents(".dds_form").find("select[name=model]").append("<option value='andere'>Andere</option>");
           });
 
 

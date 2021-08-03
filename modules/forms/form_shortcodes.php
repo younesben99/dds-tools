@@ -35,7 +35,7 @@ function dds_input($atts)
         $placeholder = " placeholder='".$atts["ph"]."' ";
     }
     if (!empty($atts["name"])) {
-        $name = " name='".strtolower($atts["name"])."' id='dds_id_".strtolower($atts["name"])."'";
+        $name = " name='".strtolower($atts["name"])."' id='dds_id_".strtolower($atts["name"])."_".uniqid()."'";
     }
     if (!empty($atts["len"])) {
         $length = " maxlength='".$atts["len"]."' ";
@@ -90,7 +90,7 @@ function dds_select($atts)
 
     
     if (!empty($atts["name"])) {
-        $name = " name='".strtolower($atts["name"])."' id='dds_id_".strtolower($atts["name"])."'";
+        $name = " name='".strtolower($atts["name"])."' id='dds_id_".strtolower($atts["name"])."_".uniqid()."'";
     }
     if (!empty($atts["len"])) {
         $length = " maxlength='".$atts["len"]."' ";
@@ -260,7 +260,7 @@ function dds_dropzone($atts)
         $dds_dropzone .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
     }
     
-    $dds_dropzone .= '<div class="dropzone" id="dds_dropzone" '.$data_hide.'></div>';
+    $dds_dropzone .= '<div class="dropzone" id="dds_dropzone_'.uniqid().'" '.$data_hide.'></div>';
     $dds_dropzone .= "<input type='hidden' name='dropzone_map' value='".uniqid()."' />";
     $dds_dropzone .= '</div>';
     return $dds_dropzone;

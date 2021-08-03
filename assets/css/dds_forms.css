@@ -1,23 +1,10 @@
-
-.dds_form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
 .dds_form .dds_input_group{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 0px;
-}
-
-.dds_form_modern label {
-    font-size: 13px;
-    width:100%;
+    margin-bottom: 12px;
 }
 .dds_form_modern input[type=text],.dds_form_modern input[type=email],.dds_form_modern input[type=email],.dds_form_modern select{
   
@@ -35,13 +22,41 @@
     box-shadow: rgb(0 0 0 / 16%) 0px 1px 2px 0px;
 
     font-size: 16px;
-    margin-top: 7px;
     font-weight: 400;
     padding: 11px;
     border-radius:4px;
 
 
 }
+.dds_form_classic input,.dds_form_classic select {
+    font-size: 16px;
+    border: 1px solid #adadad !important;
+    font-weight: 400;
+    padding: 0 10px !important;
+    border-radius: 4px;
+    height: 44px;
+    width: 100%;
+}
+
+
+
+
+.dds_form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.dds_form label {
+    font-size: 13px;
+    width:100%;
+    margin-bottom:7px;
+}
+
+
 .dds_form_modern .dds_form_submit{
     margin-top: 10px;
     width: 30%;
@@ -53,48 +68,8 @@
 
 
 
-.dds_form_classic label {
-    font-size: 14px;
-    width:100%;
-}
-.dds_form_classic input,.dds_form_classic select {
-    font-size: 16px;
-    border: 1px solid #adadad !important;
-    font-weight: 400;
-    padding: 0 10px !important;
-    border-radius: 4px;
-    height: 44px;
-    width: 100%;
-        margin-top: 7px !important;
-    margin-bottom: 10px !important;
-    
-}
 
-.dds_form_classic textarea {
-    height:170px;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    min-height: 100px !important;
-    max-height: 300px !important;
-    min-width: 100%;
-    border: 1px solid #adadad !important;
-    font-weight: 400;
-    padding: 10px;
-    border-radius: 4px;
-}
-.dds_form_modern textarea {
-    height:170px;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    min-height: 100px !important;
-    max-height: 300px !important;
-    min-width: 100%;
-    background-color: rgb(255, 255, 255);
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(221, 221, 221) !important;
-    box-shadow: rgb(0 0 0 / 16%) 0px 1px 2px 0px;
-}
+
 .dds_form .dds_form_submit{
     margin-top: 10px;
     width: 30%;
@@ -155,8 +130,7 @@ select:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
   }
-  div#dds_dropzone {
-    margin-top: 10px;
+.dds_form .dropzone {
     border: 2px dashed #dddddd;
     border-radius: 5px;
     background: white;
@@ -231,7 +205,7 @@ font-size: 10px;
     margin-bottom: 0;
     font-size: 9px;
 }
-div#dds_dropzone:hover {
+.dds_form .dropzone:hover {
     transition: 0.7s;
     background: #f9f9f9;
 }
@@ -253,7 +227,6 @@ div#dds_dropzone:hover {
     border-color:rgb(221, 221, 221) !important;
     box-shadow: rgb(0 0 0 / 16%) 0px 1px 2px 0px;
     font-size: 16px;
-    margin-top: 7px;
     font-weight: 400;
     padding: 11px;
     padding-bottom: 17px;
@@ -300,18 +273,16 @@ div#dds_dropzone:hover {
     border-style: solid;
     border-color: rgb(176 176 176) !important;
     font-size: 16px;
-    margin-top: 7px;
     font-weight: 400;
     padding-bottom: 17px;
     border-radius: 4px;
  padding: 7px 10px 0;
- margin-bottom: 10px;
 
 }
 .dds_form_classic .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 65px;
     position: absolute;
-    top: 1px;
+ 
     right: 10px;
     width: 20px;
 }
@@ -325,7 +296,7 @@ div#dds_dropzone:hover {
     height: 0;
     left: 50%;
     margin-left: -6px;
-    margin-top: -2px;
+    margin-top: -3px;
     position: absolute;
     top: 50%;
     width: 0;
@@ -333,12 +304,12 @@ div#dds_dropzone:hover {
 
 .dds_form_classic .select2-container--default .select2-selection--single .select2-selection__arrow {
   
-    top: -4px;
+    top: -10px;
 }
-.select2-container--default .select2-search--dropdown .select2-search__field {
-    border-color: #1694CA;
-    box-shadow: inset 0 1px 3px rgb(0 0 0 / 6%), 0 0 5px rgb(19 131 179 / 70%);
+.dds_form_modern .select2-selection__arrow {
+    top: -5px !important;
 }
+
 
 
 .select2-container--open .select2-dropdown--above {
@@ -352,7 +323,38 @@ div#dds_dropzone:hover {
     opacity:0.7;
     pointer:cursor;
 }
-.select2-container--open .select2-dropdown--below {
 
-    margin-top: -50px;
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 0px solid !important;
+    padding:0 !important;
+    height: 40px;
+}
+.select2-search--dropdown {
+    display: block;
+    padding: 0px 10px;
+}
+span.select2-dropdown.select2-dropdown--below {
+    margin-top: -43px !important;
+    border-radius: 4px !important;
+}
+.select2-search::after{
+  content: '';
+  border-color: #888 transparent transparent transparent;
+  border-style: solid;
+  border-width: 6px 5px 0 5px;
+  height: 0;
+  margin-left: -6px;
+  margin-top: -2px;
+  position: absolute;
+  width: 0;
+  right: 15px;
+  top: 21px;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #efefef;
+    color: black;
+}
+.select2-selection__placeholder {
+    color: #757575 !important;
 }

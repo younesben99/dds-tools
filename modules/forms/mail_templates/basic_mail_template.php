@@ -119,9 +119,12 @@ if(!empty($tel)){
     <tr>
         <td>
             <div style='width:80%;margin:auto;padding-bottom:50px;'>
-            <h3>Foto's:</h3>
+          
         <?php
         if(!empty($imagelinks)){
+            ?>
+            <h3>Foto's:</h3>
+                      <?php
             foreach ($imagelinks as $value) {
                 ?>
 
