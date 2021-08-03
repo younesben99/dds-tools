@@ -1,4 +1,8 @@
 Dropzone.autoDiscover = false;
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
 jQuery(document).ready(function($){
 
     var conversieteller = 0;
@@ -13,10 +17,15 @@ jQuery(document).ready(function($){
 
         $("select").each(function(index,element){
             
-
+          
             $(element).select2({
                 placeholder: $(element)[0][0],
-                allowClear: false
+                allowClear: false,
+                "language": {
+                    "noResults": function(){
+                        return "Geen resultaten gevonden";
+                    }
+                }
             });
         });
         
@@ -222,6 +231,12 @@ jQuery(document).ready(function($){
 
        
     });
-    
+
+    //  $(document).on('keyup keydown', 'input.select2-search__field', function(e) {   
+        
+    //     console.log(capitalizeFirstLetter($(this).val())); 
+    //     $(this).parents(".dds_input_group").find("select").append("<option>"+$(this).val()+"</option>");
+       
+    //  });
 
 });

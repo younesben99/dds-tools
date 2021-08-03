@@ -20,10 +20,6 @@
       "name": "Aixam"
     },
     {
-      "id": 6,
-      "name": "Alfa Romeo"
-    },
-    {
       "id": 14,
       "name": "Alpina"
     },
@@ -52,10 +48,6 @@
       "name": "Aston Martin"
     },
     {
-      "id": 9,
-      "name": "Audi"
-    },
-    {
       "id": 15643,
       "name": "Austin"
     },
@@ -78,10 +70,6 @@
     {
       "id": 11,
       "name": "Bentley"
-    },
-    {
-      "id": 13,
-      "name": "BMW"
     },
     {
       "id": 16418,
@@ -138,14 +126,6 @@
     {
       "id": 19,
       "name": "Chevrolet"
-    },
-    {
-      "id": 20,
-      "name": "Chrysler"
-    },
-    {
-      "id": 21,
-      "name": "Citroen"
     },
     {
       "id": 16411,
@@ -236,16 +216,8 @@
       "name": "Ferrari"
     },
     {
-      "id": 28,
-      "name": "Fiat"
-    },
-    {
       "id": 51543,
       "name": "FISKER"
-    },
-    {
-      "id": 29,
-      "name": "Ford"
     },
     {
       "id": 51542,
@@ -308,20 +280,12 @@
       "name": "Haval"
     },
     {
-      "id": 31,
-      "name": "Honda"
-    },
-    {
       "id": 15674,
       "name": "HUMMER"
     },
     {
       "id": 51767,
       "name": "Hurtan"
-    },
-    {
-      "id": 33,
-      "name": "Hyundai"
     },
     {
       "id": 16355,
@@ -384,20 +348,12 @@
       "name": "Lancia"
     },
     {
-      "id": 15641,
-      "name": "Land Rover"
-    },
-    {
       "id": 16426,
       "name": "LDV"
     },
     {
       "id": 51854,
       "name": "Levc"
-    },
-    {
-      "id": 43,
-      "name": "Lexus"
     },
     {
       "id": 16393,
@@ -444,20 +400,12 @@
       "name": "Maybach"
     },
     {
-      "id": 46,
-      "name": "Mazda"
-    },
-    {
       "id": 51519,
       "name": "McLaren"
     },
     {
       "id": 16399,
       "name": "Melex"
-    },
-    {
-      "id": 47,
-      "name": "Mercedes-Benz"
     },
     {
       "id": 51834,
@@ -474,14 +422,6 @@
     {
       "id": 51766,
       "name": "Minauto"
-    },
-    {
-      "id": 16338,
-      "name": "MINI"
-    },
-    {
-      "id": 50,
-      "name": "Mitsubishi"
     },
     {
       "id": 51782,
@@ -504,10 +444,6 @@
       "name": "MPM Motors"
     },
     {
-      "id": 52,
-      "name": "Nissan"
-    },
-    {
       "id": 53,
       "name": "Oldsmobile"
     },
@@ -516,20 +452,12 @@
       "name": "Oldtimer"
     },
     {
-      "id": 54,
-      "name": "Opel"
-    },
-    {
       "id": 16341,
       "name": "Pagani"
     },
     {
       "id": 51553,
       "name": "Panther Westwinds"
-    },
-    {
-      "id": 55,
-      "name": "Peugeot"
     },
     {
       "id": 50083,
@@ -552,10 +480,6 @@
       "name": "Pontiac"
     },
     {
-      "id": 57,
-      "name": "Porsche"
-    },
-    {
       "id": 15636,
       "name": "Proton"
     },
@@ -576,10 +500,6 @@
       "name": "Reliant"
     },
     {
-      "id": 60,
-      "name": "Renault"
-    },
-    {
       "id": 61,
       "name": "Rolls-Royce"
     },
@@ -592,16 +512,8 @@
       "name": "Ruf"
     },
     {
-      "id": 63,
-      "name": "Saab"
-    },
-    {
       "id": 16369,
       "name": "Santana"
-    },
-    {
-      "id": 64,
-      "name": "SEAT"
     },
     {
       "id": 51839,
@@ -614,10 +526,6 @@
     {
       "id": 51800,
       "name": "Shuanghuan"
-    },
-    {
-      "id": 65,
-      "name": "Skoda"
     },
     {
       "id": 15525,
@@ -642,14 +550,6 @@
     {
       "id": 51833,
       "name": "Studebaker"
-    },
-    {
-      "id": 67,
-      "name": "Subaru"
-    },
-    {
-      "id": 68,
-      "name": "Suzuki"
     },
     {
       "id": 51551,
@@ -678,10 +578,6 @@
     {
       "id": 16420,
       "name": "Town Life"
-    },
-    {
-      "id": 70,
-      "name": "Toyota"
     },
     {
       "id": 15633,
@@ -724,14 +620,6 @@
       "name": "VEM"
     },
     {
-      "id": 74,
-      "name": "Volkswagen"
-    },
-    {
-      "id": 73,
-      "name": "Volvo"
-    },
-    {
       "id": 16336,
       "name": "Wartburg"
     },
@@ -762,10 +650,6 @@
     {
       "id": 51807,
       "name": "Zotye"
-    },
-    {
-      "id": 16328,
-      "name": "Others"
     },
     {
       "id": 16385,

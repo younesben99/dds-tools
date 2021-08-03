@@ -362,3 +362,13 @@ span.select2-dropdown.select2-dropdown--below {
 .select2-selection__placeholder {
     color: #757575 !important;
 }
+.select2-container--default .select2-results__option .select2-results__option {
+    padding-left: 10px !important;
+}
+strong.select2-results__group {
+    font-size: 15px;
+    font-weight: 400;
+    font-variant: all-small-caps;
+    padding: 6px 10px !important;
+    color: #a0a0a0;
+}

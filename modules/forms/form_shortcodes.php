@@ -130,9 +130,12 @@ function dds_select($atts)
             $text .= "<option value='andere'>Andere</option>";
             break;
         case 'merk':
+            $text .= "<optgroup label='Meest gekozen merken'>";
             $text .= json_to_select_options(__DIR__."/assets/top_merken.json","merk");
-            $text .= "<option disabled>Alle merken [A-Z]</option>";
+            $text .= "</optgroup>";
+            $text .= "<optgroup label='Alle merken [A-Z]'>";
             $text .= json_to_select_options(__DIR__."/assets/merken.json","merk");
+            $text .= "</optgroup>";
             break;
         case 'datum':
             $datums = array();
