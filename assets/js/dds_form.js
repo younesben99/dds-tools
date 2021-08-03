@@ -211,6 +211,7 @@ jQuery(document).ready(function($){
         $.post( "/wp-content/plugins/dds-tools/modules/forms/modellen.php", { "merkid": merkid }, function( data ) {
             
             $(currentselect).parents(".dds_form").find("select[name=model]").html("");
+            $(currentselect).parents(".dds_form").find("select[name=model]").append("<option></option>");
             $(currentselect).parents(".dds_form").find("select[name=model]").append(data);
             $(currentselect).parents(".dds_form").find("select[name=model]").append("<option value='andere'>Andere</option>");
           });
