@@ -16,7 +16,7 @@ jQuery(document).ready(function($){
 
             $(element).select2({
                 placeholder: $(element)[0][0],
-                allowClear: true
+                allowClear: false
             });
         });
         
