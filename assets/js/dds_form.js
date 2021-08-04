@@ -148,6 +148,10 @@ jQuery(document).ready(function($){
                         $(".main_level2").show();
                     }else{
                         $(currentform).find(".dds_form_thankyou_notice").slideDown();
+                        setTimeout(function(){
+                            window.location.href = '/bedankt';
+                          }, 2000);
+                       
                     }
 
                 }
@@ -157,11 +161,14 @@ jQuery(document).ready(function($){
                             'event_category': window.location.href,
                             'event_label': "ClickForm: " + formtype,
                     });
+
                     } catch (error) {
                         console.log(error);
                         
                     }
-                        
+                    setTimeout(function(){
+                        window.location.href = '/bedankt';
+                      }, 2000);
                         
                     console.log("tweede conversie");
                     $(currentform).find(".dds_form_thankyou_notice").slideDown();
@@ -232,11 +239,16 @@ jQuery(document).ready(function($){
        
     });
 
-    //  $(document).on('keyup keydown', 'input.select2-search__field', function(e) {   
-        
-    //     console.log(capitalizeFirstLetter($(this).val())); 
-    //     $(this).parents(".dds_input_group").find("select").append("<option>"+$(this).val()+"</option>");
-       
-    //  });
+
+
+    $(".main_level1 input[name=merk],.main_level1 select[name=merk]").on("change",function(){
+       $(".main_level2 input[name=merk]").val($(this).val());
+    });
+
+
+    $(".main_level1 input[name=model],.main_level1 select[name=model]").on("change",function(){
+        $(".main_level2 input[name=model]").val($(this).val());
+
+     });
 
 });
