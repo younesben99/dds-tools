@@ -372,3 +372,7 @@ strong.select2-results__group {
     padding: 6px 10px !important;
     color: #a0a0a0;
 }
+
+.select2-container *:focus {
+    outline: none !important;
+}
