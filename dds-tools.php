@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "1.87";
+$dds_version = "1.88";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 1.87
+Version: 1.88
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2

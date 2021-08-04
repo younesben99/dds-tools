@@ -15,7 +15,7 @@ jQuery(document).ready(function($){
     if($("select").length){
         
 
-        $("select").each(function(index,element){
+        $(".dds_form select").each(function(index,element){
             
           
             $(element).select2({
