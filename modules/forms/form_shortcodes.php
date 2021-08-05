@@ -18,7 +18,17 @@ function json_to_select_options($dir,$type){
     return $option;
 
 }
+function json_to_select_options_single_col($dir){
+    // deze functie werkt alleen als de json bestand 1 kollom heeft genaamd ID en name
+    $json = json_decode(file_get_contents($dir),true);
+    $option;
 
+    foreach($json as $value){
+        $option .= "<option value='".$value['merk']."'>".$value['merk']."</option>";
+    }
+    $option .= "<option value='Andere'>Andere</option>";
+    return $option;
+}
 function dds_input($atts)
 {
     if (is_array($atts)) {
@@ -136,6 +146,9 @@ function dds_select($atts)
             $text .= "<optgroup label='Alle merken [A-Z]'>";
             $text .= json_to_select_options(__DIR__."/assets/merken.json","merk");
             $text .= "</optgroup>";
+            break;
+        case 'merkmobilhome':
+            $text .= json_to_select_options_single_col(__DIR__."/assets/mobilhome_merken.json");
             break;
         case 'datum':
             $datums = array();
