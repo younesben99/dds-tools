@@ -15,14 +15,13 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
 
             include(__DIR__."/../../../../../wp-load.php");
 
-            $imagelinks;
+            $imagelinks = array();
             if(!empty($_POST['dropzone_map'])){
                 $imagedir = __DIR__. "/uploads/".$_POST['dropzone_map']."/";
                 if (file_exists($imagedir)) {
                     try {
                         $current_image_map = scandir($imagedir);
                     
-                        $imagelinks = array();
     
                         foreach ($current_image_map as $value) {
                             if (strlen($value) > 4) {
@@ -204,6 +203,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
            
             }
 
+            
         }
 
     }
