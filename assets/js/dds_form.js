@@ -205,20 +205,17 @@ jQuery(document).ready(function($){
     });
 
 
+ 
 
-    $("form .dds_input_group select,form .dds_input_group input").each(function(index){
-        
-        if(index == 0){
-           
-            $(this).on("change",function(){
+    $(".dds_form select,.dds_form input").on("change",function(){
                 
-                $(this).closest("form").find("*[data-hide=true]").each(function(){
-                    //console.log($(this));
-                    $(this).closest(".dds_input_group").slideDown();
-                });
-            });
-        }
-        
+        $(this).closest("form").find("*[data-hide=true]").each(function(){
+            if($(this).closest(".dds_input_group").is(":hidden")){
+                console.log($(this));
+                $(this).closest(".dds_input_group").slideDown();
+            }
+            
+        });
     });
     
 
