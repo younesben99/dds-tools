@@ -118,7 +118,7 @@
     font-size: 12px;
 }
 .dds_form_loading:before {
-    background: url('/wp-content/plugins/dds-tools/assets/images/loading.gif');
+    background: url('https://digiflowroot.be/static/images/loading.gif');
     background-size: cover;
 }
 .dds_form_loading:before {

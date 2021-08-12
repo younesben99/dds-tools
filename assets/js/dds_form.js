@@ -1,3 +1,4 @@
+
 Dropzone.autoDiscover = false;
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -40,7 +41,7 @@ jQuery(document).ready(function($){
         
            
             new Dropzone(element, {
-                url: "/wp-content/plugins/dds-tools/modules/forms/dropzone_ajax.php",
+                url: dds_main_vars.siteurl + "/wp-content/plugins/dds-tools/modules/forms/dropzone_ajax.php",
                 acceptedFiles: "image/*",
                 maxFiles: 15,
                 maxFilesize: 8,
@@ -57,7 +58,7 @@ jQuery(document).ready(function($){
                 dictCancelUpload: "Annuleren",
                 dictRemoveFile: "&#10005;",
                 dictMaxFilesExceeded: "Maximale aantal bestanden: {{maxFiles}}",
-                dictDefaultMessage: "<img src='/wp-content/plugins/dds-tools/assets/images/add_img.png' style='width: 70px;opacity: 0.7;'><br><span style='color: #a1a1a1;'>Foto\'s toevoegen</span>",
+                dictDefaultMessage: "<img src='"+dds_main_vars.siteurl+"/wp-content/plugins/dds-tools/assets/images/add_img.png' style='width: 70px;opacity: 0.7;'><br><span style='color: #a1a1a1;'>Foto\'s toevoegen</span>",
                 params: {'dropzone_map':dropzonemap},
                 success:function(file, response){
                 console.log("succes");
@@ -104,7 +105,7 @@ jQuery(document).ready(function($){
         }).get();
 
         $.ajax( {
-            url: "/wp-content/plugins/dds-tools/modules/forms/form_ajax.php",
+            url: dds_main_vars.siteurl+"/wp-content/plugins/dds-tools/modules/forms/form_ajax.php",
             method: "POST",
             data: {
                 "fields":JSON.stringify(fields),
@@ -224,7 +225,7 @@ jQuery(document).ready(function($){
     $("select[name=merk]").on("change",function(){
         var currentselect = $(this);
         var merkid = $(this).find("option:selected").attr("data-merk");
-        $.post( "/wp-content/plugins/dds-tools/modules/forms/modellen.php", { "merkid": merkid }, function( data ) {
+        $.post( dds_main_vars.siteurl+"/wp-content/plugins/dds-tools/modules/forms/modellen.php", { "merkid": merkid }, function( data ) {
             
             $(currentselect).parents(".dds_form").find("select[name=model]").html("");
             $(currentselect).parents(".dds_form").find("select[name=model]").append("<option></option>");
