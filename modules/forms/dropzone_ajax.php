@@ -3,7 +3,7 @@
 if(isset($_POST['dropzone_map'])){
 
 
-    $dropzonemap = __DIR__."/uploads/".$_POST['dropzone_map'];
+    $dropzonemap = __DIR__."/../../../../uploads/dds_dropzone/".$_POST['dropzone_map'];
 
     if (!is_dir($dropzonemap)) {
         mkdir($dropzonemap, 0777, true);
