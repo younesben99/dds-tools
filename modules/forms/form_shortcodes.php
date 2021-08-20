@@ -111,6 +111,10 @@ function dds_select($atts)
     if (!empty($atts["ty"])) {
         $type = $atts["ty"];
     }
+
+    if (!empty($atts["intervalmins"])) {
+        $intervalmins = $atts["intervalmins"];
+    }
     
     $text .= "<div class='dds_input_group' style='".$ddsinputgroupcss.$hideinput."'>";
     if (!empty($atts["lb"])) {
@@ -169,9 +173,18 @@ function dds_select($atts)
             $tijdstippen = array();
 
             $timebuffer = mktime(9,0,0);
-        
+            
+            
             $interval_secs = apply_filters('custom_testrit_interval', 900);
+            
+            if(!empty($intervalmins)){
+                $interval_secs = $intervalmins * 60;
+            }
+
             $interval_remainer = 3600 / $interval_secs;
+
+
+            
             $time_max = 9 * $interval_remainer;
         
         
@@ -233,6 +246,8 @@ function dds_form($atts)
     
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' ".$formid." class='main_level1 dds_form ".$style."'>";
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='".$formtype."' />";
+    $form .= "<input type='hidden' class='dds_form_type' name='merk_hidden' class='merk_hidden' />";
+    $form .= "<input type='hidden' class='dds_form_type' name='model_hidden' class='model_hidden' />";
 
     return $form;
 }

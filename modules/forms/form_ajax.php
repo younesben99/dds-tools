@@ -82,7 +82,14 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     $valtemp = array_values($value);
                     $model = $valtemp[0];
                 }
-
+                if(array_key_exists("merk_hidden",$value)){
+                    $valtemp = array_values($value);
+                    $merk = $valtemp[0];
+                }
+                if(array_key_exists("model_hidden",$value)){
+                    $valtemp = array_values($value);
+                    $model = $valtemp[0];
+                }
             }
 
            
@@ -130,7 +137,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 $value = $value[key($value)];
                 
                 if(!empty($value)){
-                    if($name !== "Formtype" && $name !== "Dropzone_map"){
+                    if($name == "Datum"){
+                        $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
+                    }
+                    if($name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                     }
                     

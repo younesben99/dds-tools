@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "2.5";
+$dds_version = "2.6";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 2.5
+Version: 2.6
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -20,6 +20,7 @@ include(__DIR__."/modules/meldingen/cookie_melding/cookie_melding.php");
 include(__DIR__."/modules/tracking_codes/analytics_parser.php");
 include(__DIR__."/modules/search/dds_car_search.php");
 include(__DIR__."/modules/forms/form_shortcodes.php");
+include(__DIR__."/modules/shortcodes/dds_shortcodes.php");
 
 //select2
 wp_enqueue_script( 'select2_js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array ( 'jquery' ), null, true);
