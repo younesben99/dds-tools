@@ -292,7 +292,7 @@ function dds_dropzone($atts)
     }
     
     $dds_dropzone .= '<div class="dropzone" id="dds_dropzone_'.uniqid().'" '.$data_hide.'></div>';
-    $dds_dropzone .= "<input type='hidden' name='dropzone_map' value='".uniqid()."' />";
+    $dds_dropzone .= "<input type='text' name='dropzone_map' class='dropzone_map_input' value='' />";
     $dds_dropzone .= '</div>';
     return $dds_dropzone;
 }

@@ -58,6 +58,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    max-width: 700px;
 }
 
 
@@ -91,6 +92,9 @@
     padding: 15px;
     border: 0 !important;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dds_form_thankyou_notice{
@@ -125,13 +129,13 @@
     background-size: cover;
 }
 .dds_form_loading:before {
-    content: '';
-    margin-right: 16px;
-    transition: 0.3s;
+      content: '';
+    transition: 0.5s;
     width: 25px;
     height: 25px;
-    position: absolute;
-    left: 10px;
+    position: relative;
+    display: block;
+    margin-right: 5px;
 }
 
 select{

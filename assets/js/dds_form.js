@@ -8,6 +8,8 @@ jQuery(document).ready(function($){
 
     var conversieteller = 0;
     //dropzone
+    $(".dropzone_map_input").val(Math.random().toString(16).slice(2));
+
 
     $(document).on('select2:open', () => {
         document.querySelector('.select2-search__field').focus();
