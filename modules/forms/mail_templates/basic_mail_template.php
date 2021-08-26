@@ -138,6 +138,18 @@ if(!empty($tel)){
             </div>
         </td>
     </tr>
+    <tr>
+        <td>
+            <div style="margin: auto;
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 25px;
+    font-size: 13px;">
+            <small style="color:#254e79"><em>Verstuurd vanuit: <?php echo($pagelink); ?></em></small>
+            </div>
+        </td>
+    </tr>
 
 
    

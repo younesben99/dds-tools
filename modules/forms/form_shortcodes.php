@@ -245,6 +245,8 @@ function dds_form($atts)
     
     
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' ".$formid." class='main_level1 dds_form ".$style."'>";
+    $form .= "<input type='hidden' class='dds_form_type' name='pagetitle' value='".get_the_title()."' />";
+    $form .= "<input type='hidden' class='dds_form_type' name='pagelink' value='".get_permalink()."' />";
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='".$formtype."' />";
     $form .= "<input type='hidden' class='dds_form_type' name='merk_hidden' class='merk_hidden' />";
     $form .= "<input type='hidden' class='dds_form_type' name='model_hidden' class='model_hidden' />";

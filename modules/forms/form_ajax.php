@@ -90,6 +90,14 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     $valtemp = array_values($value);
                     $model = $valtemp[0];
                 }
+                if(array_key_exists("pagetitle",$value)){
+                    $valtemp = array_values($value);
+                    $pagetitle = $valtemp[0];
+                }
+                if(array_key_exists("pagelink",$value)){
+                    $valtemp = array_values($value);
+                    $pagelink = $valtemp[0];
+                }
             }
 
            
@@ -121,8 +129,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 $subject = "Extra gegevens: ".$merk." ". $model;
                     break;     
                 default:
-                $mail_title = "Contactbericht";
-                $subject = "Contactbericht";
+                $mail_title = "Contactbericht | ". $pagetitle;
+                $subject = "Contactbericht | ". $pagetitle;
                     break;
             }
 
@@ -140,7 +148,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     if($name == "Datum"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
                     }
-                    if($name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden"){
+                    if($name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                     }
                     
