@@ -63,7 +63,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
             }
 
             $dds_form_type = $_POST["formtype"];
-
+            $dds_form_type_d = $_POST["formtype"];
             foreach ($fields as $key => $value) {
                 
                 if(array_key_exists("emailadres",$value) || array_key_exists("mail",$value) || array_key_exists("email",$value)){
@@ -89,6 +89,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 if(array_key_exists("model_hidden",$value)){
                     $valtemp = array_values($value);
                     $model = $valtemp[0];
+                }
+                if(array_key_exists("bouwjaar",$value)){
+                    $valtemp = array_values($value);
+                    $bouwjaar = $valtemp[0];
                 }
                 if(array_key_exists("pagetitle",$value)){
                     $valtemp = array_values($value);
@@ -118,11 +122,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                         $mail_title = "Afspraak is succesvol geboekt.";
                         $subject = "Afspraak is succesvol geboekt.";
                     }
-                
                     break;
                 case 'beschikbaarheid':
-                $mail_title = "Contactbericht voor de volgende wagen: ".$merk." ". $model;
-                $subject = "Contactbericht voor de volgende wagen: ".$merk." ". $model;
+                $mail_title = "Contactbericht voor de volgende wagen: ".$merk." ". $model. " " . $bouwjaar;
+                $subject = "Contactbericht voor de volgende wagen: ".$merk." ". $model. " " . $bouwjaar;
                     break;
                 case 'mail_level2':
                 $mail_title = "Extra gegevens: ".$merk." ". $model;
@@ -151,7 +154,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     if($name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                     }
-                    
+                    $mail_main_con .= "<tr><td>". $dds_form_type_d . "</td></tr>";
                 }
                 
                 
