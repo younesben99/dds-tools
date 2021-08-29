@@ -109,8 +109,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
             $model = ucfirst($model);
             switch ($dds_form_type) {
                 case 'aankoop':
-                $mail_title = "Aangeboden wagen: ".$merk." ". $model;
-                $subject = "Aangeboden wagen: ".$merk." ". $model;
+                $mail_title = "Aangeboden wagen: ".$merk." ". $model. " " . $bouwjaar;
+                $subject = "Aangeboden wagen: ".$merk." ". $model. " " . $bouwjaar;
                     break;
                 case 'afspraak':
                     if(!empty($merk) && !empty($model)){
@@ -123,8 +123,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     }
                     break;
                 case 'beschikbaarheid':
-                $mail_title = "Contactbericht voor de volgende wagen: ".$merk." ". $model. " " . $bouwjaar;
-                $subject = "Contactbericht voor de volgende wagen: ".$merk." ". $model. " " . $bouwjaar;
+                $mail_title = "Contactbericht voor de volgende wagen: ".$merk." ". $model;
+                $subject = "Contactbericht voor de volgende wagen: ".$merk." ". $model;
                     break;
                 case 'mail_level2':
                 $mail_title = "Extra gegevens: ".$merk." ". $model;
