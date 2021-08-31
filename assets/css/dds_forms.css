@@ -380,11 +380,10 @@ strong.select2-results__group {
     color: #a0a0a0;
 }
 
-.dds_form .dds_input_group{
-    width: 100% !important;
-}
+
 
 @media only screen and (max-width: 600px) {
+    
     .dds_form .dds_input_group{
         width: 100% !important;
     }
