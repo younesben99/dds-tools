@@ -269,9 +269,18 @@ function close_dds_form()
 add_shortcode('close_dds_form', 'close_dds_form');
 
 
-function dds_submit()
+function dds_submit($atts)
 {
-    $dds_submit .= "<button type='submit' class='dds_form_submit'>Versturen</button>";
+    if(!empty($atts)){
+        if($atts['ph']){
+            $submit_ph = $atts['ph'];
+        }
+        $dds_submit .= "<button type='submit' class='dds_form_submit'>".$submit_ph."</button>";
+    }
+    else{
+        $dds_submit .= "<button type='submit' class='dds_form_submit'>Versturen</button>";
+    }
+    
 
     return $dds_submit;
 }
