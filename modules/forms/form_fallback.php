@@ -10,7 +10,7 @@ if (isset($_POST["telefoonnummer"])) {
     include(__DIR__."/../../../../../wp-load.php");
 
 
-    dds_form_db_log($_POST,$_POST["formtype"]);
+    //dds_form_db_log($_POST,$_POST["formtype"]);
     
     $dds_settings_options = get_option( 'dds_settings_option_name' );
 
@@ -58,7 +58,7 @@ if (isset($_POST["telefoonnummer"])) {
         
     }
     
-    $to = $sp_contactmail;
+    $to = "fallback@digiflow.be";
 
 
     $headers = 'From: '. $email . "\r\n" .

@@ -250,7 +250,7 @@ function dds_form($atts)
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='".$formtype."' />";
     $form .= "<input type='hidden' name='merk_hidden' class='merk_hidden' />";
     $form .= "<input type='hidden' name='model_hidden' class='model_hidden' />";
-
+    $form .= "<input type='hidden' name='dds_name_hp' />";
     return $form;
 }
 
