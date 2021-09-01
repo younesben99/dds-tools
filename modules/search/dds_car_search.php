@@ -14,7 +14,11 @@ function dds_car_search_function($atts, $content = null) {
 		'direction' => 'col',
         'height' => 'unset'
 	), $atts );
-
+    if (is_array($atts)) {
+        if (in_array("brandstof", $atts)) {
+            $atts["brandstof"] = true;
+        }
+    }
 
     global $post;
     $merken_array = array();
@@ -51,13 +55,6 @@ function dds_car_search_function($atts, $content = null) {
         $modellenoptions .= "<option style='display:none;' data-term-id='".$s["term_id"]."' data-slug='".$s["slug"]."'  data-parent-id='".$s["parent"]."'>" . $s["name"] . "</option>";
 
     }
-   wp_enqueue_script(
-        'dds_car_search_module', 
-        get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_car_search.js?v=49', 
-        array( 'jquery' ), 
-        false, 
-        true 
-    );
     if($dds_atts["direction"] == "col"){
         $dds_search_direction = "dds_car_search_inner_col";
         $dds_search_direction_wrap = "dds_car_search_wrap_col";
@@ -73,12 +70,12 @@ function dds_car_search_function($atts, $content = null) {
     }
     
 
-    $dds_car_search .= "<div class='".$dds_search_direction_wrap."' style='height:".$dds_search_height.";'>";
+    $dds_car_search .= "<div class='dds_car_search_form ".$dds_search_direction_wrap."' style='height:".$dds_search_height.";'>";
     $dds_car_search .= "<div class='".$dds_search_direction."'>";
 
     $dds_car_search .= "<select class='dds_car_search_merk'>";
 
-    $dds_car_search .= "<option>Kies een merk</option>";
+    $dds_car_search .= "<option value=''>Kies een merk</option>";
 
     $dds_car_search .= $merkoptions;
 
@@ -86,11 +83,27 @@ function dds_car_search_function($atts, $content = null) {
 
     $dds_car_search .= "<select class='dds_car_search_model' disabled>";
 
-    $dds_car_search .= "<option class='dds_car_search_choose_model'>Kies een model</option>";
+    $dds_car_search .= "<option class='dds_car_search_choose_model' value='' data-slug=''>Kies een model</option>";
 
     $dds_car_search .= $modellenoptions;
 
     $dds_car_search .= "</select>";
+
+    if($atts["brandstof"]){
+        $dds_car_search .= "<select class='dds_car_search_brandstof'>";
+
+        $dds_car_search .= "<option class='dds_car_search_choose_brandstof' value=''>Kies een brandstof</option>";
+    
+        $brandstofoptions = ["Benzine","Diesel","Hybride","Elektrisch","LPG","CNG","Anders"];
+    
+        foreach ($brandstofoptions as $value) {
+            $dds_car_search .= "<option value='".strtolower($value)."'>".$value."</option>";
+        }
+        
+    
+        $dds_car_search .= "</select>";
+    }
+    
 
 
     $dds_car_search .= "<button type='submit' class='dds_car_search_submit elementor-button'>Zoeken</button>";
