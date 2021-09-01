@@ -34,19 +34,29 @@ jQuery(document).ready(function(){
     console.log('eventaction: ' +  eventform + ' > ' + eventaction);
     console.log('category: ' + window.location.href);
     console.log('eventlabel: ' + eventlabel);
-  gtag('event', eventform + ' > ' + eventaction, {
-          'event_category': window.location.href,
-          'event_label': eventlabel
-    });
+    try {
+        gtag('event', eventform + ' > ' + eventaction, {
+            'event_category': window.location.href,
+            'event_label': eventlabel
+      });
+    } catch (error) {
+        console.log(error);
+    }
+
     
     });
 
     document.addEventListener( 'wpcf7submit', function( event ) {
         console.log("Conversie! CF7");
-        gtag('event', "Formulier verstuurd", {
-            'event_category': window.location.href,
-            'event_label': "Form: Contactform7"
-      });
+        try {
+            gtag('event', "Formulier verstuurd", {
+                'event_category': window.location.href,
+                'event_label': "Form: Contactform7"
+          });
+        } catch (error) {
+            console.log(error);
+        }
+        
       }, false );
 
     jQuery( document ).on('submit_success', function(){
@@ -56,10 +66,15 @@ jQuery(document).ready(function(){
         }
         else{
             console.log("Conversie! " + eventform);
-            gtag('event', "Formulier verstuurd", {
-                'event_category': window.location.href,
-                'event_label': "Form: " + eventform,
-          });
+            try {
+                gtag('event', "Formulier verstuurd", {
+                    'event_category': window.location.href,
+                    'event_label': "Form: " + eventform,
+              });
+            } catch (error) {
+                console.log(error);
+            }
+            
         }
 		
 	});
