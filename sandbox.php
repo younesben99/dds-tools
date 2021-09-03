@@ -36,7 +36,7 @@ function duplicate($post_id,$merk,$parentid){
 			'post_parent'    => $parentid,
 			'post_password'  => $post->post_password,
 			'post_status'    => 'publish',
-			'post_title'     => $post->post_title . " " . $merk,
+			'post_title'     => $post->post_title . " | " . $merk,
 			'post_type'      => $post->post_type,
 			'to_ping'        => $post->to_ping,
 			'menu_order'     => $post->menu_order,
@@ -94,6 +94,14 @@ if(isset($_POST["dds_id"])){
   for ($i=0; $i < count($merken); $i++) { 
     
     duplicate($_POST["dds_id"],$merken[$i],$_POST["dds_id"]);
+    $args = array(
+      'post_type' => 'post',
+      'numberposts' => -1
+  );
+  $all_posts = get_posts($args);
+  foreach ($all_posts as $single_post){
+      wp_update_post( $single_post );
+  }
   }
 }
 
