@@ -2,7 +2,16 @@
 
 include(__DIR__."/../../../wp-load.php");
 
-function duplicate($post_id,$merk,$parentid){
+
+
+function duplicate($post_id,$merk,$parentid,$metatitle,$metadesc,$metakeywords){
+
+
+	$metatitle = str_replace("*",$merk,$metatitle);
+	$metadesc = str_replace("*",$merk,$metadesc);
+	$metakeywords = str_replace("*",$merk,$metakeywords);
+
+
 	global $wpdb;
  
 
@@ -40,8 +49,12 @@ function duplicate($post_id,$merk,$parentid){
 			'post_type'      => $post->post_type,
 			'to_ping'        => $post->to_ping,
 			'menu_order'     => $post->menu_order,
-      'meta_input'        => array( 
-        'autoverkopen_merk' => $merk
+      		'meta_input'        => array( 
+        'autoverkopen_merk' => $merk,
+		'_yoast_wpseo_title' => $metatitle,
+		'_yoast_wpseo_metadesc' => $metadesc,
+		'_yoast_wpseo_metakeywords' => $metakeywords,
+		'_yoast_wpseo_focuskw' => $metakeywords
     )
 		);
  
@@ -91,9 +104,9 @@ if(isset($_POST["dds_id"])){
     array_push($merken,$value["name"]);
   }
   
-  for ($i=0; $i < count($merken); $i++) { 
+  for ($i=0; $i < 4; $i++) { 
     
-    duplicate($_POST["dds_id"],$merken[$i],$_POST["dds_id"]);
+    duplicate($_POST["dds_id"],$merken[$i],$_POST["dds_id"],$_POST["meta_title"],$_POST["meta_desc"],$_POST["meta_keywords"]);
     $args = array(
       'post_type' => 'post',
       'numberposts' => -1
@@ -105,9 +118,17 @@ if(isset($_POST["dds_id"])){
   }
 }
 
+
+
+
 ?>
 <form method="post" action="">
-<input type="text" name="dds_id" />
+<div>* gebruiken als merk</div>
+<input type="text" name="dds_id" placeholder="post id" style="margin:10px;width:50%;padding:10px;" /><br>
+<input type="text" name="meta_title" placeholder="meta title" style="margin:10px;width:50%;padding:10px;" /><br>
+<input type="text" name="meta_desc" placeholder="meta desc" style="margin:10px;width:50%;padding:10px;" /><br>
+<input type="text" name="meta_keywords" placeholder="meta keywords" style="margin:10px;width:50%;padding:10px;" /><br><br>
+<input type="submit" style="margin:10px;width:50%;">
 </form>
 
 <?php
