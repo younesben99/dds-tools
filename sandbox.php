@@ -104,7 +104,7 @@ if(isset($_POST["dds_id"])){
     array_push($merken,$value["name"]);
   }
   
-  for ($i=0; $i < 4; $i++) { 
+  for ($i=0; $i < count($merken); $i++) { 
     
     duplicate($_POST["dds_id"],$merken[$i],$_POST["dds_id"],$_POST["meta_title"],$_POST["meta_desc"],$_POST["meta_keywords"]);
     $args = array(
