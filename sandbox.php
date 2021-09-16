@@ -41,7 +41,7 @@ function duplicate($post_id,$merk,$parentid,$metatitle,$metadesc,$metakeywords){
 			'post_author'    => $new_post_author,
 			'post_content'   => $post->post_content,
 			'post_excerpt'   => $post->post_excerpt,
-			'post_name'      => $merk,
+			'post_name'      => $merk."-verkopen",
 			'post_parent'    => $parentid,
 			'post_password'  => $post->post_password,
 			'post_status'    => 'publish',
