@@ -6,6 +6,13 @@ $chosenbanner = array("http://digiflowroot.be/images/mailbanner_1.jpg","http://d
 
 $randimg = rand(0,2);
 
+$sp_dealer_filter_tel = str_replace(' ', '', $sp_dealer_tel);
+
+if(!empty($sp_dealer_tel)){
+    $sp_phone_a_btn = "<a href='tel:".$sp_dealer_filter_tel."' class='phonebtn'>".$sp_dealer_tel."</a>";
+}
+
+
 ?>
 <!doctype html>
 <html>
@@ -188,7 +195,7 @@ $randimg = rand(0,2);
         <td style='max-width:30%;width:30%;text-align: right;'><img src="http://digiflowroot.be/images/phone-call-2.png" alt=""></td>
     </tr>
     <tr>
-        <td> <a href='tel:<?php echo str_replace(' ', '', $sp_dealer_tel);;?>' class='phonebtn'><?php echo $sp_dealer_tel; ?></a></td>
+        <td> <?php echo($sp_phone_a_btn); ?> </td>
    
     </tr>
 </table>

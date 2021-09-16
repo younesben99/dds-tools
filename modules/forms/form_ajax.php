@@ -150,7 +150,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     if($name == "Datum"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
                     }
-                    if($name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle"){
+                    if($name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                     }
                 }

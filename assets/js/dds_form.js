@@ -6,6 +6,8 @@ function capitalizeFirstLetter(string) {
   
 jQuery(document).ready(function($){
 
+    $("#js_active").val("js");
+
     var conversieteller = 0;
     //dropzone
     $(".dropzone_map_input").val(Math.random().toString(16).slice(2));
