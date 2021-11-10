@@ -3,6 +3,8 @@
 
     include(__DIR__."/../../../../../wp-load.php");
     if (isset($_POST)) {
+
+        $siteurl = get_site_url()."/bedankt";
         $client_email = $_POST["emailadres"];
         $merk = $_POST["merk"];
         $model = $_POST["model"];
@@ -137,7 +139,9 @@
         if ($sendmail == true) {
             $sent = wp_mail($to, $subject, $mailcontent, $headers);
             if ($sent) {
-                echo("verstuurd");
+                //echo("verstuurd");
+                header('Location: '.$siteurl);
+
             } else {
                 echo("error");
             }
