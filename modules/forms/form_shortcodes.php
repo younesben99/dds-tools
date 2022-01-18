@@ -26,7 +26,7 @@ function json_to_select_options_single_col($dir){
     foreach($json as $value){
         $option .= "<option value='".$value['merk']."'>".$value['merk']."</option>";
     }
-    $option .= "<option value='Andere'>Andere</option>";
+    $option .= "<option value='Andere'>".__("Andere","dds-tools")."</option>";
     return $option;
 }
 function dds_input($atts)
@@ -132,22 +132,22 @@ function dds_select($atts)
                 $jaar = date("Y") - $i;
                 $text .= "<option value='".$jaar."'>".$jaar."</option>";
             }
-            $text .= "<option value='oldtimer'>Ouder dan 1971</option>";
+            $text .= "<option value='oldtimer'>".__("Ouder dan 1971","dds-tools")."</option>";
             break;
         case 'brandstof':
-            $text .= "<option value='benzine'>Benzine</option>";
-            $text .= "<option value='diesel'>Diesel</option>";
-            $text .= "<option value='hybride'>Hybride</option>";
-            $text .= "<option value='elektrisch'>Elektrisch</option>";
-            $text .= "<option value='lpg'>LPG</option>";
-            $text .= "<option value='cng'>CNG</option>";
-            $text .= "<option value='andere'>Andere</option>";
+            $text .= "<option value='benzine'>".__("Benzine","dds-tools")."</option>";
+            $text .= "<option value='diesel'>".__("Diesel","dds-tools")."</option>";
+            $text .= "<option value='hybride'>".__("Hybride","dds-tools")."</option>";
+            $text .= "<option value='elektrisch'>".__("Elektrisch","dds-tools")."</option>";
+            $text .= "<option value='lpg'>".__("LPG","dds-tools")."</option>";
+            $text .= "<option value='cng'>".__("CNG","dds-tools")."</option>";
+            $text .= "<option value='andere'>".__("Andere","dds-tools")."</option>";
             break;
         case 'merk':
-            $text .= "<optgroup label='Meest gekozen merken'>";
+            $text .= "<optgroup label='".__("Meest gekozen merken","dds-tools")."'>";
             $text .= json_to_select_options(__DIR__."/assets/top_merken.json","merk");
             $text .= "</optgroup>";
-            $text .= "<optgroup label='Alle merken [A-Z]'>";
+            $text .= "<optgroup label='".__("Alle merken [A-Z]","dds-tools")."'>";
             $text .= json_to_select_options(__DIR__."/assets/merken.json","merk");
             $text .= "</optgroup>";
             break;
@@ -262,8 +262,8 @@ add_shortcode('dds_form', 'dds_form');
 function close_dds_form()
 {
     
-    $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> Bedankt! Het bericht is succesvol verstuurd.</div>";
-    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> Error! Bekijk de velden en probeer opnieuw</div>";
+    $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> ".__("Bedankt! Het bericht is succesvol verstuurd.","dds-tools")."</div>";
+    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> ".__("Error! Bekijk de velden en probeer opnieuw.","dds-tools")."</div>";
     $form .= "</form>";
     return $form;
 }
@@ -280,7 +280,7 @@ function dds_submit($atts)
         $dds_submit .= "<button type='submit' class='dds_form_submit'>".$submit_ph."</button>";
     }
     else{
-        $dds_submit .= "<button type='submit' class='dds_form_submit'>Versturen</button>";
+        $dds_submit .= "<button type='submit' class='dds_form_submit'>".__("Versturen","dds-tools")."</button>";
     }
     
 
@@ -339,8 +339,8 @@ add_shortcode('dds_form2', 'dds_form2');
 function close_dds_form2()
 {
    
-    $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> Bedankt! Het bericht is succesvol verstuurd.</div>";
-    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> Error! Bekijk de velden en probeer opnieuw</div>";
+    $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> ".__("Bedankt! Het bericht is succesvol verstuurd.","dds-tools")."</div>";
+    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> ".__("Error! Bekijk de velden en probeer opnieuw","dds-tools")."</div>";
     $form .= "</form>";
     return $form;
 }

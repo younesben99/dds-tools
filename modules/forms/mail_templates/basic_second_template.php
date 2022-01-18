@@ -154,7 +154,7 @@ if(!empty($sp_dealer_tel)){
         <?php
         if(!empty($imagelinks)){
             ?>
-            <h3>Foto's:</h3>
+            <h3><?php echo __("Foto's:","dds-tools"); ?></h3>
             <?php
             foreach ($imagelinks as $value) {
                 ?>
@@ -171,8 +171,8 @@ if(!empty($sp_dealer_tel)){
     </tr>
     <tr style='background:#2665b8;'>
         <td>
-            <h3 style='text-align:center;color:white;'>Sneller uw auto verkopen?</h3>
-<h5 style='text-align:center;color:white;font-weight:300;'>Neem telefonisch contact met ons op</h5>
+            <h3 style='text-align:center;color:white;'><?php echo __("Sneller uw auto verkopen?","dds-tools"); ?></h3>
+<h5 style='text-align:center;color:white;font-weight:300;'><?php echo __("Neem telefonisch contact met ons op","dds-tools"); ?></h5>
         </td>
     </tr>
 
@@ -183,13 +183,13 @@ if(!empty($sp_dealer_tel)){
     <tr style='margin: 25px 0;display: block;'>
         <td style='max-width:70%;width:70%;'>
         
-        <h4 style='text-align:left;font-weight:500;'>Bel ons op voor een taxatie</h4>
+        <h4 style='text-align:left;font-weight:500;'><?php echo __("Bel ons op voor een taxatie","dds-tools"); ?></h4>
         <p style='font-size:14px;'>
-        Onze expert schatten de waarde van uw wagen in, en u ontvangt een bod. Dit bod is natuurlijk vrijblijvend.</p>
+        <?php echo __("Onze expert schatten de waarde van uw wagen in, en u ontvangt een bod. Dit bod is natuurlijk vrijblijvend.","dds-tools"); ?></p>
         <ul class='voordelenlist'>
-        <li><span style='color:green;'>✓</span> Ontvang direct de beste prijs</li>
-        <li><span style='color:green;'>✓</span> Aankoop van alle wagens</li>
-        <li><span style='color:green;'>✓</span> Ontvang het bedrag via overschrijving</li>
+        <li><span style='color:green;'>✓</span> <?php echo __("Ontvang direct de beste prijs","dds-tools"); ?></li>
+        <li><span style='color:green;'>✓</span> <?php echo __("Aankoop van alle wagens","dds-tools"); ?></li>
+        <li><span style='color:green;'>✓</span> <?php echo __("Ontvang het bedrag via overschrijving","dds-tools"); ?></li>
         </ul>
         </td>
         <td style='max-width:30%;width:30%;text-align: right;'><img src="http://digiflowroot.be/images/phone-call-2.png" alt=""></td>
@@ -216,7 +216,7 @@ if(!empty($sp_dealer_tel)){
 <!-- ** Bottom Message
 ----------------------------------->
 <p style='text-align: center; color: #666666; font-size: 12px; margin: 10px 0;'>
-    <?php echo($company); ?> | Copyright © <?php echo date('Y'); ?>. Alle&nbsp;rechten&nbsp;voorbehouden.<br />.
+    <?php echo($company); ?> | <?php echo __("Copyright","dds-tools"); ?> © <?php echo date('Y'); ?>. <?php echo __("Alle&nbsp;rechten&nbsp;voorbehouden.","dds-tools"); ?><br />.
 </p>
 
 </center>

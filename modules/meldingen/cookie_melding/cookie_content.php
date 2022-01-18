@@ -78,12 +78,12 @@ $privacyurl = get_site_url() . "/privacybeleid";
 ?>
 <div class="cookies_wrap" style="display:none;">
 <div class="cookies_close" style="cursor:pointer;">&#x2715</div>
-<p>We gebruiken cookies om ervoor te zorgen dat we u de beste ervaring op onze website kunnen aanbieden.<br>
+<p><?php echo __("We gebruiken cookies om ervoor te zorgen dat we u de beste ervaring op onze website kunnen aanbieden.","dds-tools"); ?><br>
 <a href="<?php 
 echo $privacyurl;
-?>" class="privacylink">Privacyverklaring</a>
+?>" class="privacylink"><?php echo __("Privacyverklaring","dds-tools"); ?></a>
 </p>
-<button class="cookie_allow" id="cookie_allow">Akkoord</button>
+<button class="cookie_allow" id="cookie_allow"><?php echo __("Akkoord","dds-tools"); ?></button>
 </div>
 
 <script>
