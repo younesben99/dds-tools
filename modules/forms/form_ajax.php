@@ -101,6 +101,11 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     $valtemp = array_values($value);
                     $pagelink = $valtemp[0];
                 }
+                if(array_key_exists("sendto",$value)){
+                    $valtemp = array_values($value);
+                    $sendto = $valtemp[0];
+                }
+
             }
 
            
@@ -150,7 +155,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     if($name == "Datum"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
                     }
-                    if($name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle"){
+                    if($name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto"){
                         $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                     }
                 }
@@ -174,7 +179,11 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
 
 
             $to = $sp_contactmail;
-       
+            
+
+            if(!empty($sendto)){
+                $to = $sendto;
+            }
 
             $headers = 'From: '. $sp_contactmail . "\r\n" .
                 'Reply-To: ' . $client_email . "\r\n" .

@@ -105,7 +105,7 @@
                 if ($name == "Datum") {
                     $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
                 }
-                if ($name !== "Js_active" && $name !== "Formtype" && $name !== "Dds_form_type" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle") {
+                if ($name !== "Js_active" && $name !== "Formtype" && $name !== "Dds_form_type" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto") {
                     $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                 }
             }
