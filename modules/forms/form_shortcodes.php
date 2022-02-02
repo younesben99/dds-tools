@@ -329,11 +329,15 @@ function dds_form2($atts)
         }
         
     }
+    if (!empty($atts["sendto"])) {
+        $sendto = $atts["sendto"];
+    }
     
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' class='dds_form main_level2 ".$style."' style='display:none;'>";
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='mail_level2' />";
     $form .= "<input type='hidden' class='dds_form_type merklevel2' name='merk' value='' />";
     $form .= "<input type='hidden' class='dds_form_type modellevel2' name='model' value='' />";
+    $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
     return $form;
 }
 
