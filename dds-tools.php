@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "4.5";
+$dds_version = "4.6";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 4.5
+Version: 4.6
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -21,11 +21,14 @@ include(__DIR__."/modules/tracking_codes/analytics_parser.php");
 include(__DIR__."/modules/search/dds_car_search.php");
 include(__DIR__."/modules/forms/form_shortcodes.php");
 include(__DIR__."/modules/shortcodes/dds_shortcodes.php");
+include(__DIR__."/modules/wizard/wizard.php");
 
+wp_enqueue_script( 'jquerysteps', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/jquery.steps.min.js?v='.$dds_version, array ( 'jquery' ), null, true);
+wp_enqueue_script( 'dds_wizard', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_wizard.js?v='.$dds_version, array ( 'jquery' ), null, true);
 //select2
 wp_enqueue_script( 'select2_js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array ( 'jquery' ), null, true);
 wp_enqueue_style( 'select2_css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css' );
-wp_enqueue_script( 'main_dds_js', get_site_url() .'/wp-content/plugins/dds-tools/assets/js/dds_functions.js');
+wp_enqueue_script( 'main_dds_js', get_site_url() .'/wp-content/plugins/dds-tools/assets/js/dds_functions.js' );
 //dropzone
 wp_enqueue_style( 'dropzonebasiccss', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css' );
 wp_enqueue_script( 'dropzonejs', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js', array ( 'jquery' ), null, true);
@@ -37,7 +40,7 @@ wp_enqueue_script( 'dds_form_js', get_site_url() . '/wp-content/plugins/dds-tool
 wp_enqueue_style( 'fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' );
 
 wp_localize_script('dds_form_js','dds_main_vars',array('siteurl'=>get_site_url()));
-
+wp_enqueue_style( 'dds_wizard', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_wizard.css?v='.$dds_version );
 wp_enqueue_script('dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_car_search.js?v='.$dds_version, array( 'jquery' ), false, true);
 
 function dds_nlDate($datum){ 
