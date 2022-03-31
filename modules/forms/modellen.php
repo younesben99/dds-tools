@@ -39,7 +39,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
     
     array_sort_by_column($sortingnames, 'name');
 
-
+    $option = "";
     foreach($sortingnames as $value){
         if($value["makeId"] == $merkid){
             $option .= "<option data-parent='".$value["makeId"]."' value='".$value["name"]."'>".$value["name"]."</option>";

@@ -253,6 +253,7 @@ function dds_form($atts)
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='".$formtype."' />";
     $form .= "<input type='hidden' name='merk_hidden' class='merk_hidden' />";
     $form .= "<input type='hidden' name='model_hidden' class='model_hidden' />";
+    $form .= "<input type='hidden' class='wizardlist' name='wizardlist' value='' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
     //dds_hp is een honeypot veld
     $form .= "<input type='text' name='firstname' style='opacity:0;position:absolute;top:0;left:0;height:0;width:0;z-index:-1;' autocomplete='off' tabindex='-1' />";

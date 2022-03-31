@@ -153,11 +153,29 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 
                 if(!empty($value)){
                     if($name == "Datum"){
-                        $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
+                        $mail_main_con .= "<tr><td class='nametd'>". $name . "</td><td><b>" . dds_nlDate(date("l d F Y", $value)) . "</b></td></tr>";
                     }
-                    if($name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto"){
-                        $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
+                    if($name == "Wizardlist"){
+
+                        $wizard_json = json_decode($value,true);
+                        
+                        
+                         foreach($wizard_json as $key => $value){
+                             if(is_array($value)){
+                                $value = implode(" ",$value);
+                                $mail_main_con .= "<tr><td class='nametd'>".$key."</td><td><b>" . $value . "</b></td></tr>";
+                             }
+                             else{
+                                $mail_main_con .= "<tr><td class='nametd'>".$key."</td><td><b>" . $value . "</b></td></tr>";
+                             }
+                             
+                         }
+                       
                     }
+                    if($name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto"){
+                        $mail_main_con .= "<tr><td class='nametd'>". $name . "</td><td><b>" . $value . "</b></td></tr>";
+                    }
+                    
                 }
                 
                 

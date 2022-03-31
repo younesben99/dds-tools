@@ -40,6 +40,7 @@
 
 .mail_main_table td{
         padding: 10px 0px;
+        text-align:right;
     }
     table{
         border-collapse: collapse;
@@ -50,6 +51,16 @@
 }
 .mail_main_table tr:last-child {
     border-bottom: 0px solid #efefef;
+}
+.nametd{
+    color:#6a6a6a;
+    width: 50%;
+    text-align:left !important;
+}
+@media only screen and (max-width: 650px) {
+    .nametd{
+    width: 100%;
+}
 }
 </style>
 </head>
