@@ -454,6 +454,25 @@ cursor:pointer;
 .selectparent{
     display:flex;
 }
+
+
+button.dds_next {
+    margin: 15px 0;
+    width: 150px;
+    color: white;
+    border-color: #21b422 !important;
+    outline:0 !important;
+    background: #21b422;
+}
+button.dds_next:focus,button.dds_next:hover {
+
+    color: white;
+    border-color: #1a991a;
+    background: #1a991a;
+}
+.singleinputwrap {
+    margin: 0 20px;
+}
 @media only screen and (max-width:880px) {
     .wizard > .steps > ul > li {
         width: 20px;
@@ -471,12 +490,12 @@ cursor:pointer;
     font-size: 14px;
 }
 .optieswrap {
-    justify-content: space-around;
+    justify-content: center;
 }
 .singleoptiewrap {
     width: 150px;
     height: 150px;
-    margin: 5px 0;
+    margin: 5px 5px;
 }
 .wizard > .steps {
     left: 0;

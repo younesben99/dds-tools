@@ -86,4 +86,47 @@ function dds_wizard_optie($atts) {
     return $step;
 } 
 add_shortcode('dds_wizard_optie', 'dds_wizard_optie');
+
+
+function dds_wizard_input($atts) { 
+ 
+    $a = shortcode_atts( array(
+        'placeholder' => ''
+    ), $atts );
+   
+
+    $step .= '<div class="singleinputwrap">';
+    
+    
+
+    $step .= '<input type="text" class="dds_wizard_input" placeholder="'.$a['placeholder'].'"/>';
+
+    $step .= '</div>'; 
+     
+
+    return $step;
+} 
+add_shortcode('dds_wizard_input', 'dds_wizard_input');
+
+
+function dds_wizard_volgende($atts) { 
+ 
+    $a = shortcode_atts( array(
+        'text' => 'Next'
+    ), $atts );
+   
+
+
+    
+    
+
+    $step .= '<button type="text" class="dds_next">'.$a['text'].'</button>';
+
+
+     
+
+    return $step;
+} 
+add_shortcode('dds_wizard_volgende', 'dds_wizard_volgende');
+
 ?>

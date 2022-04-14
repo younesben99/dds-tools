@@ -18,6 +18,20 @@ jQuery( document ).ready(function($) {
         autoFocus: true
     });
 
+    $(".dds_next").on("click",function(){
+        $("#ddswizard").steps("next");
+
+    });
+
+    $(".dds_wizard_input").on("change",function(){
+        var title = $(this).closest("section").find("h2").text();
+        console.log(title);
+        var data = $(this).val();
+        wlist[title] = data;
+        console.log(wlist);
+        $(".wizardlist").val(JSON.stringify(wlist));
+    });
+    
     $(".singleoptiewrap").on("click",function(){
         var title = $(this).closest("section").find("h2").text();
         console.log(title);
