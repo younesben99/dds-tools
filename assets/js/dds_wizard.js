@@ -18,13 +18,13 @@ jQuery( document ).ready(function($) {
         autoFocus: true
     });
 
-    $(".dds_next").on("click",function(){
+    $("#ddswizard .dds_next").on("click",function(){
         $("#ddswizard").steps("next");
         console.log(wlist);
 
     });
 
-    $(".dds_wizard_input").on("change",function(){
+    $("#ddswizard .dds_wizard_input").on("change",function(){
         var title = $(this).closest("section").find("h2").text();
         //console.log(title);
         var data = $(this).val();
@@ -33,7 +33,7 @@ jQuery( document ).ready(function($) {
         $(".wizardlist").val(JSON.stringify(wlist));
     });
     
-    $(".singleoptiewrap").on("click",function(){
+    $("#ddswizard .singleoptiewrap").on("click",function(){
         var title = $(this).closest("section").find("h2").text();
         //console.log(title);
         var data = $(this).text();
@@ -44,7 +44,7 @@ jQuery( document ).ready(function($) {
         $(".wizardlist").val(JSON.stringify(wlist));
     });
     
-    $("select[name='model']").on("select2:close",function(e){
+    $("#ddswizard select[name='model']").on("select2:close",function(e){
         
         setTimeout(function() {
             $('.select2-container-active').removeClass('select2-container-active');
@@ -55,7 +55,7 @@ jQuery( document ).ready(function($) {
        
     });
     
-    $("select").on("select2:select",function(e){
+    $("#ddswizard select").on("select2:select",function(e){
         var data = e.params.data.text;
         var title = $(this).closest("section").find("h2").text();
 
@@ -76,7 +76,7 @@ jQuery( document ).ready(function($) {
         wlist[title][label] = data;
  
         //console.log(wlist);
-        $(".wizardlist").val(JSON.stringify(wlist));
+        $("#ddswizard .wizardlist").val(JSON.stringify(wlist));
        
     })
 });
