@@ -45,6 +45,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
             $sp_dealer_handelsnaam = $dds_settings_options['dealer_handelsnaam_8'];
             $primary_color = $dds_settings_options['primary_color'];
             $hover_color = $dds_settings_options['hover_color'];
+            $sp_locatie = $dds_settings_options['dealer_city_9'];
 
             if(empty($sp_contactmail)){
                $sp_contactmail = $digiflow_settings_options['company_mail'];
@@ -105,6 +106,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                     $valtemp = array_values($value);
                     $sendto = $valtemp[0];
                 }
+                if(array_key_exists("tijd",$value)){
+                    $valtemp = array_values($value);
+                    $tijd = $valtemp[0];
+                }
 
             }
 
@@ -123,8 +128,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                         $subject = "Afspraak geboekt voor de wagen: ".$merk." ". $model;
                     }
                     else{
-                        $mail_title = "Afspraak is succesvol geboekt.";
-                        $subject = "Afspraak is succesvol geboekt.";
+                        $mail_title = $pagetitle." | Afspraak is succesvol geboekt.";
+                        $subject = $pagetitle." | Afspraak is succesvol geboekt.";
                     }
                     break;
                 case 'beschikbaarheid':
@@ -153,6 +158,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 
                 if(!empty($value)){
                     if($name == "Datum"){
+                        $unix_datum = intval($value);
+                        $mail_main_con .= "<tr><td class='nametd'>Locatie</td><td><b><a href='https://www.google.com/maps?q=".urlencode($sp_locatie)."'>".$sp_locatie."</a></b></td></tr>";
                         $mail_main_con .= "<tr><td class='nametd'>". $name . "</td><td><b>" . dds_nlDate(date("l d F Y", $value)) . "</b></td></tr>";
                     }
                     if($name == "Wizardlist"){
@@ -238,6 +245,34 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 $company = $sp_dealer_handelsnaam;
                 ob_start();
                 include(__DIR__.'/mail_templates/basic_second_template.php');
+                $secondmailcontent = ob_get_clean();
+
+                try {
+                    $sent = wp_mail($client_email , $second_subject, $secondmailcontent, $headers2);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+           
+           
+            }
+
+            // 2de mail afspraak
+
+            if($dds_form_type == "afspraak" && !empty($client_email)){
+
+                $headers2 = 'From: '. $sp_contactmail . "\r\n" .
+                'Reply-To: ' . $sp_contactmail . "\r\n" .
+                'Content-Type: text/html' . "\r\n" .
+                'charset=UTF-8'."\r\n";
+               
+                $second_subject = $pagetitle . " | Uw afspraak is succesvol geboekt.";
+                $second_mail_title = $pagetitle . " | Uw afspraak is succesvol geboekt.";
+                $second_mail_main_con = "<h3>Uw afspraak is geboekt:</h3>".$mail_main_con;
+                $companytel = $sp_dealer_tel;
+                $company_png = $sp_dealer_handelsnaam;
+                $company = $sp_dealer_handelsnaam;
+                ob_start();
+                include(__DIR__.'/mail_templates/afspraak_second_template.php');
                 $secondmailcontent = ob_get_clean();
 
                 try {
