@@ -46,7 +46,8 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
             $primary_color = $dds_settings_options['primary_color'];
             $hover_color = $dds_settings_options['hover_color'];
             $sp_locatie = $dds_settings_options['dealer_city_9'];
-
+            $sp_locatielink = $dds_settings_options['sp_locatie_link'];
+            
             if(empty($sp_contactmail)){
                $sp_contactmail = $digiflow_settings_options['company_mail'];
             }
@@ -159,7 +160,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_REQ
                 if(!empty($value)){
                     if($name == "Datum"){
                         $unix_datum = intval($value);
-                        $mail_main_con .= "<tr><td class='nametd'>Locatie</td><td><b><a href='https://www.google.com/maps?q=".urlencode($sp_locatie)."'>".$sp_locatie."</a></b></td></tr>";
+                        $mail_main_con .= "<tr><td class='nametd'>Locatie</td><td><b><a href='".$sp_locatielink."'>".$sp_locatie."</a></b></td></tr>";
                         $mail_main_con .= "<tr><td class='nametd'>". $name . "</td><td><b>" . dds_nlDate(date("l d F Y", $value)) . "</b></td></tr>";
                     }
                     if($name == "Wizardlist"){

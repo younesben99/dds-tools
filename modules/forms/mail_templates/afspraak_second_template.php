@@ -215,7 +215,7 @@ $gcl = make_google_calendar_link($pagetitle . " | Afspraak", $unix_datum,  $unix
     margin-right: 10px;">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/1024px-Google_Calendar_icon_%282020%29.svg.png" height="16" width="16"/></div> Google Calendar</a>
 
-    <a href="<?php echo("https://www.google.com/maps?q=".urlencode($sp_locatie)); ?>" target="_blank" style="border-radius: 5px;
+    <a href="<?php echo($sp_locatielink);?>" target="_blank" style="border-radius: 5px;
     text-decoration: none;
     background-color: #f5f5f5;
     color: #232530;
