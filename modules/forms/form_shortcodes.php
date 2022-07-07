@@ -96,6 +96,54 @@ function dds_select($atts)
             $data_hide = " data-hide='true' ";
             $hideinput = "display:none;";
         }
+        
+        if ($atts["d_range"]) {
+           
+            $d_range = $atts["d_range"];
+           
+        }
+        else{
+            $d_range = "ma,di,wo,do,vr,za";
+        }
+        if ($atts["t_interval"]) {
+           
+            $t_interval = intval($atts["t_interval"]);
+           
+        }
+        else{
+            $t_interval = 600;
+        }
+
+        if ($atts["start_uur"]) {
+           
+            $start_uur = intval($atts["start_uur"]);
+           
+        }
+        else{
+            $start_uur = 10;
+        }
+        if ($atts["aantal_uren"]) {
+           
+            $aantal_uren = intval($atts["aantal_uren"]);
+           
+        }
+        else{
+            $aantal_uren = 8;
+        }
+        if ($atts["excl"]) {
+           
+            $excl_uren = [];
+
+            $excl_uren["dag"] = substr($atts["excl"], 0, 2);
+            $excl_uren["t_range_start"] = get_string_between($atts["excl"],"(","-");
+            $excl_uren["t_range_end"] = get_string_between($atts["excl"],"-",")");
+            $excl_uren["interval"] = $t_interval;
+           
+        }
+      
+        
+
+    
     }
 
     
@@ -162,21 +210,63 @@ function dds_select($atts)
             for ($i=0; $i < 30; $i++) { 
                 array_push($datums, strtotime($myDate . '+ '.$i.'days'));
             }
+            
+
+            //gekozen datums array klaarmaken
+            
+            $d_range = explode(',', $d_range);
+            foreach($d_range as $index => $day){
+                switch ($day) {
+                    case 'ma':
+                        $d_range[$index] = "Monday";
+                        break;
+                    case 'di':
+                        $d_range[$index] = "Tuesday";
+                        break;
+                    case 'wo':
+                        $d_range[$index] = "Wednesday";
+                        break;
+                    case 'do':
+                        $d_range[$index] = "Thursday";
+                        break;
+                    case 'vr':
+                        $d_range[$index] = "Friday";
+                        break;
+                    case 'za':
+                        $d_range[$index] = "Saturday";
+                        break;
+                    case 'zo':
+                        $d_range[$index] = "Sunday";
+                        break;    
+                }
+            }
+
+
             foreach($datums as $date){
                 $weekday = date('l', $date);
-                if ($weekday !== "Sunday") {
-                    $text .=  "<option value=".$date.">".dds_nlDate(date("l d F Y", $date))."</option>";
-                }   
+                if(in_array($weekday,$d_range)){
+
+                    $dagvol = dds_nlDate(date("l d F Y", $date));
+                    $dagkort = substr(strtolower(dds_nlDate(date("l", $date))),0,2);
+                    $text .=  "<option value=".$date." data-dag='".$dagkort."'>".$dagvol."</option>";   
+                    
+                }
             }
             break;
         case 'tijd':
+
+
             $tijdstippen = array();
 
-            $timebuffer = mktime(9,0,0);
+            $start_uur = $start_uur - 1;
+            $aantal_uren = $aantal_uren + 1;
+
+            
+            $timebuffer = mktime($start_uur,0,0);
             
             
-            $interval_secs = apply_filters('custom_testrit_interval', 900);
-            
+            $interval_secs = $t_interval;
+
             if(!empty($intervalmins)){
                 $interval_secs = $intervalmins * 60;
             }
@@ -185,7 +275,7 @@ function dds_select($atts)
 
 
             
-            $time_max = 9 * $interval_remainer;
+            $time_max = $aantal_uren * $interval_remainer;
         
         
             for ($i=0; $i < $time_max; $i++) { 
@@ -205,6 +295,13 @@ function dds_select($atts)
     }
 
     $text .= "</select>";
+
+    if(!empty($excl_uren)){
+        if(is_array($excl_uren)){
+            $text .= "<div class='excl_tijd' data-excl-tijd='".json_encode($excl_uren)."'style='display:none !important;opacity:0;width:0;height:0;position:absolute;'></div>";
+        }
+    }
+    
     
     $text .= "</div>";
 

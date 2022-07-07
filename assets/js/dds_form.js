@@ -3,7 +3,50 @@ Dropzone.autoDiscover = false;
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  
+function addMinutes(date, minutes) {
+    return new Date(date.getTime() + minutes*60000);
+}
+ function get_time_between(start_range,end_range,interval){
+
+    var interval_minutes = interval / 60;
+    var ranges = [];
+    dates = [];
+
+    date_loop = new Date("01/01/1970 "+start_range);
+    end_range = new Date("01/01/1970 "+end_range).toLocaleTimeString('nl-BE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+
+
+      ranges.push(date_loop.toLocaleTimeString('nl-BE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }));
+    while (date_loop.toLocaleTimeString('nl-BE', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }) !== end_range) {
+        
+
+        ranges.push(addMinutes(date_loop, interval_minutes).toLocaleTimeString('nl-BE', {
+            hour: '2-digit',
+            minute: '2-digit',
+          }));
+        
+        date_loop = addMinutes(date_loop, interval_minutes);
+        
+
+        
+    }
+
+
+
+
+    return ranges;
+
+
+ } 
 jQuery(document).ready(function($){
 
     $("#js_active").val("js");
@@ -30,7 +73,13 @@ jQuery(document).ready(function($){
                     "noResults": function(){
                         return "Geen resultaten gevonden";
                     }
-                }
+                },
+                templateResult: function(option) {
+                    if(option.element && (option.element).hasAttribute('hidden')){
+                       return null;
+                    }
+                    return option.text;
+                 }
             });
         });
         
@@ -252,5 +301,68 @@ jQuery(document).ready(function($){
         $(".main_level2 input[name=model]").val($(this).val());
 
      });
+
+
+     //excl tijd afspraken
+
+
+    var excl = {};
+    var ranges = [];
+    if ( $(".excl_tijd").attr("data-excl-tijd") !== undefined){
+        try {
+            excl = JSON.parse($(".excl_tijd").attr("data-excl-tijd"));
+            console.log("excl:");
+            console.log(excl);
+
+
+            var start_range = excl.t_range_start;
+            var end_range = excl.t_range_end;
+            var interval = excl.interval;
+
+            ranges = get_time_between(start_range,end_range,interval);
+
+            console.log("ranges:");
+            console.log(ranges);
+
+
+        } catch(e) {
+            console.error(e); 
+        }
+        
+    }
+     
+    $(".dds_input_group select[name=datum]").on("select2:select",function(e){
+       
+
+       
+
+        var selected_dag = $(this).children("option:selected").attr("data-dag");
+        if(selected_dag == excl.dag){
+            
+            
+            $(".dds_input_group select[name=tijd] option").each(function(){
+      
+
+                // ga de ranges af en hide één per één
+                if(ranges.includes($(this).val())){
+                    
+                   
+                    $(this).attr("hidden",true);
+                    
+                }
+
+
+            });
+        }
+        else{
+             // zet options terug visible
+            $(".dds_input_group select[name=tijd] option").each(function(){
+                $(this).removeAttr("hidden");
+            });
+        }
+       
+
+    });
+    
 
 });
