@@ -131,14 +131,22 @@ function dds_select($atts)
             $aantal_uren = 8;
         }
         if ($atts["excl"]) {
-           
-            $excl_uren = [];
 
-            $excl_uren["dag"] = substr($atts["excl"], 0, 2);
-            $excl_uren["t_range_start"] = get_string_between($atts["excl"],"(","-");
-            $excl_uren["t_range_end"] = get_string_between($atts["excl"],"-",")");
-            $excl_uren["interval"] = $t_interval;
-           
+            
+            $atts["excl"] = explode(",",$atts["excl"]);
+
+            
+            $excl_uren = array();
+            foreach ($atts["excl"] as $key => $exclusion) {
+
+            $excl_uren[$key]["dag"] = substr($exclusion, 0, 2);
+            $excl_uren[$key]["t_range_start"] = get_string_between($exclusion,"(","-");
+            $excl_uren[$key]["t_range_end"] = get_string_between($exclusion,"-",")");
+            $excl_uren[$key]["interval"] = $t_interval;
+
+                
+            }
+            
         }
       
         

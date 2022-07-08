@@ -308,20 +308,25 @@ jQuery(document).ready(function($){
 
     var excl = {};
     var ranges = [];
+    
     if ( $(".excl_tijd").attr("data-excl-tijd") !== undefined){
         try {
             excl = JSON.parse($(".excl_tijd").attr("data-excl-tijd"));
-            console.log("excl:");
-            console.log(excl);
+
+            $(excl).each(function(i){
 
 
-            var start_range = excl.t_range_start;
-            var end_range = excl.t_range_end;
-            var interval = excl.interval;
+                var start_range = excl[i].t_range_start;
+                var end_range = excl[i].t_range_end;
+                var interval = excl[i].interval;
+                var dag = excl[i].dag;
+                ranges[dag] = new Array();
+                ranges[dag].push(get_time_between(start_range,end_range,interval));
 
-            ranges = get_time_between(start_range,end_range,interval);
+         
 
-            console.log("ranges:");
+            });
+            
             console.log(ranges);
 
 
@@ -333,33 +338,40 @@ jQuery(document).ready(function($){
      
     $(".dds_input_group select[name=datum]").on("select2:select",function(e){
        
-
+        $(".dds_input_group select[name=tijd] option").each(function(){
+            $(this).removeAttr("hidden");
+        });
        
 
         var selected_dag = $(this).children("option:selected").attr("data-dag");
-        if(selected_dag == excl.dag){
+
+       
+        if(!$.isEmptyObject(excl)){
+        $(excl).each(function(index){
+
+            if(selected_dag == excl[index].dag){
+                
+               var dag = excl[index].dag;
             
-            
-            $(".dds_input_group select[name=tijd] option").each(function(){
-      
-
-                // ga de ranges af en hide één per één
-                if(ranges.includes($(this).val())){
+                $(".dds_input_group select[name=tijd] option").each(function(){
                     
-                   
-                    $(this).attr("hidden",true);
+                  
                     
-                }
+                    if(ranges[dag][0].includes($(this).val())){
+
+                        $(this).attr("hidden",true);
+                        
+                    }
+    
+    
+                });
+            }
 
 
-            });
-        }
-        else{
-             // zet options terug visible
-            $(".dds_input_group select[name=tijd] option").each(function(){
-                $(this).removeAttr("hidden");
-            });
-        }
+        });
+    }
+
+        
        
 
     });
