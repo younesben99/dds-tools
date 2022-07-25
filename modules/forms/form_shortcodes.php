@@ -327,7 +327,9 @@ function dds_form($atts)
         if($atts['style'] == "classic"){
             $style = "dds_form_classic";
         }
-        
+        if($atts['style'] == "classic_big"){
+            $style = "dds_form_classic_big";
+        }
         $formtype = $atts['type'];
         switch ($formtype) {
             case 'aankoop':
@@ -338,6 +340,9 @@ function dds_form($atts)
                 break;
             case 'afspraak':
                 $formtype = "afspraak";
+                break;
+            case 'bodh':
+                $formtype = "bodh";
                 break;
             default:
                 $formtype = "contactform";
@@ -350,16 +355,37 @@ function dds_form($atts)
     if (!empty($atts["sendto"])) {
         $sendto = $atts["sendto"];
     }
+
+    if(array_key_exists("redirect",$atts)){
+        if($atts['redirect'] !== ""){
+            $redirect = $atts['redirect'];
+        }else{
+            $redirect = "NO_REDIRECT";
+        }
+        
+    }else{
+        $redirect = "bedankt";
+    }
     
     
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' ".$formid." class='main_level1 dds_form ".$style."'>";
-    $form .= "<input type='hidden' name='pagetitle' value='".get_the_title()."' />";
-    $form .= "<input type='hidden' name='pagelink' value='".get_permalink()."' />";
+    
+    if(is_archive()){
+        $form .= "<input type='hidden' name='pagetitle' value='Stock' />";
+        $form .= "<input type='hidden' name='pagelink' value='".get_post_type_archive_link("autos")."' />";
+    }
+    else{
+        $form .= "<input type='hidden' name='pagetitle' value='".get_the_title()."' />";
+        $form .= "<input type='hidden' name='pagelink' value='".get_permalink()."' />";
+    }
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='".$formtype."' />";
     $form .= "<input type='hidden' name='merk_hidden' class='merk_hidden' />";
     $form .= "<input type='hidden' name='model_hidden' class='model_hidden' />";
     $form .= "<input type='hidden' class='wizardlist' name='wizardlist' value='' />";
+    $form .= "<input type='hidden' class='dds_redirect' name='dds_redirect' value='".$redirect."' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
+    $form .= "<input type='hidden' name='bodhlist' value='' />";
+
     //dds_hp is een honeypot veld
     $form .= "<input type='text' name='firstname' style='opacity:0;position:absolute;top:0;left:0;height:0;width:0;z-index:-1;' autocomplete='off' tabindex='-1' />";
     $form .= "<input type='hidden' name='js_active' id='js_active' style='display:none;' />";
@@ -387,7 +413,23 @@ function dds_submit($atts)
         if($atts['ph']){
             $submit_ph = $atts['ph'];
         }
-        $dds_submit .= "<button type='submit' class='dds_form_submit'>".$submit_ph."</button>";
+        $submit_icon;
+        if($atts['icon']){
+            $submit_icon_type = $atts['icon'];
+            if(!empty($submit_icon_type)){
+                $submit_icon = "https://digiflowroot.be/static/images/icons/".$submit_icon_type.".svg";
+            }
+            else{
+                $submit_icon = "";
+            }
+            
+        }
+        if(empty($submit_icon)){
+            $dds_submit .= "<button type='submit' class='dds_form_submit'>".$submit_ph."</button>";
+        }else{
+            $dds_submit .= "<button type='submit' class='dds_form_submit submit_icon_wrap'><div>".$submit_ph."</div><img src='".$submit_icon."' /></button>";
+        }
+        
     }
     else{
         $dds_submit .= "<button type='submit' class='dds_form_submit'>".__("Versturen","dds-tools")."</button>";
@@ -433,16 +475,24 @@ function dds_form2($atts)
         if($atts['style'] == "classic"){
             $style = "dds_form_classic";
         }
+        if($atts['style'] == "classic_big"){
+            $style = "dds_form_classic_big";
+        }
         
     }
     if (!empty($atts["sendto"])) {
         $sendto = $atts["sendto"];
     }
     
+    
+   
+   
+
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' class='dds_form main_level2 ".$style."' style='display:none;'>";
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='mail_level2' />";
     $form .= "<input type='hidden' class='dds_form_type merklevel2' name='merk' value='' />";
     $form .= "<input type='hidden' class='dds_form_type modellevel2' name='model' value='' />";
+    $form .= "<input type='hidden' name='pagelink' value='".get_permalink()."' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
     return $form;
 }

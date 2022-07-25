@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "4.8.6";
+$dds_version = "4.8.9";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 4.8.6
+Version: 4.8.9
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -42,6 +42,7 @@ wp_enqueue_style( 'fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-aw
 wp_localize_script('dds_form_js','dds_main_vars',array('siteurl'=>get_site_url()));
 wp_enqueue_style( 'dds_wizard', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_wizard.css?v='.$dds_version );
 wp_enqueue_script('dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_car_search.js?v='.$dds_version, array( 'jquery' ), false, true);
+
 
 function dds_nlDate($datum){ 
 
@@ -173,6 +174,39 @@ if(!function_exists("get_string_between")){
     return substr($string, $ini, $len);
 }
 
+
 }
+
+
+//slugify
+
+if(!function_exists("slugify")){
+  function slugify($text, string $divider = '-')
+  {
+    // replace non letter or digits by divider
+    $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+  
+    // transliterate
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+  
+    // remove unwanted characters
+    $text = preg_replace('~[^-\w]+~', '', $text);
+  
+    // trim
+    $text = trim($text, $divider);
+  
+    // remove duplicate divider
+    $text = preg_replace('~-+~', $divider, $text);
+  
+    // lowercase
+    $text = strtolower($text);
+  
+    if (empty($text)) {
+      return 'n-a';
+    }
+  
+    return $text;
+  }
+  }
 
  ?>

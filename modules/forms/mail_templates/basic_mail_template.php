@@ -112,17 +112,32 @@ if(!empty($tel)){
     $tellink = "tel:".str_replace(' ', '', $tel);
 
    ?>
-            <p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #254e79; display: inline-block;'>
+            <p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #254e79; display: inline-block;    box-shadow: 0 1px 3px 0 #00000080;'>
 
-<a href='<?php echo($tellink); ?>' style='color: #fff; text-decoration: none;'>Bel <?php echo($tel); ?></a>
+<a href='<?php echo($tellink); ?>' style='color: #fff; text-decoration: none;font-weight:500;'>Bel <?php echo($tel); ?></a>
+
 
 </p>
 
     <?php
 }
 
+
+if($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)){
 ?>
-           
+<br>
+<p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #f5f202; display: inline-block;    box-shadow: 0 1px 3px 0 #00000080;'>
+
+<a href='<?php echo($as_url_link); ?>' style='color: #333333; text-decoration: none;font-weight:500;'>Zoeken op Autoscout</a>
+
+
+</p>
+
+<?php
+}
+
+
+?>
         </td>
     </tr>
 
@@ -157,7 +172,7 @@ if(!empty($tel)){
     width: 100%;
     padding-bottom: 25px;
     font-size: 13px;">
-            <small style="color:#254e79"><em>Verstuurd vanuit: <?php echo($pagelink); ?></em></small>
+            <small style="color:#254e79"><em>Verstuurd vanuit: <?php echo($pagelink_dds); ?></em></small>
             </div>
         </td>
     </tr>

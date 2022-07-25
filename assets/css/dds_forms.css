@@ -40,7 +40,21 @@
     background: white !important;
 }
 
-
+.dds_form_classic_big input,.dds_form_classic_big select {
+    
+    font-size: 15px;
+    border: 1px solid #adadad !important;
+    font-weight: 300;
+    padding: 0 13px !important;
+    border-radius: 4px !important;
+    height: 55px !important;
+    width: 100% !important;
+    background: white !important;
+}
+.dds_form_classic_big input:focus-visible,.dds_form_classic_big select:focus-visible {
+    
+    outline: grey auto 1px;
+}
 
 .dds_form_classic textarea {
     width: 100%;
@@ -379,7 +393,15 @@ strong.select2-results__group {
     padding: 6px 10px !important;
     color: #a0a0a0;
 }
+button.dds_form_submit.submit_icon_wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding:15px 30px;
+    max-width: 350px;
 
+}
 
 
 @media only screen and (max-width: 600px) {

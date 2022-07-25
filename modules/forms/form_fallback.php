@@ -93,8 +93,7 @@
                 break;
         }
     
-        
-        
+               
     
        
         $mail_main_con .= "<table class='mail_main_table' style='width: 100%;'>";
@@ -105,7 +104,7 @@
                 if ($name == "Datum") {
                     $mail_main_con .= "<tr><td>". $name . "</td><td>" . dds_nlDate(date("l d F Y", $value)) . "</td></tr>";
                 }
-                if ($name !== "Js_active" && $name !== "Formtype" && $name !== "Dds_form_type" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto") {
+                if ($name !== "Js_active" && $name !== "Formtype" && $name !== "Dds_form_type" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect") {
                     $mail_main_con .= "<tr><td>". $name . "</td><td>" . $value . "</td></tr>";
                 }
             }
@@ -139,8 +138,8 @@
         if ($sendmail == true) {
             $sent = wp_mail($to, $subject, $mailcontent, $headers);
             if ($sent) {
-                //echo("verstuurd");
-                header('Location: '.$siteurl);
+                echo("verstuurd");
+                //header('Location: '.$siteurl);
 
             } else {
                 echo("error");

@@ -48,7 +48,7 @@ function addMinutes(date, minutes) {
 
  } 
 jQuery(document).ready(function($){
-
+    console.log("dds_forms.js");
     $("#js_active").val("js");
 
     var conversieteller = 0;
@@ -156,7 +156,7 @@ jQuery(document).ready(function($){
 
             return [fielddata];
         }).get();
-
+        console.log(fields);
         $.ajax( {
             url: dds_main_vars.siteurl+"/wp-content/plugins/dds-tools/modules/forms/form_ajax.php",
             method: "POST",
@@ -168,7 +168,8 @@ jQuery(document).ready(function($){
             }
     } )
         .done(function(data) {
-            if(data == "verstuurd"){
+            
+            if(data.trim() == "verstuurd"){
                 
 
                 if(conversieteller == 0){
@@ -196,20 +197,30 @@ jQuery(document).ready(function($){
                 
 
                 if($(currentform).hasClass("main_level1")){
-                    console.log("conversie");
+                    
+                    //console.log("conversie");
                     if($(".main_level2").length){
                         $(".main_level1").hide();
                         $(".main_level2").show();
+                        
                     }else{
                         $(currentform).find(".dds_form_thankyou_notice").slideDown();
                         setTimeout(function(){
-                            window.location.href = '/bedankt';
+                            var redirect = $(currentform).find(".dds_redirect").val(); 
+                            //console.log(redirect);
+                            if(redirect !== undefined && redirect !== "NO_REDIRECT"){
+                                window.location.href = '/'+redirect;
+                            }
+                           
                           }, 2000);
                        
                     }
 
                 }
                 if($(currentform).hasClass("main_level2")){
+                    //hier halen wij de redirect link op vanuit het eerst formulier, PREV wordt gebruikt dus verander de structuur vande forms niet
+                    var redirect = $(currentform).prev().find(".dds_redirect").val(); 
+                    
                     try {
                         gtag('event', "DDS Form verstuurd", {
                             'event_category': window.location.href,
@@ -221,10 +232,14 @@ jQuery(document).ready(function($){
                         
                     }
                     setTimeout(function(){
-                        window.location.href = '/bedankt';
+                        
+                        
+                        if(redirect !== undefined && redirect !== "NO_REDIRECT"){
+                                window.location.href = '/'+redirect;
+                            }
                       }, 2000);
                         
-                    console.log("tweede conversie");
+                    //console.log("tweede conversie");
                     $(currentform).find(".dds_form_thankyou_notice").slideDown();
 
                 }
@@ -234,7 +249,7 @@ jQuery(document).ready(function($){
             }
 
             else{
-                $(currentform)[0].submit();
+               // $(currentform)[0].submit();
                 $(currentform).find(".dds_form_submit").prop( "disabled", false );
                 $(currentform).find(".dds_form_error_notice").slideDown();
                 $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
@@ -246,7 +261,7 @@ jQuery(document).ready(function($){
             $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
         });
         } catch (error) {
-         $(formcatch)[0].submit();
+       //  $(formcatch)[0].submit();
          $(currentform).find(".dds_form_submit").prop( "disabled", false );
          $(currentform).parents().find(".dds_form_error_notice").slideDown();
         
@@ -264,7 +279,7 @@ jQuery(document).ready(function($){
                 
         $(this).closest("form").find("*[data-hide=true]").each(function(){
             if($(this).closest(".dds_input_group").is(":hidden")){
-                console.log($(this));
+                //console.log($(this));
                 $(this).closest(".dds_input_group").slideDown();
             }
             
@@ -282,6 +297,7 @@ jQuery(document).ready(function($){
             $(currentselect).parents(".dds_form").find("select[name=model]").append(data);
             $(currentselect).parents(".dds_form").find("select[name=model]").append("<option value='andere'>Andere</option>");
           });
+        
 
 
 
@@ -294,11 +310,13 @@ jQuery(document).ready(function($){
 
     $(".main_level1 input[name=merk],.main_level1 select[name=merk]").on("change",function(){
        $(".main_level2 input[name=merk]").val($(this).val());
+       $(this).parents("form").find(".merk_hidden").val($(this).val());
     });
 
 
     $(".main_level1 input[name=model],.main_level1 select[name=model]").on("change",function(){
         $(".main_level2 input[name=model]").val($(this).val());
+        $(this).parents("form").find(".model_hidden").val($(this).val());
 
      });
 
