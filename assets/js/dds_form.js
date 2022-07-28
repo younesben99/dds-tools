@@ -48,7 +48,7 @@ function addMinutes(date, minutes) {
 
  } 
 jQuery(document).ready(function($){
-    console.log("dds_forms.js");
+    //console.log("dds_forms.js");
     $("#js_active").val("js");
 
     var conversieteller = 0;
