@@ -4,11 +4,6 @@ add_action ( 'wp_footer', 'fbchat' );
 function fbchat() {
   $digiflow_settings_options = get_option( 'digiflow_settings_option_name' );
    ?>
-<style>
-.fb_dialog_content iframe {
-    bottom: 13% !important;
-}
-</style>
 	<!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
       <script>
