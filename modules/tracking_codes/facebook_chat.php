@@ -29,8 +29,8 @@ function fbchat() {
         attribution="setup_tool"
         page_id="<?php echo($digiflow_settings_options['fb_chat_id_5']); ?>"
   theme_color="<?php echo($digiflow_settings_options['fb_chat_color_6']); ?>"
-  logged_in_greeting="Hallo! Hoe kan ik u helpen?"
-  logged_out_greeting="Hallo! Hoe kan ik u helpen?" mobile_bottom_spacing="100">
+  
+  mobile_bottom_spacing="100">
       </div>
 
 

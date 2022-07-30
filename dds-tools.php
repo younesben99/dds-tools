@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "4.8.11";
+$dds_version = "4.9";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 4.8.11
+Version: 4.9
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -208,5 +208,30 @@ if(!function_exists("slugify")){
     return $text;
   }
   }
+
+
+
+// Remove or unregister unused WordPress Image Sizes
+function cdxn_remove_intermediate_image_sizes($sizes, $metadata) {
+  $disabled_sizes = array(
+      'thumbnail',
+      'medium_large',
+      'large',
+      'post-thumbnail',
+      'post-single-image',
+      'post-large-image',
+      'post-custom-image'
+  );
+  // unset disabled sizes
+  foreach ($disabled_sizes as $size) {
+      if (!isset($sizes[$size])) {
+          continue;
+      }
+      unset($sizes[$size]);
+  }
+  return $sizes;
+}
+// Hook the function
+add_filter('intermediate_image_sizes_advanced', 'cdxn_remove_intermediate_image_sizes', 10, 2);
 
  ?>
