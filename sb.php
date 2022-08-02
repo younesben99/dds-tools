@@ -3,68 +3,46 @@
 include(__DIR__."/../../../wp-load.php");
 
 
-// function iterate_dir($path) {
-//     $files = array( );
-//     if (is_dir($path) & is_readable($path)) {
-//         $dir = dir($path);
-//         while (false !== ($file = $dir->read( ))) {
-//             // skip . and .. 
-//             if (('.' == $file) || ('..' == $file)) {
-//                 continue;
-//             }
-//             if (is_dir("$path/$file")) {
-//                 $files = array_merge($files, iterate_dir("$path/$file"));
-//             } else {
-//                 array_push($files, $file);
-
-//                 if(
-//                     strpos($file,"225x") ||
-//                      strpos($file,"768x") || 
-//                      strpos($file,"1024x")|| 
-//                      strpos($file,"150x")
-//                      ){
-//                        //unlink ($path."/".$file);
-                       
-                       
-//                    }
-              
-//             }
-//         }
-//         $dir->close( );
-//     } 
-//     return $files;
-// }
 
 
 
 
-// $files = iterate_dir(__DIR__."/../../uploads/2022_fa/");
-// $counter1 = 0;
-// $counter2 = 0;
-// $counter3 = 0;
-// foreach($files as $file){
-//     $counter3++;
-    
-//     if(
-//         strpos($file,"225x") ||
-//          strpos($file,"768x") || 
-//          strpos($file,"1024x")
-//          ){
-           
-//            $counter1++;
-         
-//        }
-//        else{
-//         if($counter2 < 2100){
-//           //  var_dump($file);
-//         }
+
+
+
+
+
+//wp media library
+
+
+$ids = get_posts( 
+    array(
+        'post_type'      => 'autos', 
+        'post_status'    => 'any', 
+        'posts_per_page' => -1,
+    ) 
+);
+$images = array();
+$counter1 = 0;
+
+foreach ( $ids as $id ){
+    $post_status = get_post_meta( $id->ID, '_car_post_status_key', true );
+    $gal = get_post_meta( $id->ID, 'vdw_gallery_id', true );
+   
+    if($post_status == "archief"){
+        
+      
+        for ($i=1; $i < count($gal); $i++) { 
+        
+             wp_delete_attachment($gal[$i]);
+
+             $counter1++;
+          
+        }
        
-//            $counter2++;
-//        }
-// }
-// echo("totaal: ".$counter3." innodes<br>");
-// echo("behoud: ".$counter2."<br>");
-// echo("verwijder: ".$counter1 . "<hr>");
+    }
+   
+}
+echo("totaal: ".$counter1." verwijderd<br>");
 
-
-
+//verwijder van archief autos alle fotos behalve de eerste

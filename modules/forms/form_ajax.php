@@ -26,8 +26,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
             if (!empty($fields["telefoonnummer"])) $tel = $fields["telefoonnummer"];
             if (!empty($fields["merk"])) $merk = $fields["merk"];
             if (!empty($fields["model"])) $model = $fields["model"];
-            if (!empty($merk)) $merk = $fields["merk"];
-            if (!empty($model)) $model = $fields["model"];
+            if (empty($merk)) $merk = $fields["merk_hidden"];
+            if (empty($model)) $model = $fields["model_hidden"];
             if (!empty($fields["emailadres"])) $client_email = $fields["emailadres"];
             if (!empty($fields["bouwjaar"])) $bouwjaar = $fields["bouwjaar"];
             if (!empty($fields["brandstof"])) $brandstof = $fields["brandstof"];
@@ -138,8 +138,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                     }
                     break;
                 case 'beschikbaarheid':
-                    $mail_title = "Contactbericht voor de volgende wagen: " . $merk . " " . $model;
-                    $subject = "Contactbericht voor de volgende wagen: " . $merk . " " . $model;
+                    $mail_title = "Contactbericht: " . $merk . " " . $model;
+                    $subject = "Contactbericht: " . $merk . " " . $model;
                     break;
                 case 'mail_level2':
                     $mail_title = "Extra gegevens: " . $merk . " " . $model;
@@ -179,6 +179,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                         foreach ($wizard_json as $key => $value) {
                             if (is_array($value)) {
                                 $value = implode(" ", $value);
+
+                              
+
                                 $mail_main_con .= "<tr><td class='nametd'>" . $key . "</td><td><b>" . $value . "</b></td></tr>";
                             } else {
                                 $mail_main_con .= "<tr><td class='nametd'>" . $key . "</td><td><b>" . $value . "</b></td></tr>";
@@ -186,13 +189,43 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                         }
                     }
                     if ($name !== "Bodhlist" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect") {
+                        
+                   
+
+                          switch ($name) {
+                                    case 'Merk':
+                                       $name = __("Merk","dds-tools");
+                                        break;
+                                    case 'Model':
+                                        $name = __("Model","dds-tools");
+                                        break;
+                                    case 'Brandstof':
+                                        $name = __("Brandstof","dds-tools");
+                                        break;
+                                    case 'Bouwjaar':
+                                        $name = __("Bouwjaar","dds-tools");
+                                        break;
+                                    case 'Kilometerstand':
+                                        $name = __("Kilometerstand","dds-tools");
+                                        break;
+                                    case 'Telefoonnummer':
+                                        $name = __("Telefoonnummer","dds-tools");
+                                        break;
+                                    case 'Emailadres':
+                                        $name = __("Emailadres","dds-tools");
+                                        break;
+                                    case 'Merk & Model':
+                                        $name = __("Merk & Model","dds-tools");
+                                        break;
+                        }
+
                         $mail_main_con .= "<tr><td class='nametd'>" . $name . "</td><td><b>" . $value . "</b></td></tr>";
                     }
                     if ($name == "Bodhlist") {
 
                         $bodhlist = json_decode($bodhlist, true);
                       
-
+                       
                         foreach($bodhlist as $key => $value){
 
                             if(!is_array($value)){
@@ -207,11 +240,19 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                                 $mail_main_con .= "</b></td></tr>";
                             }
 
+
+
                         }
                         
                     }
                 }
             }
+
+            if(!empty($merk) && $dds_form_type !== "aankoop"){
+                $mail_main_con .= "<tr><td class='nametd'>Merk & Model</td><td><b>" . $merk . " ".$model. "</b></td></tr>";
+            }
+
+
             $mail_main_con .= "</table>";
 
 
@@ -262,9 +303,11 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                     'charset=UTF-8' . "\r\n";
                 $merk = ucfirst($merk);
                 $model = ucfirst($model);
-                $second_subject = "U ontvangt snel een bod voor uw " . $merk . " " . $model;
-                $second_mail_title = "<strong>U ontvangt snel een bod voor uw voertuig:</strong><br>" . $merk . " " . $model;
-                $second_mail_main_con = "<h3>Uw wagen gegevens:</h3>" . $mail_main_con;
+                $second_subject = __("U ontvangt snel een bod voor uw ","dds-tools") . $merk . " " . $model;
+
+
+                $second_mail_title =  "<strong>".__("U ontvangt snel een bod voor uw ","dds-tools")."</strong><br>" . $merk . " " . $model;
+                $second_mail_main_con = "<h3>".__("Uw wagen gegevens:","dds-tools")."</h3>". $mail_main_con;
                 $companytel = $sp_dealer_tel;
                 $company_png = $sp_dealer_handelsnaam;
                 $company = $sp_dealer_handelsnaam;

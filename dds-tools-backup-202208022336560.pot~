@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Digiflow DDS Tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-02 23:36+0000\n"
+"POT-Creation-Date: 2022-08-02 23:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -28,11 +28,8 @@ msgstr ""
 msgid "Alle merken [A-Z]"
 msgstr ""
 
-#: modules/forms/mail_templates/basic_second_template.php:219
-msgid "Alle rechten voorbehouden."
-msgstr ""
-
 #: modules/forms/mail_templates/afspraak_second_template.php:246
+#: modules/forms/mail_templates/basic_second_template.php:219
 msgid "Alle&nbsp;rechten&nbsp;voorbehouden."
 msgstr ""
 

@@ -111,7 +111,7 @@ jQuery(document).ready(function($){
                 dictCancelUpload: "Annuleren",
                 dictRemoveFile: "&#10005;",
                 dictMaxFilesExceeded: "Maximale aantal bestanden: {{maxFiles}}",
-                dictDefaultMessage: "<img src='"+dds_main_vars.siteurl+"/wp-content/plugins/dds-tools/assets/images/add_img.png' style='width: 70px;opacity: 0.7;'><br><span style='color: #a1a1a1;'>Foto\'s toevoegen</span>",
+                dictDefaultMessage: "<img src='"+dds_main_vars.siteurl+"/wp-content/plugins/dds-tools/assets/images/add_img.png' style='width: 70px;opacity: 0.7;'>",
                 params: {'dropzone_map':dropzonemap},
                 success:function(file, response){
                 console.log("succes");
@@ -393,6 +393,6 @@ jQuery(document).ready(function($){
        
 
     });
-    
+   
 
 });

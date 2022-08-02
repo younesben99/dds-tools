@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Digiflow DDS Tools\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-02 23:36+0000\n"
+"POT-Creation-Date: 2022-08-02 23:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -28,11 +28,8 @@ msgstr ""
 msgid "Alle merken [A-Z]"
 msgstr ""
 
-#: modules/forms/mail_templates/basic_second_template.php:219
-msgid "Alle rechten voorbehouden."
-msgstr ""
-
 #: modules/forms/mail_templates/afspraak_second_template.php:246
+#: modules/forms/mail_templates/basic_second_template.php:219
 msgid "Alle&nbsp;rechten&nbsp;voorbehouden."
 msgstr ""
 
@@ -50,14 +47,6 @@ msgstr ""
 
 #: modules/forms/form_shortcodes.php:194
 msgid "Benzine"
-msgstr ""
-
-#: modules/forms/form_ajax.php:206
-msgid "Bouwjaar"
-msgstr ""
-
-#: modules/forms/form_ajax.php:203
-msgid "Brandstof"
 msgstr ""
 
 #: modules/forms/form_shortcodes.php:199
@@ -79,10 +68,6 @@ msgstr ""
 
 #: modules/forms/form_shortcodes.php:197
 msgid "Elektrisch"
-msgstr ""
-
-#: modules/forms/form_ajax.php:215
-msgid "Emailadres"
 msgstr ""
 
 #: modules/forms/form_shortcodes.php:507
@@ -109,28 +94,12 @@ msgstr ""
 msgid "Hybride"
 msgstr ""
 
-#: modules/forms/form_ajax.php:209
-msgid "Kilometerstand"
-msgstr ""
-
 #: modules/forms/form_shortcodes.php:198
 msgid "LPG"
 msgstr ""
 
 #: modules/forms/form_shortcodes.php:203
 msgid "Meest gekozen merken"
-msgstr ""
-
-#: modules/forms/form_ajax.php:197
-msgid "Merk"
-msgstr ""
-
-#: modules/forms/form_ajax.php:218
-msgid "Merk & Model"
-msgstr ""
-
-#: modules/forms/form_ajax.php:200
-msgid "Model"
 msgstr ""
 
 #: modules/forms/mail_templates/basic_second_template.php:175
@@ -163,10 +132,6 @@ msgstr ""
 msgid "Sneller uw auto verkopen?"
 msgstr ""
 
-#: modules/forms/form_ajax.php:212
-msgid "Telefoonnummer"
-msgstr ""
-
 #. Description of the plugin
 msgid "Tools for DDS website."
 msgstr ""
@@ -191,4 +156,7 @@ msgstr ""
 
 #. Author of the plugin
 msgid "Younes Benkheil"
+msgstr ""
+
+msgid "Brandstof"
 msgstr ""

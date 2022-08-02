@@ -187,7 +187,7 @@ if(!empty($sp_dealer_tel)){
         <p style='font-size:14px;'>
         <?php echo __("Onze expert schatten de waarde van uw wagen in, en u ontvangt een bod. Dit bod is natuurlijk vrijblijvend.","dds-tools"); ?></p>
         <ul class='voordelenlist'>
-        <li><span style='color:green;'>✓</span> <?php echo __("Ontvang direct de beste prijs","dds-tools"); ?></li>
+        <li><span style='color:green;'>✓</span> <?php echo __("Ontvang direct de beste prijs","dds-tools"); ?>
         <li><span style='color:green;'>✓</span> <?php echo __("Aankoop van alle wagens","dds-tools"); ?></li>
         <li><span style='color:green;'>✓</span> <?php echo __("Ontvang het bedrag via overschrijving","dds-tools"); ?></li>
         </ul>
@@ -216,7 +216,7 @@ if(!empty($sp_dealer_tel)){
 <!-- ** Bottom Message
 ----------------------------------->
 <p style='text-align: center; color: #666666; font-size: 12px; margin: 10px 0;'>
-    <?php echo($company); ?> | <?php echo __("Copyright","dds-tools"); ?> © <?php echo date('Y'); ?>. <?php echo __("Alle&nbsp;rechten&nbsp;voorbehouden.","dds-tools"); ?><br />.
+    <?php echo($company); ?> | <?php echo __("Copyright","dds-tools"); ?> © <?php echo date('Y'); ?>. <?php echo __("Alle rechten voorbehouden.","dds-tools"); ?><br />.
 </p>
 
 </center>

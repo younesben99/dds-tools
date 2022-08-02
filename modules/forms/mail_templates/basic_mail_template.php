@@ -171,8 +171,8 @@ if($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)){
     text-align: center;
     width: 100%;
     padding-bottom: 25px;
-    font-size: 13px;">
-            <small style="color:#254e79"><em>Verstuurd vanuit: <?php echo($pagelink_dds); ?></em></small>
+    font-size: 15px;">
+            <small style="color:#254e79"><em><a href="<?php echo($pagelink_dds); ?>">Verstuurd vanuit: <?php echo($pagelink_dds); ?></a></em></small>
             </div>
         </td>
     </tr>
