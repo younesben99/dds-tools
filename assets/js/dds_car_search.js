@@ -1,114 +1,104 @@
 (function($) {
 
-    
-    $(document).ready(function(){
-   
-        if($(".dds_car_search_merk").length){
-            $(".dds_car_search_merk").select2();
-        }
-        if($(".dds_car_search_model").length){
-            $(".dds_car_search_model").select2();
-        }
-        if($(".dds_car_search_brandstof").length){
-            $(".dds_car_search_brandstof").select2();
-        }
-        var gekozenwagen = "";
-        var gekozenbrandstof = "";
-        var laatstgekozenmake = "";
-        var car_search_finalurl = "/autos/";
-
-
-        function dds_search_link(gekozenwagen,gekozenbrandstof){
-            if(gekozenwagen == undefined || gekozenwagen == "" || gekozenwagen == null){
-                gekozenwagen = "";
-            }
-            if(gekozenbrandstof == undefined || gekozenbrandstof == "" || gekozenbrandstof == null){
-                gekozenbrandstof = "";
-            }
-            if(gekozenwagen !== "" && gekozenbrandstof == ""){
-                car_search_finalurl = "/autos/?_merkenmodel="+gekozenwagen.toLowerCase();
-                
-            }
-            if(gekozenwagen !== "" && gekozenbrandstof !== ""){
-                car_search_finalurl = "/autos/?_merkenmodel="+gekozenwagen.toLowerCase()+"&?_brandstof="+gekozenbrandstof.toLowerCase();
-            }
-            if(gekozenwagen == "" && gekozenbrandstof !== ""){
-                car_search_finalurl = "/autos/?_brandstof="+gekozenbrandstof.toLowerCase();
-            }
-            if(gekozenwagen == "" && gekozenbrandstof == ""){
-                car_search_finalurl = "/autos/";
-            }
-            console.log(car_search_finalurl);
-            
-        }
-
+    $(window).on('pageshow', function(event) {
+        if (event.originalEvent.persisted) {
+          $("#dds_car_search_merk").val('select');
+          $("#dds_car_search_model").val('select');
         
-        $(".dds_car_search_merk").on('change', function() {
+        }
+      });
+      
+      $(window).on('popstate', function() {
+        $("#dds_car_search_merk").val('select');
+        $("#dds_car_search_model").val('select');
+        
+      });
+    $(document).ready(function(){
+
+  
+    
+        $("#dds_car_search_model").prop("disabled",true);
+
+        var gekozenwagen = "";
+        var gekozenwagen_model = "";
+        var carcount = 0;
+        $("#dds_car_search_merk").on("change",function(){
+
             
-            $(".dds_car_search_model").children('option').hide();
-            var parentid = $('option:selected', this).attr("data-term-id");
+
+            gekozenwagen_model = "";
+            carcount = 0;
+
+            var chosen_merk = $(this).val();
+
+            gekozenwagen = chosen_merk;
+
+
+
+            $.post( "/wp-content/plugins/dds-tools/modules/search/get_model.php", { "merk": chosen_merk }, function( data ) {
             
-            gekozenwagen = $('option:selected', this).attr("data-slug");
-            laatstgekozenmake = $('option:selected', this).attr("data-slug");
+                var options = JSON.parse(data);
+
+
+                console.log(options);
+
+                $("#dds_car_search_model").html(options[0]);
+                $("#dds_car_search_model").prop("disabled",false);
+
+
+         
+
+            $("#search_carcount").html(options[1] - 1 );
+              });
+
+
+
+          
+        });
+        
+
+      
+        $("#dds_car_search_model").on("change",function(){
+            
            
-            $(".dds_car_search_choose_model").show();
-            $(".dds_car_search_choose_model").prop('selected', true);
+           var chosen_model = $('option:selected', this).val();
+           gekozenwagen_model = chosen_model;
 
-            var modelcount = 0;
-            $(".dds_car_search_model").children('option').each(function( index ) {
-
-                if($(this).attr("data-parent-id") == parentid){
-
-                $(this).show();
-                modelcount += 1;
+            carcount = 0;
+            $("#dds_car_search_model option").each(function(){
                 
-                }
+                if($(this).val() == chosen_model){
+                    carcount++;
+                    
 
+                }
+               
+            
             });
 
-            
-            if(modelcount !== 0){
-                $(".dds_car_search_model").prop("disabled", false);
+            if(carcount == 0){
+                carcount++;
             }
-            else{
-                $(".dds_car_search_model").prop("disabled", true);
-            }
-
-            dds_search_link(gekozenwagen,gekozenbrandstof);
-        
-        });
-
-        $(".dds_car_search_model").on('change', function() {
-
-            var modelslug = $('option:selected', this).attr("data-slug");
-
-
-
-            if(modelslug !== undefined && modelslug !== null && modelslug !== ""){
-                gekozenwagen = modelslug;
-                dds_search_link(gekozenwagen,gekozenbrandstof);
-                
-            }
-            if(laatstgekozenmake !== "" && laatstgekozenmake !== undefined && modelslug == ""){
-                
-                dds_search_link(laatstgekozenmake,gekozenbrandstof);
-            }
-            
-
-        });
-        $(".dds_car_search_brandstof").on("change",function(){
-
-            gekozenbrandstof = $(this).val();
-            dds_search_link(gekozenwagen,gekozenbrandstof);
            
 
-        });
+            $("#search_carcount").html(carcount);
 
-        $(".dds_car_search_submit").on("click",function(e){
+        });
+        $("#dds_car_search_submit").on("click",function(e){
+            
             e.preventDefault();
 
+            if(gekozenwagen_model == ""){
+                var car_search_finalurl = "/autos/?merk="+gekozenwagen;
+            }
+            else{
+                var car_search_finalurl = "/autos/?merk="+gekozenwagen+"&model="+gekozenwagen_model;
+            }
+            
             window.location.href = car_search_finalurl;
             
+
         });
+
     });
 })(jQuery);

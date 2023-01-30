@@ -5,116 +5,97 @@
 add_shortcode('dds_car_search', 'dds_car_search_function');
 
 
-
-
 function dds_car_search_function($atts, $content = null) {
 
-   
-    $dds_atts = shortcode_atts( array(
-		'direction' => 'col',
-        'height' => 'unset'
-	), $atts );
-    if (is_array($atts)) {
-        if (in_array("brandstof", $atts)) {
-            $atts["brandstof"] = true;
-        }
+
+    $args =  array(
+            'post_type'      => 'autos', 
+            'post_status'    => 'published', 
+            'posts_per_page' => -1,
+            'meta_key'   => '_car_post_status_key',
+            'meta_value' => 'actief'
+        );
+    $cars = get_posts( $args );
+    
+    $carcount = 0;
+    foreach ($cars as $value) {
+      $carcount++;
     }
 
-    global $post;
-    $merken_array = array();
-    $modellen_array = array();
-    $loop = new WP_Query(array('post_type' => 'autos', 'posts_per_page' => -1));
-    while ($loop->have_posts()) : $loop->the_post();
+    $posts = get_posts( 
+        array(
+            'post_type'      => 'autos', 
+            'post_status'    => 'published', 
+            'posts_per_page' => -1,
+            'meta_key'   => '_car_post_status_key',
+            'meta_value' => 'actief'
+        ) 
+    );
 
-    //actieve merken en modellen ophalen
-    $post_memo = wp_get_post_terms($post->ID, 'merkenmodel');
-    
-    foreach ($post_memo as $v) {
-    
-        
-        if($v->parent == 0){
-            $merken_array[$v->term_id] = array("term_id" => $v->term_id,"name" => $v->name,"slug" => $v->slug);
-        }
-        else{
-            $modellen_array[$v->term_id] = array("term_id" => $v->term_id,"name" => $v->name,"slug" => $v->slug,"parent" => $v->parent);
-        }
-        
-        
-    }
-    endwhile;
-    wp_reset_query();
-    foreach ($merken_array as $s) {
-        
-        $merkoptions .= "<option data-term-id='".$s["term_id"]."' data-slug='".$s["slug"]."'>" . $s["name"] . "</option>";
-
-    }
-
-
-    foreach ($modellen_array as $s) {
-        
-        $modellenoptions .= "<option style='display:none;' data-term-id='".$s["term_id"]."' data-slug='".$s["slug"]."'  data-parent-id='".$s["parent"]."'>" . $s["name"] . "</option>";
-
-    }
-    if($dds_atts["direction"] == "col"){
-        $dds_search_direction = "dds_car_search_inner_col";
-        $dds_search_direction_wrap = "dds_car_search_wrap_col";
-    }
-    else{
-        $dds_search_direction = "dds_car_search_inner_row";
-        $dds_search_direction_wrap = "dds_car_search_wrap_row";
-    }
-    
-
-    if($dds_atts["height"] !== "unset"){
-        $dds_search_height = $dds_atts["height"];
-    }
-    
-
-    $dds_car_search .= "<div class='dds_car_search_form ".$dds_search_direction_wrap."' style='height:".$dds_search_height.";'>";
-    $dds_car_search .= "<div class='".$dds_search_direction."'>";
-
-    $dds_car_search .= "<select class='dds_car_search_merk'>";
-
-    $dds_car_search .= "<option value=''>Kies een merk</option>";
-
-    $dds_car_search .= $merkoptions;
-
-    $dds_car_search .= "</select>";
-
-    $dds_car_search .= "<select class='dds_car_search_model' disabled>";
-
-    $dds_car_search .= "<option class='dds_car_search_choose_model' value='' data-slug=''>Kies een model</option>";
-
-    $dds_car_search .= $modellenoptions;
-
-    $dds_car_search .= "</select>";
-
-    if($atts["brandstof"]){
-        $dds_car_search .= "<select class='dds_car_search_brandstof'>";
-
-        $dds_car_search .= "<option class='dds_car_search_choose_brandstof' value=''>Kies een brandstof</option>";
-    
-        $brandstofoptions = ["Benzine","Diesel","Hybride","Elektrisch","LPG","CNG","Anders"];
-    
-        foreach ($brandstofoptions as $value) {
-            $dds_car_search .= "<option value='".strtolower($value)."'>".$value."</option>";
-        }
-        
-    
-        $dds_car_search .= "</select>";
-    }
-    
-
-
-    $dds_car_search .= "<button type='submit' class='dds_car_search_submit elementor-button'>Zoeken</button>";
-
-
+    $merken = array();
   
 
+    $merkenoptions = array();
+  
 
-    $dds_car_search .= "</div>";
-    $dds_car_search .= "</div>";
+    foreach($posts as $post){
+         $merk = get_post_meta( $post->ID, '_car_merkcf_key', true );
+         array_push($merken,$merk);
 
+    }
+
+    $merken = array_unique($merken);
+  
+
+   
+
+    foreach ($merken as $merk) {
+        $merk = "<option value='".slugify($merk)."'>".$merk."</option>";
+        array_push($merkenoptions,$merk);
+    }
+
+
+
+    ?>
+
+<style>
+   .dds_car_search {
+    width: 250px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+#dds_car_search_submit{cursor:pointer !important;}
+</style>
+<div class="dds_car_search">
+
+<select name="dds_car_search_merk" id="dds_car_search_merk">
+    <option value="select" class="dds_car_search_select" selected>Kies merk</option>
+
+    <?php
+
+    foreach($merkenoptions as $merk){
+        echo($merk);
+    }
+
+?>
+
+</select>
+<select name="dds_car_search_model" id="dds_car_search_model" >
+    <option value="select" disabled="disabled" class="dds_car_search_select" selected>Kies model</option>
+  
+</select>
+<button id="dds_car_search_submit"><i class='fas fa-search' style='margin-right:5px;'></i>Bekijk aanbod (<span id="search_carcount"><?php echo($carcount) ?></span>)</button>
+
+</div>
+
+
+
+
+    <?php
+  
     return $dds_car_search;
 }
 

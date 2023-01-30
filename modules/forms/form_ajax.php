@@ -146,8 +146,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                     $subject = "Extra gegevens: " . $merk . " " . $model;
                     break;
                 case 'bodh':
-                    $mail_title = "Blijf op de hoogte: " . $client_email;
-                    $subject = "Blijf op de hoogte:  " . $client_email;
+                    if(empty($merk)){
+                        $mail_title = "Blijf op de hoogte: " . $client_email;
+                        $subject = "Blijf op de hoogte:  " . $client_email;
+                    }
+                    else{
+                        $mail_title = "Blijf op de hoogte: " . $merk. " ".$model;
+                        $subject = "Blijf op de hoogte: " . $merk. " ".$model;
+                    }
                     break;
                 default:
                     $mail_title = "Contactbericht | " . $pagetitle;
@@ -229,11 +235,11 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                         foreach($bodhlist as $key => $value){
 
                             if(!is_array($value)){
-                                $mail_main_con .= "<tr><td class='nametd'>" . ucfirst($key) . "</td><td><b>" . $value . "</b></td></tr>";
+                                $mail_main_con .= "<tr><td class='nametd'>Geslecteerde Filter: " . ucfirst($key) . "</td><td><b>" . $value . "</b></td></tr>";
                             }
                             else{
                                 
-                                $mail_main_con .= "<tr><td class='nametd'>" . ucfirst($key) . "</td><td><b>";
+                                $mail_main_con .= "<tr><td class='nametd'>Geslecteerde Filter: " . ucfirst($key) . "</td><td><b>";
                             
                                 $mail_main_con .= implode(" | ",preg_replace("/[^A-Za-z0-9]/", "",$value));
                                 

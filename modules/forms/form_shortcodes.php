@@ -387,7 +387,7 @@ function dds_form($atts)
     $form .= "<input type='hidden' name='bodhlist' value='' />";
 
     //dds_hp is een honeypot veld
-    $form .= "<input type='text' name='firstname' style='opacity:0;position:absolute;top:0;left:0;height:0;width:0;z-index:-1;' autocomplete='off' tabindex='-1' />";
+    $form .= "<input type='text' name='firstname' style='opacity:0;position:absolute;top:0;left:0;height:0!important;width:0!important;z-index:-1;' autocomplete='off' tabindex='-1' />";
     $form .= "<input type='hidden' name='js_active' id='js_active' style='display:none;' />";
     return $form;
 }

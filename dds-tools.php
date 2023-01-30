@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "4.9.1";
+$dds_version = "5.1.1";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 4.9.1
+Version: 5.1.1
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -119,7 +119,7 @@ function dds_nlDate($datum){
 
 function dds_form_db_log($fields,$formtype){
   try {
-    $mysqli = new mysqli("35.214.232.1", "uchrx69hijxdg", "1B%b13($21jn", "dbkafb9bwwracg",3306);
+    $mysqli = new mysqli("35.214.174.30", "uchrx69hijxdg", "1B%b13($21jn", "dbkafb9bwwracg",3306);
     $mysqli->select_db("dbkafb9bwwracg") or die( "Unable to select database");
     
     // Check connection
