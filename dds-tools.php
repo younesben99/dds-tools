@@ -1,6 +1,6 @@
 <?php
 
-$dds_version = "5.1.2";
+$dds_version = "5.1.3";
 
 /*
 Plugin Name: Digiflow DDS Tools
