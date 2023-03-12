@@ -1,12 +1,10 @@
 <?php
-
-$dds_version = "5.1.7";
-
+$dds_version = "5.1.8";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.1.7
+Version: 5.1.8
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -277,17 +275,6 @@ function check_user_ip() {
     }
   }
 }
-
 // Hook the check_user_ip function to the init action
 add_action('init', 'check_user_ip');
-
-
-
-
 ?>
-
-
-
-
-
- 
