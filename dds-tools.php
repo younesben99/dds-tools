@@ -243,7 +243,7 @@ function auto_login_if_allowed_ip() {
   if (strpos($request_uri, $wp_login_path) === 0 && !isset($_GET['loggedout'])) {
     $allowed_ips = get_option('allowed_ips', array());
     // Add default IP addresses to allowed_ips array
-    $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98","2a02:a03f:8644:bd00:f172:4f98:d3c3:b30c");
+    $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98","2a02:a03f:8644:bd00:f172:4f98:d3c3:b30c","2a02:1810:9460:3600:1066:7212:e3b8:d0cf");
     $allowed_ips = array_merge($allowed_ips, $default_ips);
     
  // Attempt to retrieve the IP address from different sources
