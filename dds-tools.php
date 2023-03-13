@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.2.1";
+$dds_version = "5.2.2";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.2.1
+Version: 5.2.2
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -57,7 +57,7 @@ function dds_nlDate($datum){
      $datum = str_replace("november",     "november",     $datum); 
     $datum = str_replace("december",     "december",     $datum); 
 
-    // Vervang de maand, hoofdletters 
+    // Vervang de maand, hoofdletters s
    $datum = str_replace("January",     "Januari",         $datum); 
      $datum = str_replace("February",     "Februari",     $datum); 
     $datum = str_replace("March",         "Maart",         $datum); 
