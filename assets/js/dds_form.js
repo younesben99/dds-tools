@@ -61,7 +61,9 @@ jQuery(document).ready(function($){
       });
     
     if($("select").length){
-        
+
+       
+        $('.select2oneitem').prop('disabled', true).select2();
 
         $(".dds_form select").each(function(index,element){
             
