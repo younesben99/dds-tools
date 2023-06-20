@@ -180,54 +180,41 @@ function dds_select($atts)
 
 
 
+// Handling options
+$options = array();
+if (!empty($atts["options"])) {
+    $options = explode("|", $atts["options"]);
+}
 
+// Handling selected option
+$selected_option = '';
+if (!empty($atts["selected"])) {
+    $selected_option = strtolower($atts["selected"]);
+}
 
+// ... Your previous code here ...
 
-        // ... Your previous code here ...
-    
-        // Handling options
-        $options = array();
-        if (!empty($atts["options"])) {
-            $options = explode("|", $atts["options"]);
+$text .= "<select ".$req.$name.$placeholder.$length.$width.$data_hide. ">";
+
+if (!empty($atts["ph"])) {
+    $text .= "<option value='' class='firstoption' hidden>".$atts["ph"]."</option>";
+}
+
+if (!empty($options)) {
+    // If options parameter is set, use it to generate <option> tags
+    foreach ($options as $option) {
+        $selected = '';
+        if (strtolower($option) == $selected_option) {
+            $selected = ' selected';
         }
-    
-        // ... Your previous code here ...
-    
-        $select2_class = !empty($options) && count($options) > 1 ? " select2oneitem" : "";
-    
-        $text .= "<select class='".$select2_class."' ".$req.$name.$placeholder.$length.$width.$data_hide;
-    
-        // Determine if the select should be disabled
-        if (count($options) === 1) {
-            $text .= " disabled";
-        }
-        $text .= ">";
-    
-        if (!empty($atts["ph"])) {
-            $text .= "<option value='' class='firstoption' hidden>".$atts["ph"]."</option>";
-        }
-    
-        if (!empty($options)) {
-            // If options parameter is set, use it to generate <option> tags
-            foreach ($options as $option) {
-                $text .= "<option value='".strtolower($option)."'";
-                if (count($options) === 1) {
-                    $text .= " selected";
-                }
-                $text .= ">".$option."</option>";
-            }
-        } else {
-            // If options parameter is not set, use predefined behavior
-            switch (strtolower($atts["name"])) {
-                // ... Your existing cases here ...
-            }
-        }
-    
-    
- 
-
-
-
+        $text .= "<option value='".strtolower($option)."'".$selected.">".$option."</option>";
+    }
+} else {
+    // If options parameter is not set, use predefined behavior
+    switch (strtolower($atts["name"])) {
+        // ... Your existing cases here ...
+    }
+}
 
 
 
