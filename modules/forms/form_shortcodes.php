@@ -86,6 +86,53 @@ function dds_input($atts)
 add_shortcode('dds_input', 'dds_input');
 
 
+function dds_radio($atts) {
+    $text = '';
+    $req = '';
+    $name = '';
+    $selected_option = '';
+    $options = array();
+
+    if (is_array($atts)) {
+        if (in_array("*", $atts)) {
+            $req = " required";
+        }
+        if (!empty($atts["name"])) {
+            $name = " name='".strtolower($atts["name"])."' id='dds_id_".strtolower($atts["name"])."'";
+        }
+        if (!empty($atts["selected"])) {
+            $selected_option = strtolower($atts["selected"]);
+        }
+        if (!empty($atts["options"])) {
+            $options = explode('|', $atts["options"]);
+        }
+    }
+
+    $text .= "<div class='dds_radio_group'>";
+
+    if (!empty($atts["lb"])) {
+        $text .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
+    }
+
+    if (!empty($options)) {
+        foreach ($options as $option) {
+            $selected = '';
+            $option_id = "dds_id_".strtolower($option)."_".uniqid();
+            if (strtolower($option) == $selected_option) {
+                $selected = ' checked';
+            }
+            $text .= "<div class='dds_radio_group_input'><input class='dds_radio_input' type='radio' value='".strtolower($option)."' id='".$option_id."'".$name.$selected."> <label class='dds_radio_label' for='".$option_id."'>".$option."</label></div>";
+        }
+    }
+
+    $text .= "</div>";
+
+    return $text;
+}
+
+add_shortcode('dds_radio', 'dds_radio');
+
+
 function dds_select($atts)
 {
     if (is_array($atts)) {
@@ -375,6 +422,9 @@ function dds_form($atts)
             case 'aankoop':
                 $formtype = "aankoop";
                 break;
+            case 'offerte':
+                $formtype = "offerte";
+                break;    
             case 'beschikbaarheid':
                 $formtype = "beschikbaarheid";
                 break;

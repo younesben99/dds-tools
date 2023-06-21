@@ -37,7 +37,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
             if (!empty($fields["sendto"])) $sendto = $fields["sendto"];
             if (!empty($fields["formtype"])) $dds_form_type = $fields["formtype"];
             if (!empty($fields["bodhlist"])) $bodhlist = $fields["bodhlist"];
-
+            if (!empty($fields["diensten"])) $dienst = $fields["diensten"];
             
            
 
@@ -145,6 +145,10 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                     $mail_title = "Extra gegevens: " . $merk . " " . $model;
                     $subject = "Extra gegevens: " . $merk . " " . $model;
                     break;
+                case 'offerte':
+                        $mail_title = "Offerte ontvangen voor: " . $dienst;
+                        $subject = "Offerte ontvangen voor: " . $dienst;
+                        break;    
                 case 'bodh':
                     if(empty($merk)){
                         $mail_title = "Blijf op de hoogte: " . $client_email;

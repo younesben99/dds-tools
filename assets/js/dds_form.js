@@ -148,7 +148,7 @@ jQuery(document).ready(function($){
         var formid = $(this).attr('id');
         var formtype = $(this).find('.dds_form_type').val();
         
-        var fields = $(this).find("input[type=text],input[type=tel],input[type=email],select,textarea,input[type=hidden]").map(function(){
+        var fields = $(this).find("input[type=radio]:checked,input[type=text],input[type=tel],input[type=email],select,textarea,input[type=hidden]").map(function(){
             var ddsval = $(this).val();
             var ddsname = $(this).attr("name");
 

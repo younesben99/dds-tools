@@ -402,8 +402,39 @@ button.dds_form_submit.submit_icon_wrap {
     max-width: 350px;
 
 }
+.dds_radio_group {
+    margin: 1em 0;
+}
 
+.dds_radio_group input[type="radio"] {
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+    font-size: 1em;
+}
 
+.dds_radio_group label,.dds_radio_label {
+    font-size: 16px;
+    margin-left: 0em;
+    margin-right: 1em;
+    vertical-align: middle;
+}
+.dds_form_classic .dds_radio_label,.dds_radio_label {
+    font-size: initial;
+    font-weight: initial;
+    /* Add other styles as needed */
+    width: initial;
+
+}
+.dds_radio_group_input{
+    cursor:pointer;
+}
+.dds_radio_group_input{
+    display: block;
+    margin-top: 10px;
+}
 @media only screen and (max-width: 600px) {
     
     .dds_form .dds_input_group{
