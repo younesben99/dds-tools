@@ -135,7 +135,7 @@ jQuery(document).ready(function($){
 
     $("select[name=model]").prop('disabled', 'disabled');
 
-    $(".dds_form").on("submit",function(e){
+    $(document).on("submit", ".dds_form", function(e) {
         e.preventDefault();
         var formcatch = $(this);
         $(this).parents().find(".dds_form_error_notice,.dds_form_thankyou_notice").hide();

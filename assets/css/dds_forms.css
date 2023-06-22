@@ -420,6 +420,7 @@ button.dds_form_submit.submit_icon_wrap {
     margin-left: 0em;
     margin-right: 1em;
     vertical-align: middle;
+    cursor: pointer !important;
 }
 .dds_form_classic .dds_radio_label,.dds_radio_label {
     font-size: initial;
