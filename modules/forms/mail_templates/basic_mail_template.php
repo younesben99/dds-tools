@@ -93,7 +93,21 @@
         </td>
     </tr>
 
-
+<tr>
+    <td align="center">
+        <div  style='margin: 0px;
+    width: 286px;
+    border-radius: 0 0 5px 5px;
+    padding: 5px;
+    text-align: center;
+    background: #f8f8f8;
+    border: 1px solid #ededed;
+    border-top: 0px;
+    font-size: 13px;font-weight: 400;'>
+    Afkomstig vanuit <?php echo $source; ?>
+</div>
+    </td>
+</tr>
     <tr>
         <td style='padding: 20px 50px; text-align: left;'>
     

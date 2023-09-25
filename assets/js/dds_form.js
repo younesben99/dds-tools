@@ -48,6 +48,28 @@ function addMinutes(date, minutes) {
 
  } 
 jQuery(document).ready(function($){
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+    
+      var source = "Direct bezoek"; // Default source
+      var gclid = getParameterByName('gclid');
+      var bingid = getParameterByName('msclkid');
+      
+      if (gclid) {
+        source = 'Google Ads';
+      } else if (bingid) {
+        source = 'Bing Ads';
+      }
+    
+      $('.source_hidden').val(source);
+    
     //console.log("dds_forms.js");
     $("#js_active").val("js");
 

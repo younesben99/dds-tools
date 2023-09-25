@@ -38,7 +38,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
             if (!empty($fields["formtype"])) $dds_form_type = $fields["formtype"];
             if (!empty($fields["bodhlist"])) $bodhlist = $fields["bodhlist"];
             if (!empty($fields["diensten"])) $dienst = $fields["diensten"];
-            
+            if (!empty($fields["source"])) $source = $fields["source"];
            
 
 
@@ -198,7 +198,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                             }
                         }
                     }
-                    if ($name !== "Bodhlist" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect") {
+                    if ($name !== "Bodhlist" && $name !== "Source" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect") {
                         
                    
 

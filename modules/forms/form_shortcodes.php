@@ -471,6 +471,7 @@ function dds_form($atts)
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='".$formtype."' />";
     $form .= "<input type='hidden' name='merk_hidden' class='merk_hidden' />";
     $form .= "<input type='hidden' name='model_hidden' class='model_hidden' />";
+    $form .= "<input type='hidden' name='source' class='source_hidden' />";
     $form .= "<input type='hidden' class='wizardlist' name='wizardlist' value='' />";
     $form .= "<input type='hidden' class='dds_redirect' name='dds_redirect' value='".$redirect."' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
