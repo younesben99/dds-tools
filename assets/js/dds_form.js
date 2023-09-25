@@ -335,13 +335,18 @@ jQuery(document).ready(function($){
     $(".main_level1 input[name=merk],.main_level1 select[name=merk]").on("change",function(){
        $(".main_level2 input[name=merk]").val($(this).val());
        $(this).parents("form").find(".merk_hidden").val($(this).val());
+       $(".main_level2 .merk_hidden").val($(this).val());
     });
-
+    $(".main_level1 select[name=merkmobilhome]").on("change",function(){
+        $(".main_level2 input[name=merk]").val($(this).val());
+        $(this).parents("form").find(".merk_hidden").val($(this).val());
+        $(".main_level2 .merk_hidden").val($(this).val());
+     });
 
     $(".main_level1 input[name=model],.main_level1 select[name=model]").on("change",function(){
         $(".main_level2 input[name=model]").val($(this).val());
         $(this).parents("form").find(".model_hidden").val($(this).val());
-
+        $(".main_level2 .model_hidden").val($(this).val());
      });
 
 

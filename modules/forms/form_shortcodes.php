@@ -583,6 +583,9 @@ function dds_form2($atts)
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='mail_level2' />";
     $form .= "<input type='hidden' class='dds_form_type merklevel2' name='merk' value='' />";
     $form .= "<input type='hidden' class='dds_form_type modellevel2' name='model' value='' />";
+    $form .= "<input type='hidden' name='merk_hidden' class='merk_hidden' />";
+    $form .= "<input type='hidden' name='model_hidden' class='model_hidden' />";
+    $form .= "<input type='hidden' name='source' class='source_hidden' />";
     $form .= "<input type='hidden' name='pagelink' value='".get_permalink()."' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
     return $form;

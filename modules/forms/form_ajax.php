@@ -39,7 +39,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
             if (!empty($fields["bodhlist"])) $bodhlist = $fields["bodhlist"];
             if (!empty($fields["diensten"])) $dienst = $fields["diensten"];
             if (!empty($fields["source"])) $source = $fields["source"];
-           
+            if(!empty($fields["merkmobilhome"])){
+                $merkmobilhome = $fields["merkmobilhome"];
+                $merk = $fields["merkmobilhome"];
+                $model = $fields["model"];
+            }
+            else{
+                $merkmobilhome = "";
+            }
 
 
             include(__DIR__ . "/../../../../../wp-load.php");
@@ -124,9 +131,17 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
 
             switch ($dds_form_type) {
                 case 'aankoop':
-                    $mail_title = "Aangeboden wagen: " . $merk . " " . $model . " " . $bouwjaar;
-                    $subject = "Aangeboden wagen: " . $merk . " " . $model . " " . $bouwjaar;
-                    $show_as_search = true;
+                    if(empty($merkmobilhome)){
+                        $mail_title = "Aangeboden wagen: " . $merk . " " . $model . " " . $bouwjaar;
+                        $subject = "Aangeboden wagen: " . $merk . " " . $model . " " . $bouwjaar;
+                        $show_as_search = true;
+                    }
+                    if(!empty($merkmobilhome)){
+                        $mail_title = "Aangeboden Mobilhome: " . $merk . " " . $model . " " . $bouwjaar;
+                        $subject = "Aangeboden Mobilhome: " . $merk . " " . $model . " " . $bouwjaar;
+                        $show_as_search = false;
+                    }
+                    
                     break;
                 case 'afspraak':
                     if (!empty($merk) && !empty($model)) {
@@ -206,6 +221,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                                     case 'Merk':
                                        $name = __("Merk","dds-tools");
                                         break;
+                                     case 'Merkmobilhome':
+                                       $name = __("Merk","dds-tools");
+                                        break;
                                     case 'Model':
                                         $name = __("Model","dds-tools");
                                         break;
@@ -258,9 +276,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                 }
             }
 
-            if(!empty($merk) && $dds_form_type !== "aankoop"){
-                $mail_main_con .= "<tr><td class='nametd'>Merk & Model</td><td><b>" . $merk . " ".$model. "</b></td></tr>";
-            }
+    
 
 
             $mail_main_con .= "</table>";
