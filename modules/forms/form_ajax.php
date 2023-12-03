@@ -337,6 +337,12 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                 $companytel = $sp_dealer_tel;
                 $company_png = $sp_dealer_handelsnaam;
                 $company = $sp_dealer_handelsnaam;
+
+                $voetuig_mail = "auto";
+                if(!empty($merkmobilhome)){
+                    $voetuig_mail = "mobilhome";
+                }
+                
                 ob_start();
                 include(__DIR__ . '/mail_templates/basic_second_template.php');
                 $secondmailcontent = ob_get_clean();

@@ -171,7 +171,10 @@ if(!empty($sp_dealer_tel)){
     </tr>
     <tr style='background:#2665b8;'>
         <td>
-            <h3 style='text-align:center;color:white;'><?php echo __("Sneller uw auto verkopen?","dds-tools"); ?></h3>
+
+            <h3 style='text-align:center;color:white;'><?php echo __("Sneller uw ","dds-tools");
+            echo __($voetuig_mail,"dds-tools");
+            echo __(" verkopen?","dds-tools"); ?></h3>
 <h5 style='text-align:center;color:white;font-weight:300;'><?php echo __("Neem telefonisch contact met ons op","dds-tools"); ?></h5>
         </td>
     </tr>
@@ -185,10 +188,21 @@ if(!empty($sp_dealer_tel)){
         
         <h4 style='text-align:left;font-weight:500;'><?php echo __("Bel ons op voor een taxatie","dds-tools"); ?></h4>
         <p style='font-size:14px;'>
-        <?php echo __("Onze expert schatten de waarde van uw wagen in, en u ontvangt een bod. Dit bod is natuurlijk vrijblijvend.","dds-tools"); ?></p>
+        <?php echo __("Onze experts schatten de waarde in, en u ontvangt een bod. Dit bod is natuurlijk vrijblijvend.","dds-tools"); ?></p>
         <ul class='voordelenlist'>
         <li><span style='color:green;'>✓</span> <?php echo __("Ontvang direct de beste prijs","dds-tools"); ?>
-        <li><span style='color:green;'>✓</span> <?php echo __("Aankoop van alle wagens","dds-tools"); ?></li>
+        <?php
+if($voetuig_mail == "auto"){
+    ?>
+<li><span style='color:green;'>✓</span> <?php echo __("Aankoop van alle wagens","dds-tools"); ?></li>
+    <?php
+}
+if($voetuig_mail == "mobilhome"){
+    ?>
+<li><span style='color:green;'>✓</span> <?php echo __("Aankoop van alle mobilhomes","dds-tools"); ?></li>
+    <?php
+}
+?>
         <li><span style='color:green;'>✓</span> <?php echo __("Ontvang het bedrag via overschrijving","dds-tools"); ?></li>
         </ul>
         </td>

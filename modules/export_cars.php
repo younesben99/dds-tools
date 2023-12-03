@@ -3,6 +3,71 @@ include(__DIR__."/../../../../wp-load.php");
 ?>
 <?php
 
+function get_media_info_for_autos() {
+    $args = array(
+        'post_type' => 'autos',
+        'posts_per_page' => -1,
+    );
+    $query = new WP_Query($args);
+    $media_names = array();
+    $total_file_size = 0;
+    
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            $vdw_gallery_ids = get_post_meta($post_id, 'vdw_gallery_id', true);
+            
+            if (is_array($vdw_gallery_ids)) {
+                foreach ($vdw_gallery_ids as $media_id) {
+                    $media_post = get_post($media_id);
+                    if ($media_post) {
+                        $media_names[] = $media_post->post_name;
+                        $file_path = get_attached_file($media_id);
+                        if (file_exists($file_path)) {
+                            $total_file_size += filesize($file_path);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    wp_reset_postdata();
+    
+    $result = array(
+        'count' => count($media_names),
+        'total_file_size' => $total_file_size,
+        'media_names' => $media_names,
+    );
+    
+$wp_media_args = array(
+    'post_type' => 'attachment',
+    'post_status' => 'inherit',
+    'posts_per_page' => -1,
+);
+
+$media_query = new WP_Query($wp_media_args);
+
+if ($media_query->have_posts()) {
+    while ($media_query->have_posts()) {
+        $media_query->the_post();
+        $media_id = get_the_ID();
+        $media_name = get_post($media_id)->post_name;
+
+        // Check if the media name contains a uniqid pattern (hexadecimal string)
+        if (preg_match('/[a-f0-9]{13}/', $media_name) && !in_array($media_name, $media_names)) {
+            // Delete the media file
+            wp_delete_attachment($media_id, true);
+        }
+    }
+}
+
+wp_reset_postdata();
+    return json_encode($result);
+}
+
+
+
 function compress_images_recursive($path_to_dir, $quality = 70, &$counter = 0) {
     // Create a recursive directory iterator for the directory and its subdirectories
     $iterator = new RecursiveIteratorIterator(
@@ -427,7 +492,9 @@ if(isset($_GET["deletenotinmedia"])){
 if(isset($_GET["dropzone"])){
     compress_dds_dropzone();
 }
-
+if(isset($_GET["notused"])){
+    get_media_info_for_autos();
+}
 ?>
 
 <!-- Add button to download JSON file -->
@@ -437,6 +504,8 @@ if(isset($_GET["dropzone"])){
 <button onclick="window.location.href='<?php echo esc_url( home_url( '/wp-content/plugins/dds-tools/modules/export_cars.php?delete' ) ); ?>'">DELETE MEDIA FILES</button>
 <button onclick="window.location.href='<?php echo esc_url( home_url( '/wp-content/plugins/dds-tools/modules/export_cars.php?deletenotinmedia' ) ); ?>'">DELETE UPLOADS FOLDER NOT FOUND IN MEDIA LIBRARY</button>
 <button onclick="window.location.href='<?php echo esc_url( home_url( '/wp-content/plugins/dds-tools/modules/export_cars.php?dropzone' ) ); ?>'">COMPRESS DDS DROPZONE</button>
+<br><br>
+<button onclick="window.location.href='<?php echo esc_url( home_url( '/wp-content/plugins/dds-tools/modules/export_cars.php?notused' ) ); ?>'">DELETE ALL IMAGES THAT HAVE UNIQID BUT THEY ARE NOT USED</button>
 
 
 
