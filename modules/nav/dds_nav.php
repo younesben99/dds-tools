@@ -15,12 +15,21 @@ class DDS_Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
         parent::start_el( $output, $item, $depth, $args, $id );
     }
 }
+function dds_add_custom_html_to_menu( $items, $args ) {
+    if ( isset($args->custom_html) && !empty($args->custom_html) ) {
+        // Append custom HTML to the menu items
+        $items .= $args->custom_html;
+    }
+    return $items;
+}
+add_filter( 'wp_nav_menu_items', 'dds_add_custom_html_to_menu', 10, 2 );
+
 
 function dds_nav( $atts ) {
     $atts = shortcode_atts( array(
         'menu' => 'menu',
         'active' => null,
-        'custom_sc' => '', // Add custom shortcode attribute
+        'custom_html' => '', // Add custom HTML attribute
     ), $atts );
 
     $walker = null;
@@ -36,6 +45,7 @@ function dds_nav( $atts ) {
         'menu_class'     => 'navigation-menu',
         'echo'           => false,
         'walker'         => $walker,
+        'custom_html'    => $atts['custom_html'], // Pass custom HTML to wp_nav_menu
     ) );
 
     // Add burger menu toggle button and close button for mobile devices
@@ -43,14 +53,9 @@ function dds_nav( $atts ) {
     <div></div>
     <div></div></div>';
 
-    // Check if custom_sc attribute is set and not empty
-    $custom_content = '';
-    if ( !empty($atts['custom_sc']) ) {
-        $custom_content = do_shortcode('[' . $atts['custom_sc'] . ']');
-    }
 
     // Wrap the menu, toggle button, and close button in a container div
-    $menu_html = '<div class="dds-desktop-tablet-menu">'.$menu.'</div><div class="dds-navigation-container">' . $toggle_button . $menu . $custom_content . '</div>';
+    $menu_html = '<div class="dds-desktop-tablet-menu">'.$menu.'</div><div class="dds-navigation-container">' . $toggle_button . $menu . '</div>';
 
     return $menu_html;
 }
