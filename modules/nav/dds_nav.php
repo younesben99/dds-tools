@@ -39,6 +39,14 @@ function dds_nav( $atts ) {
         $walker = new DDS_Custom_Walker_Nav_Menu( $atts['active'] );
     }
 
+
+     // Parse and process the custom_html attribute for additional arguments
+     if (!empty($atts['custom_html'])) {
+        // Example: [my_shortcode id="123"]
+        $atts['custom_html'] = do_shortcode($atts['custom_html']);
+    }
+
+
     $menu = wp_nav_menu( array(
         'menu'           => $atts['menu'],
         'container'      => 'nav',
