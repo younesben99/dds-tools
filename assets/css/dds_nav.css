@@ -6,6 +6,10 @@
     display: inline-block;
     margin-right: 10px;
 }
+.custom-html-mobile {
+    display: none;
+}
+
 .burger-menu-toggle {
     width: 39px;
     height: 30px;
@@ -42,6 +46,9 @@
     background-color: transparent !important;
 }
   @media (min-width: 1024px) {
+    .custom-html-mobile {
+        display: block;
+    }
     .burger-menu-toggle {
       display: none;
     }
