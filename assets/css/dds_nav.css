@@ -7,7 +7,7 @@
     margin-right: 10px;
 }
 .custom-html-mobile {
-    display: none;
+    display: none  !important;
 }
 
 .burger-menu-toggle {
@@ -128,7 +128,7 @@
 /* Show the burger menu toggle on mobile devices only */
 @media screen and (max-width: 1024px) {
     .custom-html-mobile {
-        display: block;
+        display: inline-block !important;
     }
     .dds-navigation-container .burger-menu-toggle {
         display: block;
