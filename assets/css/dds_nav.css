@@ -46,9 +46,7 @@
     background-color: transparent !important;
 }
   @media (min-width: 1024px) {
-    .custom-html-mobile {
-        display: block;
-    }
+    
     .burger-menu-toggle {
       display: none;
     }
@@ -129,6 +127,9 @@
 
 /* Show the burger menu toggle on mobile devices only */
 @media screen and (max-width: 1024px) {
+    .custom-html-mobile {
+        display: block;
+    }
     .dds-navigation-container .burger-menu-toggle {
         display: block;
     }
