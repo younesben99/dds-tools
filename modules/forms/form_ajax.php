@@ -324,7 +324,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
             if ($dds_form_type == "aankoop" && !empty($client_email)) {
 
                 $headers2 = 'From: ' . $sp_contactmail . "\r\n" .
-                    'Reply-To: ' . $sp_contactmail . "\r\n" .
+                    'Reply-To: ' . $client_email . "\r\n" .
                     'Content-Type: text/html' . "\r\n" .
                     'charset=UTF-8' . "\r\n";
                 $merk = ucfirst($merk);

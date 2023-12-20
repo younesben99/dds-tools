@@ -41,7 +41,7 @@
     height: 0px !important;
     background-color: transparent !important;
 }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .burger-menu-toggle {
       display: none;
     }
@@ -121,7 +121,7 @@
 }
 
 /* Show the burger menu toggle on mobile devices only */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .dds-navigation-container .burger-menu-toggle {
         display: block;
     }
@@ -137,7 +137,7 @@
 .dds-navigation-container .dds-main-nav.open .close-menu {
     display: block;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .dds-desktop-tablet-menu {
         display: none;
     }
