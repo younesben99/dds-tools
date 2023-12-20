@@ -19,7 +19,7 @@ function dds_add_custom_html_to_menu( $items, $args ) {
     if ( isset($args->custom_html) && !empty($args->custom_html) ) {
         // Process and append custom HTML to the menu items
         $custom_html = do_shortcode($args->custom_html);
-        $items .= '<li class="menu-item custom-html">' . $custom_html . '</li>';
+        $items .= '<li class="menu-item custom-html custom-html-mobile">' . $custom_html . '</li>';
     }
     return $items;
 }
