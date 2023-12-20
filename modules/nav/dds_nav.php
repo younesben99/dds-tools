@@ -20,6 +20,7 @@ function dds_nav( $atts ) {
     $atts = shortcode_atts( array(
         'menu' => 'menu',
         'active' => null,
+        'custom_sc' => '', // Add custom shortcode attribute
     ), $atts );
 
     $walker = null;
@@ -42,8 +43,14 @@ function dds_nav( $atts ) {
     <div></div>
     <div></div></div>';
 
+    // Check if custom_sc attribute is set and not empty
+    $custom_content = '';
+    if ( !empty($atts['custom_sc']) ) {
+        $custom_content = do_shortcode('[' . $atts['custom_sc'] . ']');
+    }
+
     // Wrap the menu, toggle button, and close button in a container div
-    $menu_html = '<div class="dds-desktop-tablet-menu">'.$menu.'</div><div class="dds-navigation-container">' . $toggle_button . $menu . '</div>';
+    $menu_html = '<div class="dds-desktop-tablet-menu">'.$menu.'</div><div class="dds-navigation-container">' . $toggle_button . $menu . $custom_content . '</div>';
 
     return $menu_html;
 }
