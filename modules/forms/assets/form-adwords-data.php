@@ -38,8 +38,13 @@ if (isset($_GET['download']) && count($_GET) == 1) {
     // Create a file pointer connected to the output stream
     $output = fopen('php://output', 'w');
 
+
     // Write the header row to the CSV file
-    fputcsv($output, ['GCLID', 'ConversionName', 'ConversionTime', 'ConversionValue', 'ConversionCurrency']);
+    fputcsv($output, ['Parameters:Attribution Model = Data-Driven']);
+    // Write the header row to the CSV file
+    fputcsv($output, ['Parameters:TimeZone=Europe/Brussels']);
+    // Write the header row to the CSV file
+    fputcsv($output, ['Google Click ID', 'Conversion Name', 'Conversion Time', 'Conversion Value','Conversion Currency']);
 
     // Fetch the data and write it to the CSV
     while ($row = $result->fetch_assoc()) {
