@@ -1,5 +1,5 @@
 <?php
-
+ob_start(); // Start output buffering
 // Send headers to prevent caching
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -218,8 +218,8 @@ if ($result->num_rows > 0) {
 
 
 $conn->close();
+ob_end_flush(); // Send the buffer output and turn off output buffering
 ?>
-
 
 </div>
 </body>

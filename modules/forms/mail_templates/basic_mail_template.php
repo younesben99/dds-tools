@@ -164,10 +164,10 @@ Markeer als Winstgevend
 if($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)){
 ?>
 <br>
-<p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #f5f202; display: inline-block;    box-shadow: 0 1px 3px 0 #00000080;'>
-
+<p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #f5f202; display: inline-block;   text-align:center; box-shadow: 0 1px 3px 0 #00000080;'>
+<center>
 <a href='<?php echo($as_url_link); ?>' style='color: #333333; text-decoration: none;font-weight:500;'>Zoeken op Autoscout</a>
-
+</center>
 
 </p>
 
