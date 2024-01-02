@@ -407,6 +407,10 @@ add_shortcode('dds_select', 'dds_select');
 
 function dds_form($atts)
 {
+    $home_url = home_url();
+    $parsed_url = wp_parse_url($home_url);
+    $domain = $parsed_url['host'];
+
     if(!empty($atts)){
         if($atts['style'] == "modern"){
             $style = "dds_form_modern";
@@ -460,6 +464,7 @@ function dds_form($atts)
     
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' ".$formid." class='main_level1 dds_form ".$style."'>";
     
+
     if(is_archive()){
         $form .= "<input type='hidden' name='pagetitle' value='Stock' />";
         $form .= "<input type='hidden' name='pagelink' value='".get_post_type_archive_link("autos")."' />";
@@ -472,6 +477,8 @@ function dds_form($atts)
     $form .= "<input type='hidden' name='merk_hidden' class='merk_hidden' />";
     $form .= "<input type='hidden' name='model_hidden' class='model_hidden' />";
     $form .= "<input type='hidden' name='source' class='source_hidden' />";
+    $form .= "<input type='hidden' name='gclid' class='gclid_hidden' />";
+    $form .= "<input type='hidden' name='domain' class='domain_hidden' value='".$domain."'/>";
     $form .= "<input type='hidden' class='wizardlist' name='wizardlist' value='' />";
     $form .= "<input type='hidden' class='dds_redirect' name='dds_redirect' value='".$redirect."' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";

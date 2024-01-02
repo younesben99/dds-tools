@@ -16,6 +16,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                 }
             }
 
+          
+
 
             $as_url = array();
             $dds_form_type = $_POST["formtype"];
@@ -39,6 +41,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
             if (!empty($fields["bodhlist"])) $bodhlist = $fields["bodhlist"];
             if (!empty($fields["diensten"])) $dienst = $fields["diensten"];
             if (!empty($fields["source"])) $source = $fields["source"];
+            if (!empty($fields["gclid"])) $gclid = $fields["gclid"];
+            if (!empty($fields["domain"])) $domain = $fields["domain"];
             if(!empty($fields["merkmobilhome"])){
                 $merkmobilhome = $fields["merkmobilhome"];
                 $merk = $fields["merkmobilhome"];
@@ -51,6 +55,10 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
 
             include(__DIR__ . "/../../../../../wp-load.php");
 
+
+            $plugin_url = plugins_url('dds-tools');
+
+            $full_plugin_url = $plugin_url . "/modules/forms/assets/form-adwords-data.php";
 
             $as_url_params = array(
                 "fregfrom" => $bouwjaar,
@@ -213,10 +221,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                             }
                         }
                     }
-                    if ($name !== "Bodhlist" && $name !== "Source" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect") {
+                    if ($name !== "Bodhlist" && $name !== "Domain" && $name !== "Source" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect" && $name !== "Gclid") {
                         
-                   
-
                           switch ($name) {
                                     case 'Merk':
                                        $name = __("Merk","dds-tools");
@@ -273,6 +279,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
                         }
                         
                     }
+                   
                 }
             }
 

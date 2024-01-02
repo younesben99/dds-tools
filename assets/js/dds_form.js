@@ -6,6 +6,7 @@ function capitalizeFirstLetter(string) {
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
 }
+
  function get_time_between(start_range,end_range,interval){
 
     var interval_minutes = interval / 60;
@@ -48,6 +49,7 @@ function addMinutes(date, minutes) {
 
  } 
 jQuery(document).ready(function($){
+
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -64,6 +66,8 @@ jQuery(document).ready(function($){
       
       if (gclid) {
         source = 'Google Ads';
+ 
+        $(".gclid_hidden").val(gclid);
       } else if (bingid) {
         source = 'Bing Ads';
       }

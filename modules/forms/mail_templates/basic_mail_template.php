@@ -23,7 +23,11 @@
             float: left;
         }
     }
- 
+    td.thumbsup_td {
+    text-align: left !important;
+    margin: 20px 18px;
+    padding: 0 48px;
+}
     a.imgawrap {
         display: inline-block  !important;
         border-radius: 10px !important;
@@ -136,7 +140,27 @@ if(!empty($tel)){
     <?php
 }
 
+if (!empty($gclid)) {
+                      
+    echo "<tr><td class='thumbsup_td'>
+<h3>Beoordeel de Lead</h3>
+<p style='font-size:14px;    margin-bottom: 30px;'>Optimaliseer uw resultaten! Markeer deze lead als winstgevend voor beter afgestemde en waardevollere toekomstige leads.</p>
+<a href='".$full_plugin_url."?gclid=".$gclid."&campaign=".$domain."' style='background-color: #e5ffe6;
+color: #207039;
+padding: 15px 21px;
+text-align: center;
+text-decoration: none;
+border-radius: 5px;
+margin-top: 17px;
+font-weight: 600;
+border: 1px solid #86cc88;'>
+<img src='https://digiflowroot.be/static/images/icons/thumbs_up_ads.png' height='35' width='35' style='vertical-align: middle; margin-right: 8px;'/>
+Markeer als Winstgevend
+</a>
+</td></tr>";
 
+    
+}
 if($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)){
 ?>
 <br>
