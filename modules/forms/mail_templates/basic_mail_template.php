@@ -113,7 +113,7 @@
     </td>
 </tr>
     <tr>
-        <td style='padding: 20px 50px; text-align: left;'>
+        <td style='padding: 20px 50px; text-align: center;'>
     
             <p style='width: 100%;line-break: anywhere;'><?php
             
@@ -164,12 +164,15 @@ Markeer als Winstgevend
 if($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)){
 ?>
 <br>
-<p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #f5f202; display: inline-block;   text-align:center; box-shadow: 0 1px 3px 0 #00000080;'>
-<center>
-<a href='<?php echo($as_url_link); ?>' style='color: #333333; text-decoration: none;font-weight:500;'>Zoeken op Autoscout</a>
-</center>
-
-</p>
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+        <td style="text-align: center;">
+            <p style="border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #f5f202; display: inline-block; box-shadow: 0 1px 3px 0 #00000080;">
+                <a href='<?php echo($as_url_link); ?>' style='color: #333333; text-decoration: none; font-weight: 500;'>Zoeken op Autoscout</a>
+            </p>
+        </td>
+    </tr>
+</table>
 
 <?php
 }
