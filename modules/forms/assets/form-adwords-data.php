@@ -20,7 +20,6 @@ $port = 3306;                   // Port number
 // Create database connection
 $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
-
 // Check if 'download' is the only parameter in the URL
 if (isset($_GET['download']) && count($_GET) == 1) {
     $campaignName = trim($_GET['download'], '()');
@@ -39,6 +38,9 @@ if (isset($_GET['download']) && count($_GET) == 1) {
     // Create a file pointer connected to the output stream
     $output = fopen('php://output', 'w');
 
+    // Write the header row to the CSV file
+    fputcsv($output, ['GCLID', 'ConversionName', 'ConversionTime', 'ConversionValue', 'ConversionCurrency']);
+
     // Fetch the data and write it to the CSV
     while ($row = $result->fetch_assoc()) {
         fputcsv($output, $row);
@@ -53,6 +55,7 @@ if (isset($_GET['download']) && count($_GET) == 1) {
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 
 ?>
 <html> 
