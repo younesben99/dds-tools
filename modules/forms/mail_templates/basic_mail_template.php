@@ -24,9 +24,13 @@
         }
     }
     td.thumbsup_td {
-    text-align: left !important;
+    text-align: center !important;
     margin: 20px 18px;
-    padding: 0 48px;
+    padding: 35px 50px 40px;
+    background: #fefefe;
+    border: 1px solid #e8e8e8;
+    border-right: 0px;
+    border-left: 0;
 }
     a.imgawrap {
         display: inline-block  !important;
@@ -61,6 +65,44 @@
     width: 50%;
     text-align:left !important;
 }
+/* Basisstijl voor knoppen */
+.btn {
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 40px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    border: none;
+    margin-right: 10px;
+    transition: all 0.2s ease-in-out;
+    width: 300px;
+    max-width: 100%;
+
+}
+
+/* Specifieke stijl voor "Markeer als Topkeuze" */
+.topkeuze {
+    background-color: #29BB9C;
+    color: #ffffff;
+}
+
+.topkeuze:hover {
+    background-color: #1a7d68;
+}
+
+/* Specifieke stijl voor "Markeer als Interessant" */
+.interessant {
+    background-color:#2985bb;
+    color: #ffffff;
+}
+
+.interessant:hover {
+    background-color: #1d628b;
+}
+
 @media only screen and (max-width: 650px) {
     .nametd{
     width: 100%;
@@ -88,14 +130,34 @@
         </td>
 </tr>   
 <tr>
-        <td style='padding: 5px; text-align: center; background: #254f79;'>
-            <h1 style='color: #ffffff;color: #ffffff;font-size: 21px;font-weight: 300;'><?php
-            if(!empty($mail_title)){
-                echo $mail_title;
-            }
-            ?></h1>
-        </td>
-    </tr>
+    <td style='background: #254f79;'>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <!-- Mail Title with 70% Width -->
+                <td width="70%" style='    width: 70%;color: #ffffff; font-size: 21px; font-weight: 300; padding: 15px; vertical-align: middle;'>
+                    <?php if (!empty($mail_title)) { echo $mail_title; } ?>
+                </td>
+                
+                <!-- Zoeken op Autoscout Button with 30% Width -->
+                <?php if ($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)) { ?>
+                    <td width="30%" style=' padding:10px;width: 30%;text-align: center; vertical-align: middle;'>
+                        <a href='<?php echo $as_url_link; ?>' style='color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    background: #0d1228db;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid;
+    font-size: 12Px;'>Zoeken op Autoscout</a>
+                    </td>
+                <?php } ?>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+
+
 
 <tr>
     <td align="center">
@@ -142,40 +204,37 @@ if(!empty($tel)){
 
 if (!empty($gclid)) {
                       
-    echo "<tr><td class='thumbsup_td'>
-<h3>Beoordeel de Lead</h3>
-<p style='font-size:14px;    margin-bottom: 30px;'>Optimaliseer uw resultaten! Markeer deze lead als winstgevend voor beter afgestemde en waardevollere toekomstige leads.</p>
-<a href='".$full_plugin_url."?gclid=".$gclid."&campaign=".$domain."' style='background-color: #e5ffe6;
-color: #207039;
-padding: 15px 21px;
-text-align: center;
-text-decoration: none;
-border-radius: 5px;
-margin-top: 17px;
-font-weight: 600;
-border: 1px solid #86cc88;'>
-<img src='https://digiflowroot.be/static/images/icons/thumbs_up_ads.png' height='35' width='35' style='vertical-align: middle; margin-right: 8px;'/>
-Markeer als Winstgevend
-</a>
-</td></tr>";
+    echo "<tr>
+    <td class='thumbsup_td'>
+        <h3>Optimaliseer uw resultaten! Beoordeel de Mail</h3>
+        <p style='font-size:14px; margin-bottom: 30px;'>Door te kiezen voor 'Markeer als Topkeuze' of 'Markeer als Interessant', zorgt u ervoor dat wij u in de toekomst meer relevante en waardevolle e-mails kunnen sturen.</p>
+        
+        <table cellspacing='0' cellpadding='0' style='width: 100%;border-collapse: collapse;'>
+        <tr>
+            <td style='padding: 10px; text-align: center; vertical-align: middle;'>
+                <a href='".$full_plugin_url."?gclid=".$gclid."&campaign=".$domain."&type=topkeuze' class='btn topkeuze'>
+                    <img src='https://digiflowroot.be/static/images/icons/thumb-up-white.png' height='25' width='25' style='vertical-align: middle; margin-right: 8px;'/>
+                    Markeer als Topkeuze
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding: 10px; text-align: center; vertical-align: middle;'>
+                <a href='".$full_plugin_url."?gclid=".$gclid."&campaign=".$domain."&type=interessant' class='btn interessant'>
+                    <img src='https://digiflowroot.be/static/images/icons/star-ads.png' height='25' width='25' style='vertical-align: middle; margin-right: 8px;'/>
+                    Markeer als Interessant
+                </a>
+            </td>
+        </tr>
+    </table>
+    
+
+    </td>
+</tr>";
 
     
 }
-if($show_as_search && !empty($merk) && !empty($model) && !empty($brandstof)){
-?>
-<br>
-<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-    <tr>
-        <td style="text-align: center;">
-            <p style="border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #f5f202; display: inline-block; box-shadow: 0 1px 3px 0 #00000080;">
-                <a href='<?php echo($as_url_link); ?>' style='color: #333333; text-decoration: none; font-weight: 500;'>Zoeken op Autoscout</a>
-            </p>
-        </td>
-    </tr>
-</table>
 
-<?php
-}
 
 
 ?>

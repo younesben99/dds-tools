@@ -9,6 +9,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 // Capture GCLID from URL
 $gclid = isset($_GET['gclid']) ? $_GET['gclid'] : null;
 $campaign = isset($_GET['campaign']) ? $_GET['campaign'] : null;
+$type = isset($_GET['type']) ? $_GET['type'] : null;
 
 // Database credentials - REPLACE with your actual database credentials
 $servername = "35.214.174.30"; // Server IP
@@ -44,7 +45,7 @@ if (isset($_GET['download']) && count($_GET) == 1) {
     // Write the header row to the CSV file
     fputcsv($output, ['Parameters:TimeZone=Europe/Brussels']);
     // Write the header row to the CSV file
-    fputcsv($output, ['Google Click ID', 'Conversion Name', 'Conversion Time', 'Conversion Value','Conversion Currency']);
+    fputcsv($output, ['Google Click ID', 'Conversion Name', 'Conversion Time', 'Conversion Value', 'Conversion Currency']);
 
     // Fetch the data and write it to the CSV
     while ($row = $result->fetch_assoc()) {
@@ -63,172 +64,194 @@ if ($conn->connect_error) {
 
 
 ?>
-<html> 
-    <head><link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'><title>Lead rating Succesvol</title><meta name="viewport" content="width=device-width, initial-scale=1" />
+<html>
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Noto Sans' rel='stylesheet'>
+    <title>Mail Succesvol Gemarkeerd als
+        <?php echo $type; ?>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
-    <body>
-        <style>
-            body{
-                margin: 0;
-                font-family:"Noto Sans", "Sans serif";
-            }nav img {
-    width: 40%;max-width: 207px;
-}
-nav{
-    background: #111920;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80Px;
-}
-p {
-    font-size: 30px;
-    margin: 10px;
-    text-align: center;
-}
-input[type="submit"] {
-    width: 280px;
-    height: 60px;
-    font-size: 19px;
-    border-radius: 9px;
-    border: 0px;
-    background: #167ee1;
-    color: white;
-    box-shadow: 0px 3px 10px #2969a6a1;
-    cursor:pointer;
-}
 
-            .wrapper{
-                display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 75%;
-    flex-direction: column;
+<body>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Noto Sans", "Sans serif";
+        }
+
+        nav img {
+            width: 40%;
+            max-width: 207px;
+        }
+
+        nav {
+            background: #111920;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80Px;
+        }
+
+        p {
+            font-size: 30px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            width: 280px;
+            height: 60px;
+            font-size: 19px;
+            border-radius: 9px;
+            border: 0px;
+            background: #167ee1;
+            color: white;
+            box-shadow: 0px 3px 10px #2969a6a1;
+            cursor: pointer;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75%;
+            flex-direction: column;
+        }
+
+        .later_arrived {
+            opacity: 0;
+            transform: translateY(20px);
+            animation-name: fadeInUp;
+            animation-duration: 2s;
+            animation-delay: 3s;
+            animation-fill-mode: forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .delete {
+            text-decoration: none;
+            color: #882c2c;
+            background: #f0cfd957;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            box-shadow: 0px 4px 4px #b15c742b;
+            border: 1px solid #edd6d6;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            .later_arrived {
-    opacity: 0;
-    transform: translateY(20px);
-    animation-name: fadeInUp;
-    animation-duration: 2s;
-    animation-delay: 3s;
-    animation-fill-mode: forwards;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.delete {
-    text-decoration: none;
-    color: #882c2c;
-    background: #f0cfd957;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 10px;
-    font-size: 13px;
-    box-shadow: 0px 4px 4px #b15c742b;
-    border: 1px solid #edd6d6;
-    cursor:pointer;
-}
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-        </style>
-       <nav>
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <nav>
         <img src="https://digiflow.be/wp-content/uploads/2020/09/Digiflowsvgwhite2.png" alt="Digiflow">
-       </nav>
+    </nav>
     <div class="Wrapper">
 
-<?php
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+        <?php
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
-function generateDeleteLink($gclid, $campaign) {
-    return "<a class='delete' href='?action=delete&campaign=" . urlencode($campaign) . "&gclid=" . urlencode($gclid) . "' onclick='return confirm(\"Wil je deze lead niet aangeven als winstgevend?\");'>Verwijder deze Lead</a>";
+        function generateDeleteLink($gclid, $campaign, $type)
+        {
+            return "<a class='delete' href='?action=delete&type=" . $type . "&campaign=" . urlencode($campaign) . "&gclid=" . urlencode($gclid) . "' onclick='return confirm(\"Door verder te gaan wordt de e-mail niet meer gemarkeerd als winstgevend.\");'>Ongedaan maken</a>";
 
-}
+        }
 
-if (isset($_GET['action']) && $_GET['action'] == 'delete' && $gclid && $campaign) {
-    // Delete the GCLID record
-    $deleteSql = "DELETE FROM OfflineConversions WHERE GCLID = ?";
-    $deleteStmt = $conn->prepare($deleteSql);
-    $deleteStmt->bind_param("s", $gclid);
-    $deleteStmt->execute();
-    $deleteStmt->close();
+        if (isset($_GET['action']) && $_GET['action'] == 'delete' && $gclid && $campaign) {
+            // Delete the GCLID record
+            $deleteSql = "DELETE FROM OfflineConversions WHERE GCLID = ?";
+            $deleteStmt = $conn->prepare($deleteSql);
+            $deleteStmt->bind_param("s", $gclid);
+            $deleteStmt->execute();
+            $deleteStmt->close();
 
-    // Redirect to re-add page
-    header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . "?action=readd&campaign=".$campaign."&gclid=" . urlencode($gclid));
-    exit;
-}
+            // Redirect to re-add page
+            header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . "?action=readd&type=" . $type . "&campaign=" . $campaign . "&gclid=" . urlencode($gclid));
+            exit;
+        }
 
-if (isset($_GET['action']) && $_GET['action'] == 'readd' && $gclid && $campaign) {
-    // Display the re-add button
-    echo "<form style='display:flex;flex-direction:column;' action='' method='get'>";
-    echo "<input type='hidden' name='gclid' value='" . htmlspecialchars($gclid) . "'>";
-    echo "<input type='hidden' name='campaign' value='" . htmlspecialchars($campaign) . "'>";
-    echo "<p>Vergissing?</p>";
-    echo "<input style='font-size: 15px;' type='submit' value='Lead terug ingeven in het systeem'>";
-    echo "</form>";
-    exit;
-}
+        if (isset($_GET['action']) && $_GET['action'] == 'readd' && $gclid && $campaign) {
+            // Display the re-add button
+            echo "<form style='display:flex;flex-direction:column;' action='' method='get'>";
+            echo "<input type='hidden' name='gclid' value='" . htmlspecialchars($gclid) . "'>";
+            echo "<input type='hidden' name='campaign' value='" . htmlspecialchars($campaign) . "'>";
+            echo "<input type='hidden' name='type' value='" . htmlspecialchars($type) . "'>";
+            echo "<p>Vergissing?</p>";
+            echo "<input style='font-size: 15px;' type='submit' value='Mail terug ingeven in het systeem'>";
+            echo "</form>";
+            exit;
+        }
 
-$conversionName = "Thumbs_Up_Conversion";
-$conversionValue = 2.01;
-$conversionCurrency = "EUR";
-$currentDateTime = date('Y-m-d H:i:s');
+       
+        if($type == "topkeuze"){
+            $conversionValue = 2.00;
+            $conversionName = "Thumbs_Up_Conversion";
+        }
+        else{
+            $conversionValue = 1.50;
+            $conversionName = "Star_Conversion";
+        }
+       
+        $conversionCurrency = "EUR";
+        $currentDateTime = date('Y-m-d H:i:s');
 
-// Check if a record with the same GCLID already exists
-$checkSql = "SELECT * FROM OfflineConversions WHERE GCLID = ?";
-$checkStmt = $conn->prepare($checkSql);
-$checkStmt->bind_param("s", $gclid);
-$checkStmt->execute();
-$result = $checkStmt->get_result();
-$checkStmt->close();
+        // Check if a record with the same GCLID already exists
+        $checkSql = "SELECT * FROM OfflineConversions WHERE GCLID = ?";
+        $checkStmt = $conn->prepare($checkSql);
+        $checkStmt->bind_param("s", $gclid);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+        $checkStmt->close();
 
-if ($result->num_rows > 0) {
-    echo "<p>Deze lead bestaat al in het systeem.</p>";
-    echo generateDeleteLink($gclid, $campaign);
-} else {
-    // Prepare the INSERT statement
-    $insertSql = "INSERT INTO OfflineConversions (GCLID, ConversionName, ConversionTime, ConversionValue, ConversionCurrency, Campaign) VALUES (?, ?, ?, ?, ?, ?)";
+        if ($result->num_rows > 0) {
+            echo "<p>Deze mail bestaat al in het systeem.</p>";
+            echo generateDeleteLink($gclid, $campaign, $type);
+        } else {
+            // Prepare the INSERT statement
+            $insertSql = "INSERT INTO OfflineConversions (GCLID, ConversionName, ConversionTime, ConversionValue, ConversionCurrency, Campaign, Markering) VALUES (?, ?, ?, ?, ?, ?,?)";
 
-    $insertStmt = $conn->prepare($insertSql);
-    $insertStmt->bind_param("sssdss", $gclid, $conversionName, $currentDateTime, $conversionValue, $conversionCurrency, $campaign);
-
-
-
-
-
-
-
-
-    if ($insertStmt->execute()) {
-
-        echo "<div><img src='/wp-content/plugins/dds-tools/modules/forms/assets/loading-adwords.gif' /></div>";
-        echo "<div class='later_arrived'><p>Lead Succesvol toegevoegd</p>";
-        echo generateDeleteLink($gclid, $campaign);
-        echo "</div>";
-    } else {
-        echo "Error: " . $insertStmt->error;
-    }
-
-    $insertStmt->close();
-}
+            $insertStmt = $conn->prepare($insertSql);
+            $insertStmt->bind_param("sssdsss", $gclid, $conversionName, $currentDateTime, $conversionValue, $conversionCurrency, $campaign,$type);
 
 
-$conn->close();
-ob_end_flush(); // Send the buffer output and turn off output buffering
-?>
 
-</div>
+            if ($insertStmt->execute()) {
+
+                echo "<div><img src='/wp-content/plugins/dds-tools/modules/forms/assets/loading-adwords.gif' /></div>";
+                echo "<div class='later_arrived'><p>Mail succesvol gemarkeerd als " . $type . "</p>";
+                echo generateDeleteLink($gclid, $campaign, $type);
+                echo "</div>";
+            } else {
+                echo "Error: " . $insertStmt->error;
+            }
+
+            $insertStmt->close();
+        }
+
+
+        $conn->close();
+        ob_end_flush(); // Send the buffer output and turn off output buffering
+        ?>
+
+    </div>
 </body>
+
 </html>
