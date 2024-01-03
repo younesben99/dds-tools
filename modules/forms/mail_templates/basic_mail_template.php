@@ -134,7 +134,7 @@
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <!-- Mail Title with 70% Width -->
-                <td width="70%" style='    width: 70%;color: #ffffff; font-size: 21px; font-weight: 300; padding: 15px; vertical-align: middle;'>
+                <td width="70%" style='    width: 70%;color: #ffffff; font-size: 15px; font-weight: 300; padding: 15px; vertical-align: middle;'>
                     <?php if (!empty($mail_title)) { echo $mail_title; } ?>
                 </td>
                 
@@ -192,7 +192,7 @@ if(!empty($tel)){
     $tellink = "tel:".str_replace(' ', '', $tel);
 
    ?>
-            <p style='border-radius: 5px; -moz-border-radius: 5px; padding: 15px 20px; margin: 10px auto; background: #254e79; display: inline-block;    box-shadow: 0 1px 3px 0 #00000080;'>
+            <p style='border-radius: 50px; -moz-border-radius: 50px; padding: 10px 30px; margin: 10px auto; background: #254e79; display: inline-block;    box-shadow: 0 1px 3px 0 #00000080;'>
 
 <a href='<?php echo($tellink); ?>' style='color: #fff; text-decoration: none;font-weight:500;'>Bel <?php echo($tel); ?></a>
 
