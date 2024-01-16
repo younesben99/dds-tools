@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.4.6";
+$dds_version = "5.4.8";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.4.6
+Version: 5.4.8
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -14,6 +14,7 @@ GitHub Plugin URI: https://github.com/younesben99/dds-tools
 include(__DIR__."/admin-panel/dds_tracking_panel.php");
 include(__DIR__."/admin-panel/dds_form_settings.php");
 include(__DIR__."/generate-pages/privacypolicy/generate_privacy_policy.php");
+add_action('wp_loaded', 'policy_generator');
 include(__DIR__."/modules/meldingen/cookie_melding/cookie_melding.php");
 include(__DIR__."/modules/tracking_codes/analytics_parser.php");
 include(__DIR__."/modules/search/dds_car_search.php");
@@ -21,28 +22,55 @@ include(__DIR__."/modules/nav/dds_nav.php");
 include(__DIR__."/modules/forms/form_shortcodes.php");
 include(__DIR__."/modules/shortcodes/dds_shortcodes.php");
 include(__DIR__."/modules/wizard/wizard.php");
+function enqueue_dds_scripts_and_styles($dds_version) {
+ 
 
-wp_enqueue_script( 'jquerysteps', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/jquery.steps.min.js?v='.$dds_version, array ( 'jquery' ), null, true);
-wp_enqueue_script( 'dds_wizard', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_wizard.js?v='.$dds_version, array ( 'jquery' ), null, true);
-//select2
-wp_enqueue_script( 'select2_js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array ( 'jquery' ), null, true);
-wp_enqueue_style( 'select2_css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css' );
-wp_enqueue_script( 'main_dds_js', get_site_url() .'/wp-content/plugins/dds-tools/assets/js/dds_functions.js' );
-//dropzone
-wp_enqueue_style( 'dropzonebasiccss', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css' );
-wp_enqueue_script( 'dropzonejs', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js', array ( 'jquery' ), null, true);
+  // Enqueue jQuery Steps script
+  wp_enqueue_script('jquerysteps', plugin_dir_url(__FILE__) . 'assets/js/jquery.steps.min.js', array('jquery'), $dds_version, true);
 
+  // Enqueue DDS Wizard script
+  wp_enqueue_script('dds_wizard', plugin_dir_url(__FILE__) . 'assets/js/dds_wizard.js', array('jquery'), $dds_version, true);
 
-wp_enqueue_style( 'dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_car_search.css?v='.$dds_version );
-wp_enqueue_style( 'dds_forms', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_forms.css?v='.$dds_version );
-wp_enqueue_script( 'dds_form_js', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_form.js?v='.$dds_version, array ( 'jquery' ), null, true);
-wp_enqueue_style( 'dds_nav', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_nav.css?v='.$dds_version );
-wp_enqueue_script( 'dds_nav_js', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_nav.js?v='.$dds_version, array ( 'jquery' ), null, true);
-wp_enqueue_style( 'fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' );
+  // Enqueue Select2 script and styles
+  wp_enqueue_script('select2_js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
+  wp_enqueue_style('select2_css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
 
-wp_localize_script('dds_form_js','dds_main_vars',array('siteurl'=>get_site_url()));
-wp_enqueue_style( 'dds_wizard', get_site_url() . '/wp-content/plugins/dds-tools/assets/css/dds_wizard.css?v='.$dds_version );
-wp_enqueue_script('dds_car_search_module', get_site_url() . '/wp-content/plugins/dds-tools/assets/js/dds_car_search.js?v='.$dds_version, array( 'jquery' ), false, true);
+  // Enqueue main DDS functions script
+  wp_enqueue_script('main_dds_js', plugin_dir_url(__FILE__) . 'assets/js/dds_functions.js', array('jquery'), $dds_version, true);
+
+  // Enqueue Dropzone script and styles
+  wp_enqueue_style('dropzonebasiccss', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css');
+  wp_enqueue_script('dropzonejs', 'https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js', array('jquery'), null, true);
+
+  // Enqueue DDS Car Search Module styles
+  wp_enqueue_style('dds_car_search_module', plugin_dir_url(__FILE__) . 'assets/css/dds_car_search.css', array(), $dds_version);
+
+  // Enqueue DDS Forms styles
+  wp_enqueue_style('dds_forms', plugin_dir_url(__FILE__) . 'assets/css/dds_forms.css', array(), $dds_version);
+
+  // Enqueue DDS Form script
+  wp_enqueue_script('dds_form_js', plugin_dir_url(__FILE__) . 'assets/js/dds_form.js', array('jquery'), $dds_version, true);
+
+  // Enqueue DDS Navigation styles
+  wp_enqueue_style('dds_nav', plugin_dir_url(__FILE__) . 'assets/css/dds_nav.css', array(), $dds_version);
+
+  // Enqueue DDS Navigation script
+  wp_enqueue_script('dds_nav_js', plugin_dir_url(__FILE__) . 'assets/js/dds_nav.js', array('jquery'), $dds_version, true);
+
+  // Enqueue Font Awesome CSS
+  wp_enqueue_style('fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+  // Enqueue DDS Wizard styles
+  wp_enqueue_style('dds_wizard', plugin_dir_url(__FILE__) . 'assets/css/dds_wizard.css', array(), $dds_version);
+
+  // Enqueue DDS Car Search Module script
+  wp_enqueue_script('dds_car_search_module', plugin_dir_url(__FILE__) . 'assets/js/dds_car_search.js', array('jquery'), false, true);
+
+  // Localize DDS Form script
+  wp_localize_script('dds_form_js', 'dds_main_vars', array('siteurl' => get_site_url()));
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_dds_scripts_and_styles');
 
 
 function dds_nlDate($datum){ 

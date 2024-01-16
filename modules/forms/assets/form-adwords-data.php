@@ -7,7 +7,12 @@ header("Pragma: no-cache");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 
 // Capture GCLID from URL
-$gclid = isset($_GET['gclid']) ? $_GET['gclid'] : null;
+$gclid = isset($_GET['version']) ? $_GET['version'] : null;
+
+if ($gclid == null) {
+    $gclid = isset($_GET['gclid']) ? $_GET['gclid'] : null;
+}
+
 $campaign = isset($_GET['campaign']) ? $_GET['campaign'] : null;
 $type = isset($_GET['type']) ? $_GET['type'] : null;
 

@@ -67,8 +67,8 @@
 }
 /* Basisstijl voor knoppen */
 .btn {
-    padding: 10px 20px;
-    text-align: center;
+    padding: 10px 38px;
+    text-align: left;
     text-decoration: none;
     border-radius: 40px;
     display: inline-block;
@@ -98,11 +98,28 @@
     background-color:#2985bb;
     color: #ffffff;
 }
-
-.interessant:hover {
-    background-color: #1d628b;
+.nietinteressant {
+    background-color:#BB5C7A;
+    color: #ffffff;
 }
 
+.interessant:hover {
+    background-color: #0669A4;
+}
+.nietinteressant:hover {
+    background-color:#BB345F;
+    color: #ffffff;
+}
+.btn img {
+    vertical-align: middle; 
+    float: left;
+
+    margin-right: 20px;
+}
+
+.btn span {
+    color:white;
+}
 @media only screen and (max-width: 650px) {
     .nametd{
     width: 100%;
@@ -212,20 +229,26 @@ if (!empty($gclid)) {
         <table cellspacing='0' cellpadding='0' style='width: 100%;border-collapse: collapse;'>
         <tr>
             <td style='padding: 10px; text-align: center; vertical-align: middle;'>
-                <a href='".$full_plugin_url."?gclid=".$gclid."&campaign=".$domain."&type=topkeuze' class='btn topkeuze'>
-                    <img src='https://digiflowroot.be/static/images/icons/thumb-up-white.png' height='25' width='25' style='vertical-align: middle; margin-right: 8px;'/>
-                    Markeer als Topkeuze
-                </a>
+                <a href='".$full_plugin_url."?version=".$gclid."&campaign=".$domain."&type=topkeuze' class='btn topkeuze'>
+                    <img src='https://digiflowroot.be/static/images/icons/thumb-up-white.png' height='25' width='25' style='vertical-align: middle;'/>
+                    <span>Markeer als Topkeuze</span>              </a>
             </td>
         </tr>
         <tr>
             <td style='padding: 10px; text-align: center; vertical-align: middle;'>
-                <a href='".$full_plugin_url."?gclid=".$gclid."&campaign=".$domain."&type=interessant' class='btn interessant'>
-                    <img src='https://digiflowroot.be/static/images/icons/star-ads.png' height='25' width='25' style='vertical-align: middle; margin-right: 8px;'/>
-                    Markeer als Interessant
+                <a href='".$full_plugin_url."?version=".$gclid."&campaign=".$domain."&type=interessant' class='btn interessant'>
+                    <img src='https://digiflowroot.be/static/images/icons/star-ads.png' height='25' width='25' style='vertical-align: middle;'/>
+                    <span>Markeer als Interessant</span>
                 </a>
             </td>
         </tr>
+        <tr>
+        <td style='padding: 10px; text-align: center; vertical-align: middle;'>
+            <a href='".$full_plugin_url_negative."?version=".$gclid."&campaign=".$domain."&type=negative&makemodel=".$merk.":".$model."' class='btn nietinteressant'>
+                <img src='https://digiflowroot.be/static/images/icons/thumbs_down_white.png' height='25' width='25' style='vertical-align: middle;'/>
+                <span>Niet Interessant</span>      </a>
+        </td>
+    </tr>
     </table>
     
 
