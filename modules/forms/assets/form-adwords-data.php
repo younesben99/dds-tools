@@ -208,11 +208,11 @@ if ($conn->connect_error) {
        
         if($type == "topkeuze"){
             $conversionValue = 2.00;
-            $conversionName = "Thumbs_Up_Conversion";
+            $conversionName = "Top_Conversion";
         }
         else{
             $conversionValue = 1.50;
-            $conversionName = "Star_Conversion";
+            $conversionName = "Mid_Conversion";
         }
        
         $conversionCurrency = "EUR";
