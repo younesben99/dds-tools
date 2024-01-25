@@ -45,8 +45,7 @@ if (isset($_GET['download']) && count($_GET) == 1) {
     $output = fopen('php://output', 'w');
 
 
-    // Write the header row to the CSV file
-    fputcsv($output, ['Parameters:Attribution Model = Data-Driven']);
+    
     // Write the header row to the CSV file
     fputcsv($output, ['Parameters:TimeZone=Europe/Brussels']);
     // Write the header row to the CSV file
