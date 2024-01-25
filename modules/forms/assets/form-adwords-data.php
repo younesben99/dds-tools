@@ -215,7 +215,9 @@ if ($conn->connect_error) {
         }
        
         $conversionCurrency = "EUR";
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = new DateTime('now', new DateTimeZone('Europe/Brussels'));
+        $currentDateTime = $currentDateTime->format('Y-m-d H:i:s');
+        
 
         // Check if a record with the same GCLID already exists
         $checkSql = "SELECT * FROM OfflineConversions WHERE GCLID = ?";

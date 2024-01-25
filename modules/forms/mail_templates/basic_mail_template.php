@@ -229,14 +229,14 @@ if (!empty($gclid)) {
         <table cellspacing='0' cellpadding='0' style='width: 100%;border-collapse: collapse;'>
         <tr>
             <td style='padding: 10px; text-align: center; vertical-align: middle;'>
-                <a href='".$full_plugin_url."?version=".$gclid."&campaign=".$domain."&type=topkeuze' class='btn topkeuze'>
+                <a href='".$adwords_push_url."?version=".$gclid."&campaign=".$domain."&type=topkeuze' class='btn topkeuze'>
                     <img src='https://digiflowroot.be/static/images/icons/thumb-up-white.png' height='25' width='25' style='vertical-align: middle;'/>
                     <span>Markeer als Topkeuze</span>              </a>
             </td>
         </tr>
         <tr>
             <td style='padding: 10px; text-align: center; vertical-align: middle;'>
-                <a href='".$full_plugin_url."?version=".$gclid."&campaign=".$domain."&type=interessant' class='btn interessant'>
+                <a href='".$adwords_push_url."?version=".$gclid."&campaign=".$domain."&type=interessant' class='btn interessant'>
                     <img src='https://digiflowroot.be/static/images/icons/star-ads.png' height='25' width='25' style='vertical-align: middle;'/>
                     <span>Markeer als Interessant</span>
                 </a>

@@ -58,7 +58,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&  strtolower($_SERVER['HTTP_X_RE
 
             $plugin_url = plugins_url('dds-tools');
 
-            $full_plugin_url = $plugin_url . "/modules/forms/assets/form-adwords-data.php";
+            $adwords_push_url = "https://digiflowroot.be/form-adwords-data.php";
             $full_plugin_url_negative = $plugin_url . "/modules/forms/assets/form-negative-data.php";
             $as_url_params = array(
                 "fregfrom" => $bouwjaar,
