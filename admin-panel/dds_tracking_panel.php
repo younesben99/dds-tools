@@ -218,13 +218,17 @@ public function digiflow_settings_section_info() {
     
 }
 
-
 public function cookienotice_toggle_callback() {
-    if($this->digiflow_settings_options['cookienotice_toggle'] == "cookieactief"){
+    // Initialize $cookiechecked with an empty string
+    $cookiechecked = '';
+    // Check if the 'cookienotice_toggle' key is set and equals 'cookieactief'
+    if (isset($this->digiflow_settings_options['cookienotice_toggle']) && $this->digiflow_settings_options['cookienotice_toggle'] == "cookieactief") {
         $cookiechecked = "checked";
-    };
-    echo('<input type="checkbox" id="cookienotice_toggle" name="digiflow_settings_option_name[cookienotice_toggle]" value="cookieactief" '.$cookiechecked.'><label for="cookienotice_toggle"> Actief</label>');
+    }
+    // Note: Removed the semicolon after the if statement's closing brace, it's not needed
+    echo('<input type="checkbox" id="cookienotice_toggle" name="digiflow_settings_option_name[cookienotice_toggle]" value="cookieactief" ' . $cookiechecked . '><label for="cookienotice_toggle"> Actief</label>');
 }
+
 
 
 public function google_analytics_tracking_id_0_callback() {

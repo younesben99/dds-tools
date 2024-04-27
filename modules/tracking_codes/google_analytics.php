@@ -13,6 +13,13 @@ add_action( 'wp_head', function(){
      gtag('js', new Date());
    
      gtag('config', '<?php echo($digiflow_settings_options['google_analytics_tracking_id_0']); ?>');
+   
+     gtag('consent', 'update', {
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'ad_storage': 'granted',
+    'analytics_storage': 'granted'
+  });
    </script>
    
    
