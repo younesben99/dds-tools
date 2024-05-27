@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.5.3";
+$dds_version = "5.5.4";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.5.3
+Version: 5.5.4
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -22,6 +22,16 @@ include(__DIR__."/modules/nav/dds_nav.php");
 include(__DIR__."/modules/forms/form_shortcodes.php");
 include(__DIR__."/modules/shortcodes/dds_shortcodes.php");
 include(__DIR__."/modules/wizard/wizard.php");
+
+
+
+// Enqueue the JavaScript file
+function js_error_logger_enqueue_script() {
+  wp_enqueue_script('js-error-logger', plugin_dir_url(__FILE__) . 'assets/js/alert-log.js', [],  $dds_version, true);
+}
+add_action('wp_enqueue_scripts', 'js_error_logger_enqueue_script');
+
+
 function enqueue_dds_scripts_and_styles($dds_version) {
  
 

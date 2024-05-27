@@ -62,7 +62,7 @@ if(!empty($sp_dealer_tel)){
     background-size: cover !important;
     }
     a.imgawrap {
-        display: inline-block  !important;
+        display: block  !important;
         border-radius: 10px !important;
         margin: 0 15px 10px 0px;
 }

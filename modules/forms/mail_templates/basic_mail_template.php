@@ -33,14 +33,14 @@
     border-left: 0;
 }
     a.imgawrap {
-        display: inline-block  !important;
+        display: inline  !important;
         border-radius: 10px !important;
-        margin: 0 15px 10px 0px;
+  
 }
 .imgwrap {
     object-fit: cover !important;
-    width: 125px !important;
-    height: 100px !important;
+    width: 44% !important;
+    max-height: 300px !important;
     border-radius: 5px !important;
     border: 1px solid #e4e4e4;
 

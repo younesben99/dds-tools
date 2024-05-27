@@ -197,7 +197,7 @@ jQuery(document).ready(function($){
     } )
         .done(function(data) {
             
-            if(data.trim() == "verstuurd"){
+            if(data.trim() == "Mail sent successfully"){
                 
 
                 if(conversieteller == 0){
@@ -209,7 +209,7 @@ jQuery(document).ready(function($){
                     });
                         
                     } catch (error) {
-                        console.log(error);
+                        console.error(error);
                     }
                     
                     
@@ -256,7 +256,7 @@ jQuery(document).ready(function($){
                     });
 
                     } catch (error) {
-                        console.log(error);
+                        console.error(error);
                         
                     }
                     setTimeout(function(){
@@ -278,18 +278,21 @@ jQuery(document).ready(function($){
 
             else{
                // $(currentform)[0].submit();
+               console.error(data.trim());
                 $(currentform).find(".dds_form_submit").prop( "disabled", false );
                 $(currentform).find(".dds_form_error_notice").slideDown();
                 $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
             }
         })
         .fail(function() {
+            console.error(data.trim());
             $(currentform).find(".dds_form_submit").prop( "disabled", false );
             $(currentform).find(".dds_form_error_notice").slideDown();
             $(currentform).find(".dds_form_submit").removeClass("dds_form_loading");
         });
         } catch (error) {
        //  $(formcatch)[0].submit();
+     
          $(currentform).find(".dds_form_submit").prop( "disabled", false );
          $(currentform).parents().find(".dds_form_error_notice").slideDown();
         
