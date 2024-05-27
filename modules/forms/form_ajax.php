@@ -289,7 +289,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
             $sent = wp_mail($to, $subject, $mailcontent, $headers);
             if ($sent) {
-                log_and_echo("Mail sent successfully");
+                echo("Mail sent successfully");
             } else {
                 global $mail_error;
                 $stack_trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
