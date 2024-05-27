@@ -1,9 +1,9 @@
 <?php
 //error_reporting(0);
-function json_to_select_options($dir,$type){
+function json_to_select_options($dir, $type){
     // deze functie werkt alleen als de json bestand 2 kollomen heeft genaamd ID en name
-    $json = json_decode(file_get_contents($dir),true);
-    $option;
+    $json = json_decode(file_get_contents($dir), true);
+    $option = '';
     if($type == "merk"){
         foreach($json as $value){
             $option .= "<option data-merk='".$value["id"]."' value='".$value["name"]."'>".$value["name"]."</option>";
@@ -14,23 +14,32 @@ function json_to_select_options($dir,$type){
             $option .= "<option style='display:none;' data-parent='".$value["makeId"]."' value='".$value["name"]."'>".$value["name"]."</option>";
         }
     }
-    
     return $option;
-
 }
+
 function json_to_select_options_single_col($dir){
     // deze functie werkt alleen als de json bestand 1 kollom heeft genaamd ID en name
-    $json = json_decode(file_get_contents($dir),true);
-    $option;
+    $json = json_decode(file_get_contents($dir), true);
+    $option = '';
 
     foreach($json as $value){
         $option .= "<option value='".$value['merk']."'>".$value['merk']."</option>";
     }
-    $option .= "<option value='Andere'>".__("Andere","dds-tools")."</option>";
+    $option .= "<option value='Andere'>".__("Andere", "dds-tools")."</option>";
     return $option;
 }
-function dds_input($atts)
-{
+
+function dds_input($atts) {
+    $req = "";
+    $data_hide = "";
+    $hideinput = "";
+    $placeholder = "";
+    $name = "";
+    $length = "";
+    $ddsinputgroupcss = "";
+    $width = "";
+    $text = "";
+
     if (is_array($atts)) {
         if (in_array("*", $atts)) {
             $req = "required";
@@ -53,38 +62,34 @@ function dds_input($atts)
     if (!empty($atts["w"])) {
         $ddsinputgroupcss .= "width:".$atts["w"].";";
     }
-    if (!empty($atts["ty"])) {
-        $type = $atts["ty"];
-    }
-    if (empty($type)) {
-        $type = " type='text' ";
-    } else {
+    if ( isset(($atts["ty"]))) {
         $type =  " type='".$atts["ty"]."' ";
+    } else {
+        $type = " type='text' ";
     }
-    if($atts["ty"] == "textarea"){
+
+    if (isset($atts["ty"]) && $atts["ty"] == "textarea") {
         $text .= "<div class='dds_input_group' style='".$ddsinputgroupcss.$hideinput."'>";
         if (!empty($atts["lb"])) {
             $text .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
         }
-        $text .= "<textarea ".$req.$name.$placeholder.$length.$width.$data_hide. "></textarea>";
-       
+        $text .= "<textarea ".$req.$name.$placeholder.$length.$width.$data_hide."></textarea>";
+        $text .= "</div>";
+    } else {
+        $text .= "<div class='dds_input_group' style='".$ddsinputgroupcss.$hideinput."'>";
+        if (!empty($atts["lb"])) {
+            $text .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
+        }
+        $text .= "<input ".$type.$req.$name.$placeholder.$length.$width.$data_hide." />";
         $text .= "</div>";
     }
-    else{
-        $text .= "<div class='dds_input_group' style='".$ddsinputgroupcss.$hideinput."'>";
-    if (!empty($atts["lb"])) {
-        $text .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
-    }
-    $text .= "<input ".$type.$req.$name.$placeholder.$length.$width.$data_hide. " />";
-   
-    $text .= "</div>";
-    }
-   
+    
+
     return $text;
 }
 
-add_shortcode('dds_input', 'dds_input');
 
+add_shortcode('dds_input', 'dds_input');
 
 function dds_radio($atts) {
     $text = '';
@@ -132,9 +137,24 @@ function dds_radio($atts) {
 
 add_shortcode('dds_radio', 'dds_radio');
 
+function dds_select($atts) {
+    $req = '';
+    $data_hide = '';
+    $hideinput = '';
+    $d_range = "ma,di,wo,do,vr,za";
+    $t_interval = 600;
+    $start_uur = 10;
+    $aantal_uren = 8;
+    $excl_uren = array();
+    $ddsinputgroupcss = '';
+    $text = '';
+    $name = '';
+    $placeholder = '';
+    $length = '';
+    $width = '';
+    $type = '';
+    $intervalmins = '';
 
-function dds_select($atts)
-{
     if (is_array($atts)) {
         if (in_array("*", $atts)) {
             $req = "required";
@@ -143,65 +163,29 @@ function dds_select($atts)
             $data_hide = " data-hide='true' ";
             $hideinput = "display:none;";
         }
-        
-        if ($atts["d_range"]) {
-           
+        if (!empty($atts["d_range"])) {
             $d_range = $atts["d_range"];
-           
         }
-        else{
-            $d_range = "ma,di,wo,do,vr,za";
-        }
-        if ($atts["t_interval"]) {
-           
+        if (!empty($atts["t_interval"])) {
             $t_interval = intval($atts["t_interval"]);
-           
         }
-        else{
-            $t_interval = 600;
-        }
-
-        if ($atts["start_uur"]) {
-           
+        if (!empty($atts["start_uur"])) {
             $start_uur = intval($atts["start_uur"]);
-           
         }
-        else{
-            $start_uur = 10;
-        }
-        if ($atts["aantal_uren"]) {
-           
+        if (!empty($atts["aantal_uren"])) {
             $aantal_uren = intval($atts["aantal_uren"]);
-           
         }
-        else{
-            $aantal_uren = 8;
-        }
-        if ($atts["excl"]) {
-
-            
-            $atts["excl"] = explode(",",$atts["excl"]);
-
-            
-            $excl_uren = array();
+        if (!empty($atts["excl"])) {
+            $atts["excl"] = explode(",", $atts["excl"]);
             foreach ($atts["excl"] as $key => $exclusion) {
-
-            $excl_uren[$key]["dag"] = substr($exclusion, 0, 2);
-            $excl_uren[$key]["t_range_start"] = get_string_between($exclusion,"(","-");
-            $excl_uren[$key]["t_range_end"] = get_string_between($exclusion,"-",")");
-            $excl_uren[$key]["interval"] = $t_interval;
-
-                
+                $excl_uren[$key]["dag"] = substr($exclusion, 0, 2);
+                $excl_uren[$key]["t_range_start"] = get_string_between($exclusion, "(", "-");
+                $excl_uren[$key]["t_range_end"] = get_string_between($exclusion, "-", ")");
+                $excl_uren[$key]["interval"] = $t_interval;
             }
-            
         }
-      
-        
-
-    
     }
 
-    
     if (!empty($atts["name"])) {
         $name = " name='".strtolower($atts["name"])."' id='dds_id_".strtolower($atts["name"])."_".uniqid()."'";
     }
@@ -214,60 +198,48 @@ function dds_select($atts)
     if (!empty($atts["ty"])) {
         $type = $atts["ty"];
     }
-
     if (!empty($atts["intervalmins"])) {
         $intervalmins = $atts["intervalmins"];
     }
-    
+
     $text .= "<div class='dds_input_group' style='".$ddsinputgroupcss.$hideinput."'>";
     if (!empty($atts["lb"])) {
         $text .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
     }
 
+    // Handling options
+    $options = array();
+    if (!empty($atts["options"])) {
+        $options = explode("|", $atts["options"]);
+    }
 
+    // Handling selected option
+    $selected_option = '';
+    if (!empty($atts["selected"])) {
+        $selected_option = strtolower($atts["selected"]);
+    }
 
+    $text .= "<select ".$req.$name.$placeholder.$length.$width.$data_hide.">";
 
-// Handling options
-$options = array();
-if (!empty($atts["options"])) {
-    $options = explode("|", $atts["options"]);
-}
+    if (!empty($atts["ph"])) {
+        $text .= "<option value='' class='firstoption' hidden>".$atts["ph"]."</option>";
+    }
 
-// Handling selected option
-$selected_option = '';
-if (!empty($atts["selected"])) {
-    $selected_option = strtolower($atts["selected"]);
-}
-
-// ... Your previous code here ...
-
-$text .= "<select ".$req.$name.$placeholder.$length.$width.$data_hide. ">";
-
-if (!empty($atts["ph"])) {
-    $text .= "<option value='' class='firstoption' hidden>".$atts["ph"]."</option>";
-}
-
-if (!empty($options)) {
-    // If options parameter is set, use it to generate <option> tags
-    foreach ($options as $option) {
-        $selected = '';
-        if (strtolower($option) == $selected_option) {
-            $selected = ' selected';
+    if (!empty($options)) {
+        // If options parameter is set, use it to generate <option> tags
+        foreach ($options as $option) {
+            $selected = '';
+            if (strtolower($option) == $selected_option) {
+                $selected = ' selected';
+            }
+            $text .= "<option value='".strtolower($option)."'".$selected.">".$option."</option>";
         }
-        $text .= "<option value='".strtolower($option)."'".$selected.">".$option."</option>";
+    } else {
+        // If options parameter is not set, use predefined behavior
+        switch (strtolower($atts["name"])) {
+            // ... Your existing cases here ...
+        }
     }
-} else {
-    // If options parameter is not set, use predefined behavior
-    switch (strtolower($atts["name"])) {
-        // ... Your existing cases here ...
-    }
-}
-
-
-
-
-
-
 
     switch (strtolower($atts["name"])) {
         case 'bouwjaar':
@@ -299,16 +271,13 @@ if (!empty($options)) {
             break;
         case 'datum':
             $datums = array();
-
             $myDate = date("l d F Y");
 
             for ($i=0; $i < 30; $i++) { 
                 array_push($datums, strtotime($myDate . '+ '.$i.'days'));
             }
-            
 
             //gekozen datums array klaarmaken
-            
             $d_range = explode(',', $d_range);
             foreach($d_range as $index => $day){
                 switch ($day) {
@@ -336,68 +305,46 @@ if (!empty($options)) {
                 }
             }
 
-
             foreach($datums as $date){
                 $weekday = date('l', $date);
-                if(in_array($weekday,$d_range)){
-
+                if(in_array($weekday, $d_range)){
                     $dagvol = dds_nlDate(date("l d F Y", $date));
-                    $dagkort = substr(strtolower(dds_nlDate(date("l", $date))),0,2);
-                    $text .=  "<option value=".$date." data-dag='".$dagkort."'>".$dagvol."</option>";   
-                    
+                    $dagkort = substr(strtolower(dds_nlDate(date("l", $date))), 0, 2);
+                    $text .= "<option value=".$date." data-dag='".$dagkort."'>".$dagvol."</option>";   
                 }
             }
             break;
         case 'tijd':
-
-
             $tijdstippen = array();
-
             $start_uur = $start_uur - 1;
             $aantal_uren = $aantal_uren + 1;
-
-            
-            $timebuffer = mktime($start_uur,0,0);
-            
-            
+            $timebuffer = mktime($start_uur, 0, 0);
             $interval_secs = $t_interval;
 
-            if(!empty($intervalmins)){
+            if (!empty($intervalmins)){
                 $interval_secs = $intervalmins * 60;
             }
 
             $interval_remainer = 3600 / $interval_secs;
-
-
-            
             $time_max = $aantal_uren * $interval_remainer;
-        
-        
+
             for ($i=0; $i < $time_max; $i++) { 
-        
-                
                 $timebuffer += $interval_secs;
-        
-                array_push($tijdstippen, date("H:i",$timebuffer));
-                
+                array_push($tijdstippen, date("H:i", $timebuffer));
             }
             foreach($tijdstippen as $tijd){
                 $text .= "<option value=".$tijd.">".$tijd."</option>";
             }
-        
             break;
-        
     }
     
     $text .= "</select>";
 
     if(!empty($excl_uren)){
         if(is_array($excl_uren)){
-            $text .= "<div class='excl_tijd' data-excl-tijd='".json_encode($excl_uren)."'style='display:none !important;opacity:0;width:0;height:0;position:absolute;'></div>";
+            $text .= "<div class='excl_tijd' data-excl-tijd='".json_encode($excl_uren)."' style='display:none !important;opacity:0;width:0;height:0;position:absolute;'></div>";
         }
     }
-    
-    
     $text .= "</div>";
 
     return $text;
@@ -405,11 +352,17 @@ if (!empty($options)) {
 
 add_shortcode('dds_select', 'dds_select');
 
-function dds_form($atts)
-{
+function dds_form($atts) {
+    global $current_formtype;
+    $form = '';
     $home_url = home_url();
     $parsed_url = wp_parse_url($home_url);
     $domain = $parsed_url['host'];
+    $style = '';
+    $formtype = 'contactform';
+    $formid = '';
+    $sendto = '';
+    $redirect = 'bedankt';
 
     if(!empty($atts)){
         if($atts['style'] == "modern"){
@@ -421,55 +374,29 @@ function dds_form($atts)
         if($atts['style'] == "classic_big"){
             $style = "dds_form_classic_big";
         }
-        $formtype = $atts['type'];
-        switch ($formtype) {
-            case 'aankoop':
-                $formtype = "aankoop";
-                break;
-            case 'offerte':
-                $formtype = "offerte";
-                break;    
-            case 'beschikbaarheid':
-                $formtype = "beschikbaarheid";
-                break;
-            case 'afspraak':
-                $formtype = "afspraak";
-                break;
-            case 'bodh':
-                $formtype = "bodh";
-                break;
-            default:
-                $formtype = "contactform";
-                break;
+        if (!empty($atts['type'])) {
+            $formtype = $atts['type'];
+        }
+        if (!empty($atts["name"])) {
+            $formid = "id='".$atts["name"]."' ";
+        }
+        if (!empty($atts["sendto"])) {
+            $sendto = $atts["sendto"];
+        }
+        if(array_key_exists("redirect",$atts)){
+            if($atts['redirect'] !== ""){
+                $redirect = $atts['redirect'];
+            }else{
+                $redirect = "NO_REDIRECT";
+            }
         }
     }
-    if (!empty($atts["name"])) {
-        $formid = "id='".$atts["name"]."' ";
-    }
-    if (!empty($atts["sendto"])) {
-        $sendto = $atts["sendto"];
-    }
-
-    if(array_key_exists("redirect",$atts)){
-        if($atts['redirect'] !== ""){
-            $redirect = $atts['redirect'];
-        }else{
-            $redirect = "NO_REDIRECT";
-        }
-        
-    }else{
-        $redirect = "bedankt";
-    }
-    
-    
+    $current_formtype = $formtype; // Store form type in global variable
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' ".$formid." class='main_level1 dds_form ".$style."'>";
-    
-
     if(is_archive()){
         $form .= "<input type='hidden' name='pagetitle' value='Stock' />";
         $form .= "<input type='hidden' name='pagelink' value='".get_post_type_archive_link("autos")."' />";
-    }
-    else{
+    } else {
         $form .= "<input type='hidden' name='pagetitle' value='".get_the_title()."' />";
         $form .= "<input type='hidden' name='pagelink' value='".get_permalink()."' />";
     }
@@ -483,7 +410,6 @@ function dds_form($atts)
     $form .= "<input type='hidden' class='dds_redirect' name='dds_redirect' value='".$redirect."' />";
     $form .= "<input type='hidden' name='sendto' value='".$sendto."' />";
     $form .= "<input type='hidden' name='bodhlist' value='' />";
-
     //dds_hp is een honeypot veld
     $form .= "<input type='text' name='firstname' style='opacity:0;position:absolute;top:0;left:0;height:0!important;width:0!important;z-index:-1;' autocomplete='off' tabindex='-1' />";
     $form .= "<input type='hidden' name='js_active' id='js_active' style='display:none;' />";
@@ -492,56 +418,75 @@ function dds_form($atts)
 
 add_shortcode('dds_form', 'dds_form');
 
+function close_dds_form() {
+    global $current_formtype;
 
-function close_dds_form()
-{
-    
-    $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> ".__("Bedankt! Het bericht is succesvol verstuurd.","dds-tools")."</div>";
-    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> ".__("Error! Bekijk de velden en probeer opnieuw.","dds-tools")."</div>";
+    // Default thank-you message
+    $thank_you_message = __("Bedankt! Het bericht is succesvol verstuurd.", "dds-tools");
+
+    // Customize the thank-you message based on formtype
+    if (isset($current_formtype)) {
+        switch ($current_formtype) {
+            case 'beschikbaarheid':
+                $thank_you_message = __("Bedankt! We hebben uw aanvraag voor beschikbaarheid ontvangen.", "dds-tools");
+                break;
+            case 'afspraak':
+                $thank_you_message = __("Bedankt! Uw afspraak is succesvol ingepland.", "dds-tools");
+                break;
+            case 'bodh':
+                $thank_you_message = __("Bedankt! We houden u op de hoogte van nieuwe aanbiedingen.", "dds-tools");
+                break;
+            // Add more cases as needed
+            default:
+                $thank_you_message = __("Bedankt! Het bericht is succesvol verstuurd.", "dds-tools");
+        }
+    }
+
+    $form = '';
+    $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> " . $thank_you_message . "</div>";
+    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> " . __("Error! Bekijk de velden en probeer opnieuw.", "dds-tools") . "</div>";
     $form .= "</form>";
     return $form;
 }
 
+
+
 add_shortcode('close_dds_form', 'close_dds_form');
 
+function dds_submit($atts) {
+    $dds_submit = '';
+    if (!empty($atts)) {
+        $submit_ph = isset($atts['ph']) ? $atts['ph'] : __("Versturen", "dds-tools");
+        $submit_icon = '';
 
-function dds_submit($atts)
-{
-    if(!empty($atts)){
-        if($atts['ph']){
-            $submit_ph = $atts['ph'];
-        }
-        $submit_icon;
-        if($atts['icon']){
+        if (isset($atts['icon'])) {
             $submit_icon_type = $atts['icon'];
-            if(!empty($submit_icon_type)){
-                $submit_icon = "https://digiflowroot.be/static/images/icons/".$submit_icon_type.".svg";
-            }
-            else{
+            if (!empty($submit_icon_type)) {
+                $submit_icon = "https://digiflowroot.be/static/images/icons/" . $submit_icon_type . ".svg";
+            } else {
                 $submit_icon = "";
             }
-            
         }
-        if(empty($submit_icon)){
-            $dds_submit .= "<button type='submit' class='dds_form_submit'>".$submit_ph."</button>";
-        }else{
-            $dds_submit .= "<button type='submit' class='dds_form_submit submit_icon_wrap'><div>".$submit_ph."</div><img src='".$submit_icon."' /></button>";
-        }
-        
-    }
-    else{
-        $dds_submit .= "<button type='submit' class='dds_form_submit'>".__("Versturen","dds-tools")."</button>";
-    }
-    
 
+        if (empty($submit_icon)) {
+            $dds_submit .= "<button type='submit' class='dds_form_submit'>" . $submit_ph . "</button>";
+        } else {
+            $dds_submit .= "<button type='submit' class='dds_form_submit submit_icon_wrap'><div>" . $submit_ph . "</div><img src='" . $submit_icon . "' /></button>";
+        }
+    } else {
+        $dds_submit .= "<button type='submit' class='dds_form_submit'>" . __("Versturen", "dds-tools") . "</button>";
+    }
     return $dds_submit;
 }
 
+
 add_shortcode('dds_submit', 'dds_submit');
 
+function dds_dropzone($atts) {
+    $dds_dropzone = '';
+    $data_hide = '';
+    $hideinput = '';
 
-function dds_dropzone($atts)
-{
     if (is_array($atts)) {
         if (in_array("hide", $atts)) {
             $data_hide = " data-hide='true' ";
@@ -553,7 +498,6 @@ function dds_dropzone($atts)
     if (!empty($atts["lb"])) {
         $dds_dropzone .= "<label class='dds_form_label'>".$atts["lb"]."</label>";
     }
-    
     $dds_dropzone .= '<div class="dropzone" id="dds_dropzone_'.uniqid().'" '.$data_hide.'></div>';
     $dds_dropzone .= "<input type='hidden' name='dropzone_map' class='dropzone_map_input' value='' />";
     $dds_dropzone .= '</div>';
@@ -562,10 +506,11 @@ function dds_dropzone($atts)
 
 add_shortcode('dds_dropzone', 'dds_dropzone');
 
-//tweede level
+function dds_form2($atts) {
+    $form = '';
+    $style = '';
+    $sendto = '';
 
-function dds_form2($atts)
-{
     if(!empty($atts)){
         if($atts['style'] == "modern"){
             $style = "dds_form_modern";
@@ -576,15 +521,10 @@ function dds_form2($atts)
         if($atts['style'] == "classic_big"){
             $style = "dds_form_classic_big";
         }
-        
+        if (!empty($atts["sendto"])) {
+            $sendto = $atts["sendto"];
+        }
     }
-    if (!empty($atts["sendto"])) {
-        $sendto = $atts["sendto"];
-    }
-    
-    
-   
-   
 
     $form .= "<form action='/wp-content/plugins/dds-tools/modules/forms/form_fallback.php' method='POST' class='dds_form main_level2 ".$style."' style='display:none;'>";
     $form .= "<input type='hidden' class='dds_form_type' name='formtype' value='mail_level2' />";
@@ -600,14 +540,13 @@ function dds_form2($atts)
 
 add_shortcode('dds_form2', 'dds_form2');
 
-
-function close_dds_form2()
-{
-   
+function close_dds_form2() {
+    $form = '';
     $form .= "<div class='dds_form_thankyou_notice'><i class='fas fa-check' style='margin-right:5px;'></i> ".__("Bedankt! Het bericht is succesvol verstuurd.","dds-tools")."</div>";
-    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> ".__("Error! Bekijk de velden en probeer opnieuw","dds-tools")."</div>";
+    $form .= "<div class='dds_form_error_notice'><i class='fas fa-exclamation-triangle' style='margin-right:5px;'></i> ".__("Error! Bekijk de velden en probeer opnieuw.","dds-tools")."</div>";
     $form .= "</form>";
     return $form;
 }
 
 add_shortcode('close_dds_form2', 'close_dds_form2');
+?>

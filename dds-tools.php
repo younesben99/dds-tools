@@ -1,10 +1,10 @@
 <?php
-$dds_version = "5.5.6";
+$dds_version = "5.5.7";
 /*
 Plugin Name: Digiflow DDS Tools
 Plugin URI: https://github.com/younesben99/dds-tools
 Description: Tools for DDS website.
-Version: 5.5.6
+Version: 5.5.7
 Author: Younes Benkheil
 Author URI: https://digiflow.be/
 License: GPL2
@@ -27,13 +27,14 @@ include(__DIR__."/modules/wizard/wizard.php");
 
 // Enqueue the JavaScript file
 function js_error_logger_enqueue_script() {
+  global $dds_version;
   wp_enqueue_script('js-error-logger', plugin_dir_url(__FILE__) . 'assets/js/alert-log.js', [],  $dds_version, true);
 }
 add_action('wp_enqueue_scripts', 'js_error_logger_enqueue_script');
 
 
-function enqueue_dds_scripts_and_styles($dds_version) {
- 
+function enqueue_dds_scripts_and_styles() {
+  global $dds_version;
 
   // Enqueue jQuery Steps script
   wp_enqueue_script('jquerysteps', plugin_dir_url(__FILE__) . 'assets/js/jquery.steps.min.js', array('jquery'), $dds_version, true);
@@ -74,7 +75,8 @@ function enqueue_dds_scripts_and_styles($dds_version) {
   wp_enqueue_style('dds_wizard', plugin_dir_url(__FILE__) . 'assets/css/dds_wizard.css', array(), $dds_version);
 
   // Enqueue DDS Car Search Module script
-  wp_enqueue_script('dds_car_search_module', plugin_dir_url(__FILE__) . 'assets/js/dds_car_search.js', array('jquery'), false, true);
+  wp_enqueue_script('dds_car_search_module', plugin_dir_url(__FILE__) . 'assets/js/dds_car_search.js', array('jquery'), $dds_version, true);
+
 
   // Localize DDS Form script
   wp_localize_script('dds_form_js', 'dds_main_vars', array('siteurl' => get_site_url()));

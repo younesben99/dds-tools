@@ -247,8 +247,8 @@ jQuery(document).ready(function($){
                 }
                 if($(currentform).hasClass("main_level2")){
                     //hier halen wij de redirect link op vanuit het eerst formulier, PREV wordt gebruikt dus verander de structuur vande forms niet
-                    var redirect = $(currentform).prev().find(".dds_redirect").val(); 
-                    
+                    var redirect = $(".main_level1").find(".dds_redirect").val(); 
+                    console.log(redirect);
                     try {
                         gtag('event', "DDS Form verstuurd", {
                             'event_category': window.location.href,
