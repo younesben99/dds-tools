@@ -25,12 +25,18 @@ include(__DIR__."/modules/wizard/wizard.php");
 
 
 
-// Enqueue the JavaScript file
+
 function js_error_logger_enqueue_script() {
   global $dds_version;
   wp_enqueue_script('js-error-logger', plugin_dir_url(__FILE__) . 'assets/js/alert-log.js', [],  $dds_version, true);
 }
 add_action('wp_enqueue_scripts', 'js_error_logger_enqueue_script');
+
+function url_parameters_enqueue_script() {
+  global $dds_version;
+  wp_enqueue_script('url-parameters', plugin_dir_url(__FILE__) . 'assets/js/url_parameters.js?v=1', [], $dds_version, true);
+}
+add_action('wp_enqueue_scripts', 'url_parameters_enqueue_script');
 
 
 function enqueue_dds_scripts_and_styles() {
@@ -459,6 +465,45 @@ add_action('admin_menu', function () {
   add_menu_page('Allowed IPs', 'Allowed IPs', 'manage_options', 'allowed_ips_settings', 'allowed_ips_settings_page');
   add_action('admin_init', 'allowed_ips_settings_init');
 });
+
+
+
+
+function geo_city_value($id, $csvFile) {
+    // Controleer of het CSV-bestand bestaat en leesbaar is
+    if (!file_exists($csvFile) || !is_readable($csvFile)) {
+        return null; // Niets doen als het bestand niet bestaat of niet leesbaar is
+    }
+
+    // Probeer het CSV-bestand te openen
+    if (($handle = fopen($csvFile, "r")) === FALSE) {
+        return null; // Niets doen als het bestand niet geopend kan worden
+    }
+
+    // Loop door de rijen van het CSV-bestand
+    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+        // Controleer of de rij het juiste aantal velden bevat
+        if (count($data) < 3) {
+            continue; // Sla ongeldige rijen over
+        }
+
+        // Controleer of het ID overeenkomt
+        if ($data[0] == $id) {
+            // Sluit het bestand
+            fclose($handle);
+            // Return de locatie
+            return $data[2];
+        }
+    }
+
+    // Sluit het bestand
+    fclose($handle);
+
+    // Als het ID niet gevonden is, niets doen
+    return null;
+}
+
+
 
 
 

@@ -96,6 +96,8 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             if (!empty($fields["source"])) $source = $fields["source"];
             if (!empty($fields["gclid"])) $gclid = $fields["gclid"];
             if (!empty($fields["domain"])) $domain = $fields["domain"];
+            if (!empty($fields["keyword"])) $keyword = $fields["keyword"];
+            if (!empty($fields["loc_physical"])) $loc_physical = $fields["loc_physical"];
             if (!empty($fields["merkmobilhome"])) {
                 $merkmobilhome = $fields["merkmobilhome"];
                 $merk = $merkmobilhome;
@@ -213,7 +215,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                                 $mail_main_con .= "<tr><td class='nametd'>$key</td><td><b>$wizard_value</b></td></tr>";
                             }
                         }
-                    } elseif ($name !== "Bodhlist" && $name !== "Domain" && $name !== "Source" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect" && $name !== "Gclid") {
+                    } elseif ($name !== "Campaignid" && $name !== "Keyword" && $name !== "Loc_physical" && $name !== "Placement" && $name !== "Loc_interest" && $name !== "Bodhlist" && $name !== "Domain" && $name !== "Source" && $name !== "Wizardlist" && $name !== "Js_active" && $name !== "Formtype" && $name !== "Dropzone_map" && $name !== "Datum" && $name !== "Merk_hidden" && $name !== "Model_hidden" && $name !== "Pagelink" && $name !== "Pagetitle" && $name !== "Sendto" && $name !== "Dds_redirect" && $name !== "Gclid") {
                         switch ($name) {
                             case 'Merk':
                             case 'Merkmobilhome':
@@ -253,6 +255,26 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
                                 $mail_main_con .= "</b></td></tr>";
                             }
                         }
+                    }
+                    elseif ($name == "Keyword") {
+                        $digiflow_settings_options = get_option('digiflow_settings_option_name'); 
+
+                        if (isset($digiflow_settings_options['show_keyword_loc_physical']) && $digiflow_settings_options['show_keyword_loc_physical'] == "1") {
+                            if ($name == "Keyword") {
+                                $mail_main_con .= "<tr><td class='nametd'>Zoekwoord: </td><td><b>$value</b></td></tr>";
+                            } 
+                        }
+                        
+                    }
+                    elseif ($name == "Loc_physical") {
+                        $digiflow_settings_options = get_option('digiflow_settings_option_name'); 
+
+                        if (isset($digiflow_settings_options['show_keyword_loc_physical']) && $digiflow_settings_options['show_keyword_loc_physical'] == "1") {
+                            if ($name == "Loc_physical") {
+                                $mail_main_con .= "<tr><td class='nametd'>Locatie: </td><td><b>".geo_city_value($value,__DIR__."/assets/google_geo.csv")."</b></td></tr>";
+                            } 
+                        }
+                        
                     }
                 }
             }
