@@ -267,23 +267,34 @@ if (!empty($gclid)) {
 
     <tr>
         <td>
-            <div style='width:80%;margin:auto;padding-bottom:50px;'>
+            <div style='width: 80%;
+    margin: auto;
+    padding-bottom: 50px;
+    text-align: center;'>
           
         <?php
+  
         if(!empty($imagelinks)){
             ?>
-            <h3>Foto's:</h3>
-                      <?php
-            foreach ($imagelinks as $value) {
-                ?>
+  
+            <a style="    width: 200px;
+    background: #254f79;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 20px 15px;
+    border-radius: 4px;
+    font-size: 20px;
+    vertical-align: middle;
+    line-height: 1.5;" href="<?php echo get_site_url() . "/wp-content/plugins/dds-tools/modules/forms/dds_dropzone_slideshow.php?query=".$dropzone_map; ?>" target="_blank"><img style="width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 10px;" src="<?php echo get_site_url() . "/wp-content/plugins/dds-tools/modules/forms/assets/gallery_dds.png"; ?>" /> Bekijk foto's</a>
 
-                    <a href='<?php echo($value); ?>' class='imgawrap'><img src='<?php echo($value); ?>' class='imgwrap' /></a>
-
-                <?php
-            }
+            <?php
         }
-            
-        ?>
+            ?>
+ 
             </div>
         </td>
     </tr>
