@@ -160,7 +160,7 @@ if(!empty($sp_dealer_tel)){
                 ?>
 
                     <a href='<?php echo($value); ?>' class='imgawrap'><img src='<?php echo($value); ?>' class='imgwrap' /></a>
-
+                   
                 <?php
             }
         }

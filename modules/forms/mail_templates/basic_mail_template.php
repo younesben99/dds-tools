@@ -290,8 +290,20 @@ if (!empty($gclid)) {
     height: 25px;
     vertical-align: middle;
     margin-right: 10px;" src="<?php echo get_site_url() . "/wp-content/plugins/dds-tools/modules/forms/assets/gallery_dds.png"; ?>" /> Bekijk foto's</a>
+  <br><br><br>
 
             <?php
+        }
+
+        if($show_images_in_mail_template == "1"){
+            foreach ($imagelinks as $image) {
+                ?>
+
+                    <img src="<?php echo $image; ?>" style="width:150px;"/>
+                    <br> <br>
+
+                <?php
+            }
         }
             ?>
  

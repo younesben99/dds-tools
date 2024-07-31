@@ -150,7 +150,9 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
 
             $dds_settings_options = get_option('dds_settings_option_name', []);
             $digiflow_settings_options = get_option('digiflow_settings_option_name', []);
-
+           
+            $show_images_in_mail_template = isset($digiflow_settings_options['show_images_in_mail_template']) ? $digiflow_settings_options['show_images_in_mail_template'] : '';
+            
             $sp_contactmail = !empty($dds_settings_options['dealer_contact_mail']) ? htmlspecialchars($dds_settings_options['dealer_contact_mail'], ENT_QUOTES, 'UTF-8') : (!empty($digiflow_settings_options['company_mail']) ? htmlspecialchars($digiflow_settings_options['company_mail'], ENT_QUOTES, 'UTF-8') : 'younesbenkheil@gmail.com');
             $sp_dealer_tel = !empty($dds_settings_options['dealer_tel_1_10']) ? htmlspecialchars($dds_settings_options['dealer_tel_1_10'], ENT_QUOTES, 'UTF-8') : (!empty($digiflow_settings_options['company_tel']) ? htmlspecialchars($digiflow_settings_options['company_tel'], ENT_QUOTES, 'UTF-8') : '0000000000');
             $sp_dealer_handelsnaam = !empty($dds_settings_options['dealer_handelsnaam_8']) ? htmlspecialchars($dds_settings_options['dealer_handelsnaam_8'], ENT_QUOTES, 'UTF-8') : (!empty($digiflow_settings_options['company_name']) ? htmlspecialchars($digiflow_settings_options['company_name'], ENT_QUOTES, 'UTF-8') : 'Bedrijfsnaam niet opgegeven');

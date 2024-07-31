@@ -160,6 +160,15 @@ class DigiflowSettings {
             'digiflow-settings-admin', // page
             'digiflow_settings_setting_section' // section
         );
+        add_settings_field(
+            'show_images_in_mail_template', // id
+            'Show images in mail template', // title
+            array($this, 'show_images_in_mail_template_callback'), // callback
+            'digiflow-settings-admin', // page
+            'digiflow_settings_setting_section' // section
+        );
+        
+        
     }
 
     public function digiflow_settings_sanitize($input) {
@@ -216,7 +225,10 @@ class DigiflowSettings {
         if (isset($input['company_tel'])) {
             $sanitary_values['company_tel'] = sanitize_text_field($input['company_tel']);
         }
-
+        if (isset($input['show_images_in_mail_template'])) {
+            $sanitary_values['show_images_in_mail_template'] = sanitize_text_field($input['show_images_in_mail_template']);
+        }
+        
         return $sanitary_values;
     }
 
@@ -316,6 +328,14 @@ class DigiflowSettings {
             isset($this->digiflow_settings_options['company_tel']) ? esc_attr($this->digiflow_settings_options['company_tel']) : ''
         );
     }
+    public function show_images_in_mail_template_callback() {
+        $checked = '';
+        if (isset($this->digiflow_settings_options['show_images_in_mail_template']) && $this->digiflow_settings_options['show_images_in_mail_template'] == "1") {
+            $checked = "checked";
+        }
+        echo('<input type="checkbox" id="show_images_in_mail_template" name="digiflow_settings_option_name[show_images_in_mail_template]" value="1" ' . $checked . '><label for="show_images_in_mail_template"> Show images in mail template</label>');
+    }
+    
 }
 
 if (is_admin()) {
