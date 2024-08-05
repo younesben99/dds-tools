@@ -23,7 +23,7 @@ function voeg_verlof_melding_toe() {
     padding: 20px;
     z-index: 1000;
     font-size: 28px;
-    z-index: 10000000;
+    z-index: 10000000000 !important;
 }
         #verlof-melding button {
             margin-left: 10px;
