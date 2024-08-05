@@ -161,6 +161,13 @@ class DigiflowSettings {
             'digiflow_settings_setting_section' // section
         );
         add_settings_field(
+            'verlof_melding', // id
+            'Verlof melding', // title
+            array($this, 'verlof_melding_callback'), // callback
+            'digiflow-settings-admin', // page
+            'digiflow_settings_setting_section' // section
+        );
+        add_settings_field(
             'show_images_in_mail_template', // id
             'Show images in mail template', // title
             array($this, 'show_images_in_mail_template_callback'), // callback
@@ -224,6 +231,9 @@ class DigiflowSettings {
 
         if (isset($input['company_tel'])) {
             $sanitary_values['company_tel'] = sanitize_text_field($input['company_tel']);
+        }
+        if (isset($input['verlof_melding'])) {
+            $sanitary_values['verlof_melding'] = sanitize_text_field($input['verlof_melding']);
         }
         if (isset($input['show_images_in_mail_template'])) {
             $sanitary_values['show_images_in_mail_template'] = sanitize_text_field($input['show_images_in_mail_template']);
@@ -328,6 +338,12 @@ class DigiflowSettings {
             isset($this->digiflow_settings_options['company_tel']) ? esc_attr($this->digiflow_settings_options['company_tel']) : ''
         );
     }
+    public function verlof_melding_callback() {
+        printf(
+            '<input class="regular-text" type="text" name="digiflow_settings_option_name[verlof_melding]" id="verlof_melding" value="%s">',
+            isset($this->digiflow_settings_options['verlof_melding']) ? esc_attr($this->digiflow_settings_options['verlof_melding']) : ''
+        );
+    }
     public function show_images_in_mail_template_callback() {
         $checked = '';
         if (isset($this->digiflow_settings_options['show_images_in_mail_template']) && $this->digiflow_settings_options['show_images_in_mail_template'] == "1") {
@@ -345,6 +361,7 @@ if (is_admin()) {
 /*
  * Retrieve this value with:
  * $digiflow_settings_options = get_option('digiflow_settings_option_name'); // Array of All Options
+ * $verlof melding = $digiflow_settings_options['verlof_melding']; // Verlof melding
  * $google_analytics_tracking_id_0 = $digiflow_settings_options['google_analytics_tracking_id_0']; // Google analytics tracking id
  * $facebook_pixel_tracking_id_1 = $digiflow_settings_options['facebook_pixel_tracking_id_1']; // Facebook pixel tracking id
  * $bing_tracking_id_2 = $digiflow_settings_options['bing_tracking_id_2']; // Bing tracking id
@@ -352,5 +369,6 @@ if (is_admin()) {
  * $hotjar_tracking_id_4 = $digiflow_settings_options['hotjar_tracking_id_4']; // Hotjar tracking id
  * $fb_chat_id_5 = $digiflow_settings_options['fb_chat_id_5']; // Fb chat id
  * $fb_chat_color_6 = $digiflow_settings_options['fb_chat_color_6']; // Fb chat color
+ * 
  */
 ?>
