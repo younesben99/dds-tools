@@ -54,7 +54,8 @@ button#sluit-melding {
 
     <div id="verlof-melding">
         
-        <span><?php echo $verlof_melding; ?></span>
+        <div style="margin-bottom: 19px !important;
+    font-size: 22px;"><?php echo $verlof_melding; ?></div>
         <button id="sluit-melding">&#x2715 Sluit</button>
         <button id="niet-meer-weergeven">Niet meer weergeven</button>
     </div>
